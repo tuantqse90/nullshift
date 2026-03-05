@@ -1,0 +1,68 @@
+[
+  {
+    "id": "darkpool-dex",
+    "name": "DarkPool DEX",
+    "description": "Privacy-preserving decentralized exchange using zero-knowledge proofs for hidden order books. Trade without revealing your strategy.",
+    "pillar": "zk",
+    "status": "building",
+    "tech_stack": ["Solidity", "Circom", "PLONK"],
+    "featured": true,
+    "url": "#",
+    "source_url": "#"
+  },
+  {
+    "id": "whisper-protocol",
+    "name": "Whisper Protocol",
+    "description": "End-to-end encrypted messaging protocol built on decentralized infrastructure. No metadata leaks, no central authority.",
+    "pillar": "privacy",
+    "status": "live",
+    "tech_stack": ["Rust", "libp2p", "Signal Protocol"],
+    "featured": true,
+    "url": "#",
+    "source_url": "#"
+  },
+  {
+    "id": "phantom-id",
+    "name": "Phantom ID",
+    "description": "Self-sovereign identity system with selective disclosure. Prove attributes about yourself without revealing your identity.",
+    "pillar": "zk",
+    "status": "building",
+    "tech_stack": ["Circom", "DID", "Verifiable Credentials"],
+    "featured": true,
+    "url": "#",
+    "source_url": "#"
+  },
+  {
+    "id": "synth-brain",
+    "name": "Synth Brain",
+    "description": "Federated learning framework for training AI models across distributed nodes without sharing raw data.",
+    "pillar": "ai",
+    "status": "concept",
+    "tech_stack": ["Python", "PyTorch", "gRPC"],
+    "featured": false,
+    "url": "#",
+    "source_url": "#"
+  },
+  {
+    "id": "onchain-oracle",
+    "name": "OnChain Oracle",
+    "description": "Decentralized oracle network for verifiable off-chain data feeds. Trustless price feeds for DeFi protocols.",
+    "pillar": "blockchain",
+    "status": "live",
+    "tech_stack": ["Solidity", "Chainlink", "Node.js"],
+    "featured": false,
+    "url": "#",
+    "source_url": "#"
+  },
+  {
+    "id": "stealth-scan",
+    "name": "Stealth Scan",
+    "description": "Privacy-focused blockchain explorer. View transactions without exposing your IP or linking queries to your wallet.",
+    "pillar": "privacy",
+    "status": "concept",
+    "tech_stack": ["Go", "Tor", "IndexedDB"],
+    "featured": false,
+    "url": "#",
+    "source_url": "#"
+  }
+]

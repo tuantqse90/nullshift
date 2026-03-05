@@ -1,0 +1,62 @@
+[
+  {
+    "id": "voidmail",
+    "name": "VoidMail",
+    "description": "Disposable encrypted email service with zero-knowledge architecture. No logs, no metadata, no trace.",
+    "pillar": "privacy",
+    "status": "live",
+    "tech_stack": ["Go", "libsodium", "Tor"],
+    "url": "#",
+    "source_url": "#"
+  },
+  {
+    "id": "spectra-ai",
+    "name": "Spectra AI",
+    "description": "On-device LLM inference engine. Run models locally without sending data to the cloud. Privacy-preserving AI.",
+    "pillar": "ai",
+    "status": "building",
+    "tech_stack": ["Rust", "ONNX", "WebGPU"],
+    "url": "#",
+    "source_url": "#"
+  },
+  {
+    "id": "chainvault",
+    "name": "ChainVault",
+    "description": "Multi-chain non-custodial wallet with built-in DEX aggregator. Your keys, your crypto.",
+    "pillar": "blockchain",
+    "status": "live",
+    "tech_stack": ["Solidity", "ethers.js", "React Native"],
+    "url": "#",
+    "source_url": "#"
+  },
+  {
+    "id": "zkproof-sdk",
+    "name": "zkProof SDK",
+    "description": "Developer toolkit for generating and verifying zero-knowledge proofs. Supports SNARK and STARK circuits.",
+    "pillar": "zk",
+    "status": "building",
+    "tech_stack": ["Rust", "Circom", "Groth16"],
+    "url": "#",
+    "source_url": "#"
+  },
+  {
+    "id": "ghostnet-vpn",
+    "name": "GhostNet VPN",
+    "description": "Decentralized VPN mesh network. Traffic routed through community nodes. No central server, no logs.",
+    "pillar": "privacy",
+    "status": "concept",
+    "tech_stack": ["WireGuard", "libp2p", "Go"],
+    "url": "#",
+    "source_url": "#"
+  },
+  {
+    "id": "neural-sentinel",
+    "name": "Neural Sentinel",
+    "description": "AI-powered smart contract auditing engine. Detects vulnerabilities before deployment using trained models.",
+    "pillar": "ai",
+    "status": "concept",
+    "tech_stack": ["Python", "Transformer", "Solidity AST"],
+    "url": "#",
+    "source_url": "#"
+  }
+]

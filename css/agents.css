@@ -1,0 +1,119 @@
+/* ==============================
+   AGENTS PAGE
+   ============================== */
+.agents-hero {
+  padding: var(--space-3xl) 0 var(--space-xl);
+  text-align: center;
+}
+
+.agents-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-xl);
+}
+
+@media (min-width: 1024px) {
+  .agents-layout {
+    grid-template-columns: 2fr 1fr;
+  }
+}
+
+/* Graph Canvas */
+.graph-container {
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  min-height: 400px;
+}
+
+.graph-canvas {
+  width: 100%;
+  height: 500px;
+  cursor: crosshair;
+}
+
+@media (max-width: 1023px) {
+  .graph-container {
+    display: none;
+  }
+}
+
+/* Mobile Agent List */
+.agents-mobile-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+@media (min-width: 1024px) {
+  .agents-mobile-list {
+    display: none;
+  }
+}
+
+.agent-list-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  cursor: pointer;
+  transition: border-color var(--transition-base);
+}
+
+.agent-list-item:hover {
+  border-color: var(--color-secondary);
+}
+
+.agent-list-item .agent-list-name {
+  font-family: var(--font-mono);
+  font-size: var(--text-base);
+  color: var(--color-text-bright);
+  margin-bottom: var(--space-xs);
+}
+
+.agent-list-item .agent-list-role {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-secondary);
+}
+
+/* Sidebar */
+.agents-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+/* Agent Panel Close */
+.agent-panel-close {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--color-text-dim);
+  cursor: pointer;
+  float: right;
+  transition: color var(--transition-fast);
+}
+
+.agent-panel-close:hover {
+  color: var(--color-primary);
+}
+
+/* Agent Capabilities */
+.agent-capabilities {
+  margin-top: var(--space-md);
+}
+
+.agent-capabilities h4 {
+  font-size: var(--text-sm);
+  color: var(--color-text-dim);
+  text-transform: uppercase;
+  margin-bottom: var(--space-sm);
+}
+
+.capabilities-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}

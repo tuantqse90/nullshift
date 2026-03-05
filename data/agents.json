@@ -1,0 +1,98 @@
+[
+  {
+    "id": "market-scanner",
+    "name": "Market Scanner",
+    "role": "Market Intelligence",
+    "description": "Monitors on-chain and off-chain market data across 50+ sources. Identifies arbitrage opportunities, whale movements, and trend reversals in real-time.",
+    "status": "active",
+    "pillar": "ai",
+    "capabilities": ["Price Feeds", "Whale Tracking", "Trend Analysis", "Anomaly Detection"],
+    "stats": {
+      "uptime": "99.7%",
+      "signals_24h": "1,247",
+      "accuracy": "94.2%",
+      "latency": "< 200ms"
+    },
+    "connections": ["trading-agent", "alert-bot"]
+  },
+  {
+    "id": "trading-agent",
+    "name": "Trading Agent",
+    "role": "Autonomous Execution",
+    "description": "Executes trades based on signals from Market Scanner. Implements risk management, position sizing, and multi-strategy portfolio allocation across DeFi protocols.",
+    "status": "active",
+    "pillar": "blockchain",
+    "capabilities": ["DEX Trading", "Risk Management", "Position Sizing", "Multi-Protocol"],
+    "stats": {
+      "uptime": "99.9%",
+      "trades_24h": "342",
+      "win_rate": "67.8%",
+      "pnl_30d": "+12.4%"
+    },
+    "connections": ["market-scanner", "portfolio-tracker"]
+  },
+  {
+    "id": "content-agent",
+    "name": "Content Agent",
+    "role": "Research & Analysis",
+    "description": "Generates research reports, market analysis, and technical deep-dives. Monitors governance proposals and protocol updates across ecosystems.",
+    "status": "active",
+    "pillar": "ai",
+    "capabilities": ["Report Generation", "Governance Monitoring", "Protocol Analysis", "Trend Synthesis"],
+    "stats": {
+      "uptime": "98.5%",
+      "reports_week": "14",
+      "sources": "200+",
+      "languages": "3"
+    },
+    "connections": ["market-scanner"]
+  },
+  {
+    "id": "alert-bot",
+    "name": "Alert Bot",
+    "role": "Notification System",
+    "description": "Real-time alert system for critical market events, security threats, and portfolio triggers. Delivers via encrypted channels only.",
+    "status": "active",
+    "pillar": "privacy",
+    "capabilities": ["Price Alerts", "Security Warnings", "Portfolio Triggers", "Encrypted Delivery"],
+    "stats": {
+      "uptime": "99.99%",
+      "alerts_24h": "89",
+      "avg_latency": "< 50ms",
+      "channels": "4"
+    },
+    "connections": ["market-scanner", "trading-agent", "portfolio-tracker"]
+  },
+  {
+    "id": "portfolio-tracker",
+    "name": "Portfolio Tracker",
+    "role": "Asset Management",
+    "description": "Tracks portfolio performance across chains and protocols. Calculates PnL, impermanent loss, yield farming returns, and tax implications.",
+    "status": "idle",
+    "pillar": "blockchain",
+    "capabilities": ["Multi-Chain", "PnL Tracking", "Yield Analysis", "Tax Reports"],
+    "stats": {
+      "uptime": "95.0%",
+      "chains": "8",
+      "protocols": "45",
+      "sync_interval": "5min"
+    },
+    "connections": ["trading-agent", "alert-bot"]
+  },
+  {
+    "id": "zk-prover",
+    "name": "ZK Prover",
+    "role": "Proof Generation",
+    "description": "Deprecated proof generation service. Replaced by zkProof SDK for better performance and developer experience.",
+    "status": "deprecated",
+    "pillar": "zk",
+    "capabilities": ["SNARK Proofs", "Batch Verification"],
+    "stats": {
+      "uptime": "0%",
+      "proofs_total": "12,847",
+      "avg_time": "2.3s",
+      "status": "offline"
+    },
+    "connections": []
+  }
+]

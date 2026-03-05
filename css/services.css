@@ -1,0 +1,103 @@
+/* ==============================
+   SERVICES PAGE
+   ============================== */
+.services-hero {
+  padding: var(--space-3xl) 0 var(--space-xl);
+  text-align: center;
+}
+
+.pillar-section {
+  padding: var(--space-3xl) 0;
+  border-bottom: 1px solid var(--border-color);
+  position: relative;
+}
+
+.pillar-section:last-child {
+  border-bottom: none;
+}
+
+.pillar-section-inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2xl);
+  align-items: start;
+}
+
+@media (min-width: 768px) {
+  .pillar-section-inner {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.pillar-number {
+  font-family: var(--font-mono);
+  font-size: var(--text-5xl);
+  font-weight: 700;
+  opacity: 0.1;
+  line-height: 1;
+  margin-bottom: var(--space-md);
+}
+
+.pillar-section[data-pillar="privacy"] .pillar-number { color: var(--pillar-privacy); }
+.pillar-section[data-pillar="ai"] .pillar-number { color: var(--pillar-ai); }
+.pillar-section[data-pillar="blockchain"] .pillar-number { color: var(--pillar-blockchain); }
+.pillar-section[data-pillar="zk"] .pillar-number { color: var(--pillar-zk); }
+
+.pillar-section-title {
+  font-size: var(--text-3xl);
+  margin-bottom: var(--space-lg);
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.pillar-section[data-pillar="privacy"] .pillar-section-title { color: var(--pillar-privacy); }
+.pillar-section[data-pillar="ai"] .pillar-section-title { color: var(--pillar-ai); }
+.pillar-section[data-pillar="blockchain"] .pillar-section-title { color: var(--pillar-blockchain); }
+.pillar-section[data-pillar="zk"] .pillar-section-title { color: var(--pillar-zk); }
+
+.pillar-section .border-accent {
+  width: 4px;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.pillar-section[data-pillar="privacy"] .border-accent { background: var(--pillar-privacy); }
+.pillar-section[data-pillar="ai"] .border-accent { background: var(--pillar-ai); }
+.pillar-section[data-pillar="blockchain"] .border-accent { background: var(--pillar-blockchain); }
+.pillar-section[data-pillar="zk"] .border-accent { background: var(--pillar-zk); }
+
+.service-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.service-item {
+  padding: var(--space-lg);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  transition: border-color var(--transition-base);
+}
+
+.service-item:hover {
+  border-color: var(--border-color-hover);
+}
+
+.service-item h4 {
+  font-size: var(--text-base);
+  margin-bottom: var(--space-sm);
+}
+
+.service-item h4::before {
+  content: '> ';
+  color: var(--color-primary);
+}
+
+.service-item p {
+  color: var(--color-text-dim);
+  font-size: var(--text-sm);
+}

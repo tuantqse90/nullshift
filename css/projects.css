@@ -1,0 +1,19 @@
+/* ==============================
+   PROJECTS PAGE
+   ============================== */
+.projects-hero {
+  padding: var(--space-3xl) 0 var(--space-xl);
+  text-align: center;
+}
+
+.projects-count {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--color-text-dim);
+  margin-top: var(--space-md);
+}
+
+.projects-count .count {
+  color: var(--color-primary);
+  font-weight: 600;
+}

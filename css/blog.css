@@ -1,0 +1,31 @@
+/* ==============================
+   BLOG PAGE
+   ============================== */
+.blog-hero {
+  padding: var(--space-3xl) 0 var(--space-xl);
+  text-align: center;
+}
+
+.blog-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+}
+
+@media (min-width: 640px) {
+  .blog-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.blog-count {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--color-text-dim);
+  margin-top: var(--space-md);
+}
+
+.blog-count .count {
+  color: var(--color-primary);
+  font-weight: 600;
+}
