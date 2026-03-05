@@ -2,7 +2,7 @@
    FILTER SYSTEM
    ============================== */
 function initFilters(config) {
-  const { dataUrl, containerSelector, filterBarSelector, renderCard, filterGroups } = config;
+  const { dataUrl, containerSelector, filterBarSelector, renderCard, filterGroups, onDataLoaded } = config;
 
   let allItems = [];
   let activeFilters = {};
@@ -35,6 +35,7 @@ function initFilters(config) {
       buildFilterBar(filterBarSelector, filterGroups);
       renderCards(containerSelector, allItems, renderCard);
       updateCount(allItems.length, allItems.length);
+      if (typeof onDataLoaded === 'function') onDataLoaded(data);
     })
     .catch(() => {
       const container = document.querySelector(containerSelector);

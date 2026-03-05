@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — NullShift</title>
+  <meta name="description" content="NullShift — solo builder labs. Privacy maximalist. Building the encrypted future with AI, Blockchain, and ZK Proofs.">
+  <meta property="og:title" content="About — NullShift">
+  <meta property="og:description" content="Solo builder. Privacy maximalist. Building the encrypted future.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://nullshift.sh/assets/images/og-image.svg">
+  <meta property="og:url" content="https://nullshift.sh/about">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="About — NullShift">
+  <meta name="twitter:description" content="Solo builder. Privacy maximalist. Building the encrypted future.">
+  <meta name="theme-color" content="#0a0a0a">
+  <link rel="canonical" href="https://nullshift.sh/about">
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.json">
+  <link rel="alternate" type="application/rss+xml" title="NullShift Blog" href="feed.xml">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" as="style">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+
+  <style>
+    /* ==============================
+       ABOUT — HERO
+       ============================== */
+    .about-hero {
+      min-height: 60vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: var(--space-4xl) var(--space-lg) var(--space-2xl);
+    }
+
+    .about-hero .terminal-window {
+      max-width: 700px;
+      width: 100%;
+      text-align: left;
+    }
+
+    .about-hero .terminal-titlebar {
+      display: flex;
+      gap: var(--space-sm);
+      padding: var(--space-sm) var(--space-md);
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-color);
+      border-radius: var(--radius-md) var(--radius-md) 0 0;
+    }
+
+    .about-hero .terminal-body {
+      padding: var(--space-lg);
+      background: var(--bg-card);
+      border-radius: 0 0 var(--radius-md) var(--radius-md);
+      border: 1px solid var(--border-color);
+      border-top: none;
+    }
+
+    .about-hero .terminal-line {
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      line-height: 1.8;
+      color: var(--color-text);
+    }
+
+    .about-hero .terminal-prompt .user { color: var(--color-primary); }
+    .about-hero .terminal-prompt .separator { color: var(--color-text-dim); }
+    .about-hero .terminal-prompt .host { color: var(--color-secondary); }
+    .about-hero .terminal-prompt .dollar { color: var(--color-text-dim); }
+    .about-hero .cmd { color: var(--color-text-bright); }
+
+    .hero-typed-output {
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      color: var(--color-text);
+      line-height: 1.8;
+      min-height: 1.8em;
+      margin-top: var(--space-sm);
+    }
+
+    .hero-typed-output .cursor-blink {
+      color: var(--color-primary);
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    .about-hero-title {
+      font-family: var(--font-mono);
+      font-size: var(--text-4xl);
+      font-weight: 700;
+      color: var(--color-primary);
+      margin-top: var(--space-xl);
+      text-align: center;
+      position: relative;
+      display: inline-block;
+    }
+
+    .about-hero-title .glitch-text {
+      position: relative;
+    }
+
+    .about-hero-title .glitch-text::before,
+    .about-hero-title .glitch-text::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .about-hero-title .glitch-text::before {
+      color: var(--color-secondary);
+      animation: glitch-shift 3s ease-in-out infinite;
+      clip-path: inset(0 0 60% 0);
+    }
+
+    .about-hero-title .glitch-text::after {
+      color: var(--color-accent);
+      animation: glitch-shift-2 3s ease-in-out infinite;
+      clip-path: inset(40% 0 0 0);
+    }
+
+    @keyframes glitch-shift {
+      0%, 90%, 100% { transform: translate(0); }
+      92% { transform: translate(-3px, 1px); }
+      94% { transform: translate(3px, -1px); }
+      96% { transform: translate(-2px, 0); }
+    }
+
+    @keyframes glitch-shift-2 {
+      0%, 90%, 100% { transform: translate(0); }
+      91% { transform: translate(2px, 1px); }
+      93% { transform: translate(-3px, -1px); }
+      95% { transform: translate(1px, 2px); }
+    }
+
+    .about-hero-sub {
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      color: var(--color-text-dim);
+      margin-top: var(--space-sm);
+      text-align: center;
+    }
+
+    /* ==============================
+       IDENTITY CARD
+       ============================== */
+    .identity-section {
+      padding: var(--space-3xl) var(--space-lg);
+    }
+
+    .identity-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      max-width: 500px;
+      margin: 0 auto;
+      padding: var(--space-2xl);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-card);
+      transition: border-color var(--transition-base), box-shadow var(--transition-base);
+    }
+
+    .identity-card:hover {
+      border-color: var(--color-primary);
+      box-shadow: var(--glow-primary);
+    }
+
+    .identity-card-header {
+      text-align: center;
+      margin-bottom: var(--space-xl);
+      padding-bottom: var(--space-lg);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .identity-card-header h3 {
+      font-family: var(--font-mono);
+      font-size: var(--text-xl);
+      color: var(--color-primary);
+      margin-bottom: var(--space-xs);
+    }
+
+    .identity-card-header p {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-text-dim);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .identity-row {
+      display: flex;
+      justify-content: space-between;
+      padding: var(--space-xs) 0;
+      border-bottom: 1px solid rgba(51, 51, 51, 0.5);
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+    }
+
+    .identity-row:last-child {
+      border-bottom: none;
+    }
+
+    .identity-label {
+      color: var(--color-text-dim);
+    }
+
+    .identity-value {
+      color: var(--color-text);
+    }
+
+    .identity-value.status-active {
+      color: var(--color-primary);
+    }
+
+    /* ==============================
+       SKILLS MATRIX
+       ============================== */
+    .skills-section {
+      padding: var(--space-3xl) var(--space-lg);
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-md);
+      max-width: var(--container-max);
+      margin: 0 auto;
+    }
+
+    .skill-item {
+      margin-bottom: var(--space-sm);
+    }
+
+    .skill-header {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      margin-bottom: var(--space-xs);
+    }
+
+    .skill-name {
+      color: var(--color-text);
+    }
+
+    .skill-percent {
+      color: var(--color-primary);
+    }
+
+    .skill-bar-bg {
+      height: 6px;
+      background: var(--bg-primary);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+    }
+
+    .skill-bar {
+      height: 100%;
+      background: var(--color-primary);
+      border-radius: var(--radius-sm);
+      width: 0;
+      transition: width 1s ease;
+    }
+
+    .skill-bar.filled {
+      /* width set via inline style */
+    }
+
+    .skill-item[data-category="language"] .skill-bar {
+      background: var(--color-secondary);
+    }
+
+    .skill-item[data-category="language"] .skill-percent {
+      color: var(--color-secondary);
+    }
+
+    /* ==============================
+       TIMELINE
+       ============================== */
+    .timeline-section {
+      padding: var(--space-3xl) var(--space-lg);
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: var(--space-2xl);
+      border-left: 2px solid var(--border-color);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .timeline-entry {
+      position: relative;
+      margin-bottom: var(--space-2xl);
+      padding-left: var(--space-md);
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .timeline-entry.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: calc(-1 * var(--space-2xl) - 7px);
+      top: 4px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      border: 2px solid var(--bg-primary);
+      box-shadow: 0 0 8px rgba(0, 255, 65, 0.4);
+    }
+
+    .timeline-entry:nth-child(even) .timeline-dot {
+      background: var(--color-secondary);
+      box-shadow: 0 0 8px rgba(0, 255, 255, 0.4);
+    }
+
+    .timeline-entry:nth-child(3n) .timeline-dot {
+      background: var(--color-accent);
+      box-shadow: 0 0 8px rgba(255, 0, 128, 0.4);
+    }
+
+    .timeline-date {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-primary);
+      margin-bottom: var(--space-xs);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .timeline-entry:nth-child(even) .timeline-date {
+      color: var(--color-secondary);
+    }
+
+    .timeline-entry:nth-child(3n) .timeline-date {
+      color: var(--color-accent);
+    }
+
+    .timeline-title {
+      font-family: var(--font-mono);
+      font-size: var(--text-base);
+      font-weight: 600;
+      color: var(--color-text-bright);
+      margin-bottom: var(--space-xs);
+    }
+
+    .timeline-desc {
+      font-family: var(--font-sans);
+      font-size: var(--text-sm);
+      color: var(--color-text-dim);
+      line-height: 1.6;
+    }
+
+    /* ==============================
+       PHILOSOPHY
+       ============================== */
+    .philosophy-section {
+      padding: var(--space-3xl) var(--space-lg);
+    }
+
+    .philosophy-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--space-lg);
+      max-width: var(--container-max);
+      margin: 0 auto;
+    }
+
+    .philosophy-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: border-color var(--transition-base), box-shadow var(--transition-base);
+    }
+
+    .philosophy-card:hover {
+      border-color: var(--color-primary);
+      box-shadow: var(--glow-primary);
+    }
+
+    .philosophy-card:nth-child(2):hover {
+      border-color: var(--color-secondary);
+      box-shadow: var(--glow-secondary);
+    }
+
+    .philosophy-card:nth-child(3):hover {
+      border-color: var(--color-accent);
+      box-shadow: var(--glow-accent);
+    }
+
+    .philosophy-titlebar {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      padding: var(--space-sm) var(--space-md);
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .philosophy-titlebar .terminal-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .philosophy-titlebar .terminal-dot.red { background: #ff5f57; }
+    .philosophy-titlebar .terminal-dot.yellow { background: #febc2e; }
+    .philosophy-titlebar .terminal-dot.green { background: #28c840; }
+
+    .philosophy-titlebar-text {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-text-dim);
+      margin-left: var(--space-sm);
+    }
+
+    .philosophy-body {
+      padding: var(--space-lg);
+    }
+
+    .philosophy-body h3 {
+      font-family: var(--font-mono);
+      font-size: var(--text-base);
+      font-weight: 600;
+      color: var(--color-primary);
+      margin-bottom: var(--space-sm);
+    }
+
+    .philosophy-card:nth-child(2) .philosophy-body h3 {
+      color: var(--color-secondary);
+    }
+
+    .philosophy-card:nth-child(3) .philosophy-body h3 {
+      color: var(--color-accent);
+    }
+
+    .philosophy-body p {
+      font-family: var(--font-sans);
+      font-size: var(--text-sm);
+      color: var(--color-text-dim);
+      line-height: 1.7;
+    }
+
+    /* ==============================
+       CONNECT
+       ============================== */
+    .connect-section {
+      padding: var(--space-3xl) var(--space-lg) var(--space-4xl);
+    }
+
+    .connect-terminal {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .connect-terminal .terminal-window {
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+
+    .connect-terminal .terminal-bar {
+      display: flex;
+      gap: var(--space-sm);
+      padding: var(--space-sm) var(--space-md);
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .connect-terminal .terminal-body {
+      padding: var(--space-lg);
+      background: var(--bg-card);
+    }
+
+    .connect-terminal .terminal-line {
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      line-height: 2;
+      color: var(--color-text);
+    }
+
+    .connect-terminal .terminal-prompt .user { color: var(--color-primary); }
+    .connect-terminal .terminal-prompt .separator { color: var(--color-text-dim); }
+    .connect-terminal .terminal-prompt .host { color: var(--color-secondary); }
+    .connect-terminal .terminal-prompt .dollar { color: var(--color-text-dim); }
+    .connect-terminal .cmd { color: var(--color-text-bright); }
+    .connect-terminal .output { color: var(--color-text-dim); }
+
+    .connect-terminal .contact-link {
+      color: var(--color-text);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: color var(--transition-fast), border-color var(--transition-fast);
+    }
+
+    .connect-terminal .contact-link:hover {
+      color: var(--color-primary);
+      border-bottom-color: var(--color-primary);
+    }
+
+    /* ==============================
+       SECTION HEADERS
+       ============================== */
+    .about-section-header {
+      text-align: center;
+      margin-bottom: var(--space-2xl);
+    }
+
+    .about-section-header h2 {
+      font-family: var(--font-mono);
+      font-size: var(--text-2xl);
+      font-weight: 700;
+      color: var(--color-text-bright);
+    }
+
+    .about-section-header h2 .accent {
+      color: var(--color-primary);
+    }
+
+    .about-section-header .section-subtitle {
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      color: var(--color-text-dim);
+      margin-top: var(--space-xs);
+    }
+
+    /* ==============================
+       RESPONSIVE
+       ============================== */
+    @media (max-width: 768px) {
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline {
+        padding-left: var(--space-xl);
+      }
+
+      .timeline-dot {
+        left: calc(-1 * var(--space-xl) - 7px);
+      }
+
+      .about-hero-title {
+        font-size: var(--text-3xl);
+      }
+
+      .philosophy-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .identity-card {
+        padding: var(--space-lg);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .about-hero {
+        min-height: 50vh;
+        padding: var(--space-3xl) var(--space-md) var(--space-xl);
+      }
+
+      .about-hero-title {
+        font-size: var(--text-2xl);
+      }
+    }
+  </style>
+</head>
+<body>
+  <script>(function(){const k='ns_analytics',d=JSON.parse(localStorage.getItem(k)||'{"views":[],"sessions":0}');d.sessions++;d.views.push({page:window.location.pathname,time:Date.now(),ref:document.referrer||'direct'});if(d.views.length>500)d.views=d.views.slice(-500);localStorage.setItem(k,JSON.stringify(d))})()</script>
+  <a href="#main-content" class="skip-link">Skip to content</a>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="NullShift home">null<span>shift.sh</span></a>
+      <div class="nav-links">
+        <a href="services.html">services</a>
+        <a href="products.html">products</a>
+        <a href="projects.html">projects</a>
+        <a href="agents.html">agents</a>
+        <a href="blog.html">blog</a>
+        <a href="docs.html">docs</a>
+        <a href="changelog.html">changelog</a>
+        <button class="nav-search-btn" aria-label="Search" onclick="GlobalSearch.open()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </button>
+      </div>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MOBILE NAV -->
+  <div class="mobile-nav" role="navigation" aria-label="Mobile navigation">
+    <a href="services.html">services</a>
+    <a href="products.html">products</a>
+    <a href="projects.html">projects</a>
+    <a href="agents.html">agents</a>
+    <a href="blog.html">blog</a>
+    <a href="docs.html">docs</a>
+    <a href="changelog.html">changelog</a>
+  </div>
+
+  <main id="main-content">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="index.html">home</a> <span>/</span> <span>about</span></nav>
+
+    <!-- HERO -->
+    <section class="about-hero">
+      <div>
+        <div class="terminal-window">
+          <div class="terminal-titlebar">
+            <span class="terminal-dot red"></span>
+            <span class="terminal-dot yellow"></span>
+            <span class="terminal-dot green"></span>
+          </div>
+          <div class="terminal-body">
+            <div class="terminal-line">
+              <span class="terminal-prompt">
+                <span class="user">nullshift</span><span class="separator">@</span><span class="host">labs</span><span class="dollar">$</span>
+              </span>
+              <span class="cmd"> cat about.txt</span>
+            </div>
+            <div class="hero-typed-output" id="hero-typed-output"><span class="cursor-blink">_</span></div>
+          </div>
+        </div>
+        <div style="text-align: center; margin-top: var(--space-xl);">
+          <div class="about-hero-title">
+            <span class="glitch-text" data-text="NullShift">NullShift</span>
+          </div>
+          <p class="about-hero-sub">// privacy-first builder labs</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- IDENTITY CARD -->
+    <section class="identity-section section">
+      <div class="container">
+        <div class="about-section-header scroll-fade">
+          <h2>/<span class="accent">identity</span></h2>
+          <p class="section-subtitle">// whoami</p>
+        </div>
+        <div class="identity-card scroll-fade">
+          <div class="identity-card-header">
+            <h3>@nullshift</h3>
+            <p>Verified Identity</p>
+          </div>
+          <div class="identity-row">
+            <span class="identity-label">handle</span>
+            <span class="identity-value">@nullshift</span>
+          </div>
+          <div class="identity-row">
+            <span class="identity-label">role</span>
+            <span class="identity-value">Privacy-First Builder Labs</span>
+          </div>
+          <div class="identity-row">
+            <span class="identity-label">location</span>
+            <span class="identity-value">The Encrypted Mesh</span>
+          </div>
+          <div class="identity-row">
+            <span class="identity-label">status</span>
+            <span class="identity-value status-active">[ACTIVE] — Building</span>
+          </div>
+          <div class="identity-row">
+            <span class="identity-label">pgp</span>
+            <span class="identity-value">0xDEADBEEF</span>
+          </div>
+          <div class="identity-row">
+            <span class="identity-label">established</span>
+            <span class="identity-value">2024</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS MATRIX -->
+    <section class="skills-section section">
+      <div class="container">
+        <div class="about-section-header scroll-fade">
+          <h2>Skills <span class="accent">Matrix</span></h2>
+          <p class="section-subtitle">// core competencies</p>
+        </div>
+        <div class="skills-grid" id="skills-grid">
+          <div class="skill-item scroll-fade" data-category="domain">
+            <div class="skill-header">
+              <span class="skill-name">Privacy Engineering</span>
+              <span class="skill-percent">95%</span>
+            </div>
+            <div class="skill-bar-bg">
+              <div class="skill-bar" data-width="95"></div>
+            </div>
+          </div>
+          <div class="skill-item scroll-fade" data-category="domain">
+            <div class="skill-header">
+              <span class="skill-name">Zero-Knowledge Proofs</span>
+              <span class="skill-percent">90%</span>
+            </div>
+            <div class="skill-bar-bg">
+              <div class="skill-bar" data-width="90"></div>
+            </div>
+          </div>
+          <div class="skill-item scroll-fade" data-category="domain">
+            <div class="skill-header">
+              <span class="skill-name">Smart Contracts</span>
+              <span class="skill-percent">88%</span>
+            </div>
+            <div class="skill-bar-bg">
+              <div class="skill-bar" data-width="88"></div>
+            </div>
+          </div>
+          <div class="skill-item scroll-fade" data-category="domain">
+            <div class="skill-header">
+              <span class="skill-name">AI/ML Engineering</span>
+              <span class="skill-percent">85%</span>
+            </div>
+            <div class="skill-bar-bg">
+              <div class="skill-bar" data-width="85"></div>
+            </div>
+          </div>
+          <div class="skill-item scroll-fade" data-category="language">
+            <div class="skill-header">
+              <span class="skill-name">Rust</span>
+              <span class="skill-percent">92%</span>
+            </div>
+            <div class="skill-bar-bg">
+              <div class="skill-bar" data-width="92"></div>
+            </div>
+          </div>
+          <div class="skill-item scroll-fade" data-category="language">
+            <div class="skill-header">
+              <span class="skill-name">TypeScript</span>
+              <span class="skill-percent">90%</span>
+            </div>
+            <div class="skill-bar-bg">
+              <div class="skill-bar" data-width="90"></div>
+            </div>
+          </div>
+          <div class="skill-item scroll-fade" data-category="language">
+            <div class="skill-header">
+              <span class="skill-name">Python</span>
+              <span class="skill-percent">88%</span>
+            </div>
+            <div class="skill-bar-bg">
+              <div class="skill-bar" data-width="88"></div>
+            </div>
+          </div>
+          <div class="skill-item scroll-fade" data-category="domain">
+            <div class="skill-header">
+              <span class="skill-name">Systems Architecture</span>
+              <span class="skill-percent">93%</span>
+            </div>
+            <div class="skill-bar-bg">
+              <div class="skill-bar" data-width="93"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TIMELINE -->
+    <section class="timeline-section section">
+      <div class="container">
+        <div class="about-section-header scroll-fade">
+          <h2>Build <span class="accent">Timeline</span></h2>
+          <p class="section-subtitle">// git log --oneline</p>
+        </div>
+        <div class="timeline" id="timeline">
+          <div class="timeline-entry">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">2024 Q1</div>
+            <div class="timeline-title">NullShift Founded</div>
+            <div class="timeline-desc">"Privacy or nothing." The labs go live with a single mission: build tools that put users first.</div>
+          </div>
+          <div class="timeline-entry">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">2024 Q2</div>
+            <div class="timeline-title">Whisper Protocol</div>
+            <div class="timeline-desc">First encrypted messaging build. End-to-end encryption, zero metadata leakage, forward secrecy by default.</div>
+          </div>
+          <div class="timeline-entry">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">2024 Q3</div>
+            <div class="timeline-title">Agent Network Deployed</div>
+            <div class="timeline-desc">Autonomous market intelligence agents go live. Multi-agent coordination for DeFi monitoring and threat detection.</div>
+          </div>
+          <div class="timeline-entry">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">2024 Q4</div>
+            <div class="timeline-title">zkProof SDK v1.0</div>
+            <div class="timeline-desc">Production-ready ZK toolkit. Circom circuits, verifier contracts, and a developer-friendly API for zero-knowledge proofs.</div>
+          </div>
+          <div class="timeline-entry">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">2025 Q1</div>
+            <div class="timeline-title">DarkPool DEX Development Begins</div>
+            <div class="timeline-desc">Privacy-preserving decentralized exchange. Dark pool order matching with ZK proofs for trade confidentiality.</div>
+          </div>
+          <div class="timeline-entry">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">2025 Q2</div>
+            <div class="timeline-title">Open-Source Milestone</div>
+            <div class="timeline-desc">50+ GitHub stars. Community contributions from privacy researchers, cryptographers, and protocol engineers.</div>
+          </div>
+          <div class="timeline-entry">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">2025 Q4</div>
+            <div class="timeline-title">AgentForge Framework Launch</div>
+            <div class="timeline-desc">Open-source framework for building autonomous agents. Modular, composable, privacy-preserving by design.</div>
+          </div>
+          <div class="timeline-entry">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">2026 Q1</div>
+            <div class="timeline-title">NullShift v0.5.0</div>
+            <div class="timeline-desc">Full platform with 9 products. The encrypted future is taking shape.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PHILOSOPHY -->
+    <section class="philosophy-section section">
+      <div class="container">
+        <div class="about-section-header scroll-fade">
+          <h2>Core <span class="accent">Philosophy</span></h2>
+          <p class="section-subtitle">// the principles we build on</p>
+        </div>
+        <div class="philosophy-grid">
+          <div class="philosophy-card scroll-fade">
+            <div class="philosophy-titlebar">
+              <span class="terminal-dot red"></span>
+              <span class="terminal-dot yellow"></span>
+              <span class="terminal-dot green"></span>
+              <span class="philosophy-titlebar-text">privacy.md</span>
+            </div>
+            <div class="philosophy-body">
+              <h3>"Privacy is not a feature"</h3>
+              <p>It's a fundamental right. Every tool we build starts with the question: how do we protect the user? If the answer isn't "by default," we start over.</p>
+            </div>
+          </div>
+          <div class="philosophy-card scroll-fade">
+            <div class="philosophy-titlebar">
+              <span class="terminal-dot red"></span>
+              <span class="terminal-dot yellow"></span>
+              <span class="terminal-dot green"></span>
+              <span class="philosophy-titlebar-text">open-source.md</span>
+            </div>
+            <div class="philosophy-body">
+              <h3>"Open source or bust"</h3>
+              <p>Transparency is trust. Our code is public, auditable, and free. No black boxes. No proprietary lock-in. If you can't read the source, you can't trust the system.</p>
+            </div>
+          </div>
+          <div class="philosophy-card scroll-fade">
+            <div class="philosophy-titlebar">
+              <span class="terminal-dot red"></span>
+              <span class="terminal-dot yellow"></span>
+              <span class="terminal-dot green"></span>
+              <span class="philosophy-titlebar-text">threat-model.md</span>
+            </div>
+            <div class="philosophy-body">
+              <h3>"Build for the worst case"</h3>
+              <p>Assume the network is hostile. Assume the server is compromised. Design for adversarial conditions. If it survives the worst case, it's ready for production.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONNECT -->
+    <section class="connect-section section" id="connect">
+      <div class="container">
+        <div class="about-section-header scroll-fade">
+          <h2>/<span class="accent">connect</span></h2>
+          <p class="section-subtitle">// open a channel</p>
+        </div>
+        <div class="connect-terminal scroll-fade">
+          <div class="terminal-window">
+            <div class="terminal-bar">
+              <span class="terminal-dot red"></span>
+              <span class="terminal-dot yellow"></span>
+              <span class="terminal-dot green"></span>
+            </div>
+            <div class="terminal-body">
+              <div class="terminal-line">
+                <span class="terminal-prompt">
+                  <span class="user">nullshift</span><span class="separator">@</span><span class="host">labs</span><span class="dollar">$</span>
+                </span>
+                <span class="cmd"> cat channels.txt</span>
+              </div>
+              <div class="terminal-line"><br></div>
+              <div class="terminal-line"><span class="output">> Encrypted channels. No middlemen.</span></div>
+              <div class="terminal-line"><br></div>
+              <div class="terminal-line"><span class="text-primary">EMAIL</span>    <a href="mailto:hello@nullshift.sh" class="contact-link">hello@nullshift.sh</a></div>
+              <div class="terminal-line"><span class="text-secondary">GITHUB</span>   <a href="https://github.com/nullshift" target="_blank" rel="noopener noreferrer" class="contact-link">github.com/nullshift</a></div>
+              <div class="terminal-line"><span class="text-warning">X</span>        <a href="https://x.com/nullshift" target="_blank" rel="noopener noreferrer" class="contact-link">x.com/nullshift</a></div>
+              <div class="terminal-line"><span class="text-accent">TELEGRAM</span> <a href="https://t.me/nullshift" target="_blank" rel="noopener noreferrer" class="contact-link">t.me/nullshift</a></div>
+              <div class="terminal-line"><br></div>
+              <div class="terminal-line">
+                <span class="terminal-prompt">
+                  <span class="user">nullshift</span><span class="separator">@</span><span class="host">labs</span><span class="dollar">$</span>
+                </span>
+                <span class="cursor-blink">_</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <span class="name">nullshift.sh</span> — privacy-first builder labs
+        </div>
+        <div class="footer-links">
+          <a href="https://github.com/nullshift" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          </a>
+          <a href="https://x.com/nullshift" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a href="https://t.me/nullshift" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0h-.056zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+          </a>
+        </div>
+        <div class="footer-copy">&copy; 2026 NullShift Labs</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scroll to top -->
+  <button class="scroll-top" aria-label="Scroll to top">&uarr;</button>
+
+  <script src="js/toast.js"></script>
+  <script src="js/search.js"></script>
+  <script src="js/cursor-trail.js"></script>
+  <script src="js/keyboard.js"></script>
+  <script src="js/page-headers.js"></script>
+  <script src="js/command-palette.js"></script>
+  <script src="js/achievements.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    // Cursor Trail
+    new CursorTrail();
+
+    // ==============================
+    // HERO TYPING ANIMATION
+    // Uses requestAnimationFrame, not setInterval
+    // ==============================
+    (function () {
+      const output = document.getElementById('hero-typed-output');
+      if (!output) return;
+
+      const text = '> Solo builder. Privacy maximalist. Building the encrypted future.';
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (prefersReducedMotion) {
+        output.textContent = text;
+        return;
+      }
+
+      let index = 0;
+      let lastTime = 0;
+      const charDelay = 35; // ms per character
+
+      function typeChar(timestamp) {
+        if (!lastTime) lastTime = timestamp;
+        const elapsed = timestamp - lastTime;
+
+        if (elapsed >= charDelay) {
+          lastTime = timestamp;
+          index++;
+          output.innerHTML = text.slice(0, index) + '<span class="cursor-blink">_</span>';
+        }
+
+        if (index < text.length) {
+          requestAnimationFrame(typeChar);
+        }
+      }
+
+      // Small initial delay before typing starts
+      let startDelay = 600;
+      let startTime = null;
+      function waitAndType(timestamp) {
+        if (!startTime) startTime = timestamp;
+        if (timestamp - startTime >= startDelay) {
+          requestAnimationFrame(typeChar);
+        } else {
+          requestAnimationFrame(waitAndType);
+        }
+      }
+
+      requestAnimationFrame(waitAndType);
+    })();
+
+    // ==============================
+    // SKILL BARS — IntersectionObserver
+    // ==============================
+    (function () {
+      const skillBars = document.querySelectorAll('.skill-bar[data-width]');
+      if (!skillBars.length) return;
+
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      const observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            const bar = entry.target;
+            const width = bar.getAttribute('data-width');
+            if (prefersReducedMotion) {
+              bar.style.transition = 'none';
+            }
+            bar.style.width = width + '%';
+            bar.classList.add('filled');
+            observer.unobserve(bar);
+          }
+        });
+      }, { threshold: 0.2 });
+
+      skillBars.forEach(function (bar) {
+        observer.observe(bar);
+      });
+    })();
+
+    // ==============================
+    // TIMELINE — IntersectionObserver
+    // ==============================
+    (function () {
+      const entries = document.querySelectorAll('.timeline-entry');
+      if (!entries.length) return;
+
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (prefersReducedMotion) {
+        entries.forEach(function (entry) {
+          entry.classList.add('visible');
+        });
+        return;
+      }
+
+      const observer = new IntersectionObserver(function (observedEntries) {
+        observedEntries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+
+      entries.forEach(function (entry) {
+        observer.observe(entry);
+      });
+    })();
+  </script>
+
+</body>
+</html>

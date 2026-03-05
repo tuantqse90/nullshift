@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>System Status — NullShift</title>
+  <meta name="description" content="NullShift system status dashboard. Real-time uptime monitoring across all services and products.">
+  <meta property="og:title" content="System Status — NullShift">
+  <meta property="og:description" content="Real-time system status and uptime monitoring for NullShift services.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://nullshift.sh/assets/images/og-image.svg">
+  <meta property="og:url" content="https://nullshift.sh/status">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="System Status — NullShift">
+  <meta name="twitter:description" content="Real-time system status and uptime monitoring for NullShift services.">
+  <meta name="theme-color" content="#0a0a0a">
+  <link rel="canonical" href="https://nullshift.sh/status">
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.json">
+  <link rel="alternate" type="application/rss+xml" title="NullShift Blog" href="feed.xml">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" as="style">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+
+  <style>
+    /* STATUS PAGE STYLES */
+
+    .status-hero {
+      padding: var(--space-4xl) 0 var(--space-2xl);
+    }
+
+    .status-banner {
+      background: var(--bg-card);
+      border: 1px solid var(--color-primary);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-2xl);
+      box-shadow: var(--glow-primary);
+    }
+
+    .status-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      box-shadow: var(--glow-primary);
+      animation: pulse 2s infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .status-banner-text {
+      flex: 1;
+    }
+
+    .status-banner-text h2 {
+      font-family: var(--font-sans);
+      font-size: var(--text-xl);
+      font-weight: 600;
+      color: var(--color-primary);
+      margin: 0;
+    }
+
+    .status-banner-time {
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      color: var(--color-text-dim);
+    }
+
+    /* SERVICES STATUS GRID */
+    .status-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: var(--space-md);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .status-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+      transition: border-color var(--transition-base);
+    }
+
+    .status-card:hover {
+      border-color: var(--border-color-hover);
+    }
+
+    .status-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--space-sm);
+    }
+
+    .status-card-name {
+      font-family: var(--font-mono);
+      font-size: var(--text-base);
+      font-weight: 600;
+      color: var(--color-text-bright);
+    }
+
+    .status-card .status-tag {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      font-weight: 600;
+    }
+
+    .status-tag[data-status="live"] {
+      color: var(--color-primary);
+    }
+
+    .status-tag[data-status="building"] {
+      color: var(--color-warning);
+    }
+
+    .status-card-uptime {
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      color: var(--color-text-dim);
+      margin-bottom: var(--space-sm);
+    }
+
+    .status-card-uptime span {
+      color: var(--color-primary);
+      font-weight: 600;
+    }
+
+    .status-card-building {
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      color: var(--color-warning);
+    }
+
+    .uptime-bar {
+      width: 100%;
+      height: 4px;
+      background: var(--border-color);
+      border-radius: 2px;
+      overflow: hidden;
+      margin-top: var(--space-sm);
+    }
+
+    .uptime-bar-fill {
+      height: 100%;
+      background: var(--color-primary);
+      border-radius: 2px;
+      transition: width var(--transition-slow);
+    }
+
+    /* UPTIME CHART */
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: var(--text-xl);
+      font-weight: 600;
+      color: var(--color-text-bright);
+      margin-bottom: var(--space-lg);
+    }
+
+    .section-label span {
+      color: var(--color-primary);
+    }
+
+    .uptime-chart {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+      overflow-x: auto;
+      margin-bottom: var(--space-2xl);
+    }
+
+    .uptime-chart-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: var(--space-md);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-text-dim);
+    }
+
+    .uptime-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-xs);
+      margin-bottom: var(--space-sm);
+    }
+
+    .uptime-row-label {
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      color: var(--color-text-dim);
+      width: 140px;
+      flex-shrink: 0;
+    }
+
+    .uptime-blocks {
+      display: flex;
+      gap: 2px;
+      flex: 1;
+    }
+
+    .uptime-block {
+      width: 14px;
+      height: 24px;
+      border-radius: 2px;
+      transition: transform var(--transition-fast);
+      cursor: pointer;
+    }
+
+    .uptime-block:hover {
+      transform: scaleY(1.3);
+    }
+
+    .uptime-block.operational {
+      background: var(--color-primary);
+    }
+
+    .uptime-block.degraded {
+      background: var(--color-warning);
+    }
+
+    .uptime-block.outage {
+      background: var(--color-error);
+    }
+
+    .uptime-legend {
+      display: flex;
+      gap: var(--space-lg);
+      margin-top: var(--space-md);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-text-dim);
+    }
+
+    .uptime-legend-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+
+    .uptime-legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+    }
+
+    /* INCIDENT HISTORY */
+    .incident-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+      margin-bottom: var(--space-md);
+      transition: border-color var(--transition-base);
+    }
+
+    .incident-card[data-severity="minor"] {
+      border-left: 3px solid var(--color-warning);
+    }
+
+    .incident-card[data-severity="major"] {
+      border-left: 3px solid var(--color-accent);
+    }
+
+    .incident-card[data-severity="critical"] {
+      border-left: 3px solid var(--color-error);
+    }
+
+    .incident-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-sm);
+      flex-wrap: wrap;
+    }
+
+    .incident-date {
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      color: var(--color-text-dim);
+    }
+
+    .incident-severity {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: var(--radius-sm);
+    }
+
+    .incident-severity.minor {
+      color: var(--color-warning);
+      background: rgba(255, 170, 0, 0.1);
+      border: 1px solid rgba(255, 170, 0, 0.3);
+    }
+
+    .incident-severity.major {
+      color: var(--color-accent);
+      background: rgba(255, 0, 128, 0.1);
+      border: 1px solid rgba(255, 0, 128, 0.3);
+    }
+
+    .incident-severity.critical {
+      color: var(--color-error);
+      background: rgba(255, 51, 51, 0.1);
+      border: 1px solid rgba(255, 51, 51, 0.3);
+    }
+
+    .incident-title {
+      font-family: var(--font-sans);
+      font-size: var(--text-base);
+      font-weight: 600;
+      color: var(--color-text-bright);
+      margin-bottom: var(--space-xs);
+    }
+
+    .incident-description {
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      color: var(--color-text-dim);
+      line-height: 1.6;
+    }
+
+    .incident-resolution {
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      color: var(--color-primary);
+      margin-top: var(--space-sm);
+    }
+
+    .incident-resolution::before {
+      content: '> ';
+    }
+
+    /* TERMINAL WINDOW (incidents) */
+    .incident-terminal-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding-bottom: var(--space-sm);
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: var(--space-sm);
+    }
+
+    .incident-terminal-bar .terminal-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .incident-terminal-bar .terminal-dot.red { background: #ff5f57; }
+    .incident-terminal-bar .terminal-dot.yellow { background: #febc2e; }
+    .incident-terminal-bar .terminal-dot.green { background: #28c840; }
+
+    /* SUBSCRIBE SECTION */
+    .subscribe-section {
+      padding: var(--space-2xl) 0 var(--space-4xl);
+    }
+
+    .subscribe-terminal {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .subscribe-terminal .terminal-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: var(--space-sm) var(--space-md);
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .subscribe-terminal .terminal-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .subscribe-terminal .terminal-dot.red { background: #ff5f57; }
+    .subscribe-terminal .terminal-dot.yellow { background: #febc2e; }
+    .subscribe-terminal .terminal-dot.green { background: #28c840; }
+
+    .subscribe-terminal .terminal-body {
+      padding: var(--space-lg);
+    }
+
+    .subscribe-terminal .terminal-line {
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      color: var(--color-text);
+      line-height: 1.8;
+    }
+
+    .subscribe-terminal .terminal-prompt .user { color: var(--color-primary); }
+    .subscribe-terminal .terminal-prompt .separator { color: var(--color-text-dim); }
+    .subscribe-terminal .terminal-prompt .host { color: var(--color-secondary); }
+    .subscribe-terminal .terminal-prompt .dollar { color: var(--color-text-dim); }
+    .subscribe-terminal .output { color: var(--color-text-dim); }
+    .subscribe-terminal .cmd { color: var(--color-text-bright); }
+
+    .subscribe-form {
+      margin-top: var(--space-md);
+    }
+
+    .subscribe-form .input-line {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-md);
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+    }
+
+    .subscribe-form .input-line .prompt-label {
+      color: var(--color-primary);
+      flex-shrink: 0;
+    }
+
+    .subscribe-form .input-line .prompt-dollar {
+      color: var(--color-text-dim);
+      flex-shrink: 0;
+    }
+
+    .subscribe-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--color-text-bright);
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      caret-color: var(--color-primary);
+    }
+
+    .subscribe-input::placeholder {
+      color: var(--color-text-dim);
+    }
+
+    .subscribe-status {
+      margin-top: var(--space-sm);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .status-banner {
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+      }
+
+      .uptime-row-label {
+        width: 100px;
+        font-size: var(--text-xs);
+      }
+
+      .uptime-block {
+        width: 10px;
+        height: 18px;
+      }
+
+      .incident-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-xs);
+      }
+
+      .status-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <script>(function(){const k='ns_analytics',d=JSON.parse(localStorage.getItem(k)||'{"views":[],"sessions":0}');d.sessions++;d.views.push({page:window.location.pathname,time:Date.now(),ref:document.referrer||'direct'});if(d.views.length>500)d.views=d.views.slice(-500);localStorage.setItem(k,JSON.stringify(d))})()</script>
+  <a href="#main-content" class="skip-link">Skip to content</a>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="NullShift home">null<span>shift.sh</span></a>
+      <div class="nav-links">
+        <a href="services.html">services</a>
+        <a href="products.html">products</a>
+        <a href="projects.html">projects</a>
+        <a href="agents.html">agents</a>
+        <a href="blog.html">blog</a>
+        <a href="docs.html">docs</a>
+        <a href="changelog.html">changelog</a>
+        <button class="nav-search-btn" aria-label="Search" onclick="GlobalSearch.open()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </button>
+      </div>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MOBILE NAV -->
+  <div class="mobile-nav" role="navigation" aria-label="Mobile navigation">
+    <a href="services.html">services</a>
+    <a href="products.html">products</a>
+    <a href="projects.html">projects</a>
+    <a href="agents.html">agents</a>
+    <a href="blog.html">blog</a>
+    <a href="docs.html">docs</a>
+    <a href="changelog.html">changelog</a>
+  </div>
+
+  <main id="main-content">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="index.html">home</a> <span>/</span> <span>status</span></nav>
+
+    <!-- STATUS HERO -->
+    <section class="status-hero">
+      <div class="container">
+        <h1 class="scroll-fade">/<span class="text-primary">status</span></h1>
+        <p class="section-subtitle scroll-fade">// system health monitoring</p>
+      </div>
+    </section>
+
+    <!-- OVERALL STATUS BANNER -->
+    <section class="section">
+      <div class="container">
+        <div class="status-banner scroll-fade">
+          <div class="status-dot" aria-hidden="true"></div>
+          <div class="status-banner-text">
+            <h2>All Systems Operational</h2>
+          </div>
+          <div class="status-banner-time" id="status-time"></div>
+        </div>
+
+        <!-- SERVICES STATUS GRID -->
+        <div class="section-label scroll-fade">Service <span>Status</span></div>
+        <div class="status-grid" id="status-grid">
+
+          <div class="status-card scroll-fade">
+            <div class="status-card-header">
+              <span class="status-card-name">NullDNS</span>
+              <span class="status-tag" data-status="live">[LIVE]</span>
+            </div>
+            <div class="status-card-uptime">Uptime: <span>99.99%</span></div>
+            <div class="uptime-bar"><div class="uptime-bar-fill" style="width: 99.99%"></div></div>
+          </div>
+
+          <div class="status-card scroll-fade">
+            <div class="status-card-header">
+              <span class="status-card-name">zkProof SDK</span>
+              <span class="status-tag" data-status="live">[LIVE]</span>
+            </div>
+            <div class="status-card-uptime">Uptime: <span>99.95%</span></div>
+            <div class="uptime-bar"><div class="uptime-bar-fill" style="width: 99.95%"></div></div>
+          </div>
+
+          <div class="status-card scroll-fade">
+            <div class="status-card-header">
+              <span class="status-card-name">AgentForge</span>
+              <span class="status-tag" data-status="live">[LIVE]</span>
+            </div>
+            <div class="status-card-uptime">Uptime: <span>99.90%</span></div>
+            <div class="uptime-bar"><div class="uptime-bar-fill" style="width: 99.90%"></div></div>
+          </div>
+
+          <div class="status-card scroll-fade">
+            <div class="status-card-header">
+              <span class="status-card-name">Whisper Protocol</span>
+              <span class="status-tag" data-status="live">[LIVE]</span>
+            </div>
+            <div class="status-card-uptime">Uptime: <span>99.97%</span></div>
+            <div class="uptime-bar"><div class="uptime-bar-fill" style="width: 99.97%"></div></div>
+          </div>
+
+          <div class="status-card scroll-fade">
+            <div class="status-card-header">
+              <span class="status-card-name">Agent Network</span>
+              <span class="status-tag" data-status="live">[LIVE]</span>
+            </div>
+            <div class="status-card-uptime">Uptime: <span>99.80%</span></div>
+            <div class="uptime-bar"><div class="uptime-bar-fill" style="width: 99.80%"></div></div>
+          </div>
+
+          <div class="status-card scroll-fade">
+            <div class="status-card-header">
+              <span class="status-card-name">NullVPN</span>
+              <span class="status-tag" data-status="building">[BUILDING]</span>
+            </div>
+            <div class="status-card-building">Coming Soon</div>
+            <div class="uptime-bar"><div class="uptime-bar-fill" style="width: 0%; background: var(--color-warning);"></div></div>
+          </div>
+
+          <div class="status-card scroll-fade">
+            <div class="status-card-header">
+              <span class="status-card-name">DarkPool DEX</span>
+              <span class="status-tag" data-status="building">[BUILDING]</span>
+            </div>
+            <div class="status-card-building">In Development</div>
+            <div class="uptime-bar"><div class="uptime-bar-fill" style="width: 0%; background: var(--color-warning);"></div></div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- UPTIME CHART — LAST 30 DAYS -->
+    <section class="section">
+      <div class="container">
+        <div class="section-label scroll-fade">Uptime — <span>Last 30 Days</span></div>
+        <div class="uptime-chart scroll-fade">
+          <div class="uptime-chart-header">
+            <span>30 days ago</span>
+            <span>Today</span>
+          </div>
+          <div id="uptime-chart-rows"></div>
+          <div class="uptime-legend">
+            <div class="uptime-legend-item">
+              <div class="uptime-legend-dot" style="background: var(--color-primary);"></div>
+              <span>Operational</span>
+            </div>
+            <div class="uptime-legend-item">
+              <div class="uptime-legend-dot" style="background: var(--color-warning);"></div>
+              <span>Degraded</span>
+            </div>
+            <div class="uptime-legend-item">
+              <div class="uptime-legend-dot" style="background: var(--color-error);"></div>
+              <span>Outage</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INCIDENT HISTORY -->
+    <section class="section">
+      <div class="container">
+        <div class="section-label scroll-fade">Incident <span>History</span></div>
+
+        <div class="incident-card scroll-fade" data-severity="minor">
+          <div class="incident-terminal-bar" aria-hidden="true">
+            <span class="terminal-dot red"></span>
+            <span class="terminal-dot yellow"></span>
+            <span class="terminal-dot green"></span>
+          </div>
+          <div class="incident-header">
+            <span class="incident-date">2026-03-01 14:23 UTC</span>
+            <span class="incident-severity minor">Minor</span>
+          </div>
+          <div class="incident-title">API Latency Spike</div>
+          <div class="incident-description">Elevated response times detected on the zkProof SDK API endpoints. P95 latency increased from 120ms to 850ms across all regions.</div>
+          <div class="incident-resolution">Resolved in 12 minutes. Root cause: ephemeral cache invalidation storm. Mitigation deployed.</div>
+        </div>
+
+        <div class="incident-card scroll-fade" data-severity="major">
+          <div class="incident-terminal-bar" aria-hidden="true">
+            <span class="terminal-dot red"></span>
+            <span class="terminal-dot yellow"></span>
+            <span class="terminal-dot green"></span>
+          </div>
+          <div class="incident-header">
+            <span class="incident-date">2026-02-28 09:15 UTC</span>
+            <span class="incident-severity major">Major</span>
+          </div>
+          <div class="incident-title">Agent Network Connectivity Issues</div>
+          <div class="incident-description">Multiple agents reported intermittent connectivity failures to the coordination layer. Affected 23% of active agents across 3 regions.</div>
+          <div class="incident-resolution">Resolved in 45 minutes. Root cause: BGP route leak from upstream provider. Failover to backup peering activated.</div>
+        </div>
+
+        <div class="incident-card scroll-fade" data-severity="minor">
+          <div class="incident-terminal-bar" aria-hidden="true">
+            <span class="terminal-dot red"></span>
+            <span class="terminal-dot yellow"></span>
+            <span class="terminal-dot green"></span>
+          </div>
+          <div class="incident-header">
+            <span class="incident-date">2026-02-20 22:41 UTC</span>
+            <span class="incident-severity minor">Minor</span>
+          </div>
+          <div class="incident-title">DNS Resolution Delay</div>
+          <div class="incident-description">NullDNS experienced elevated resolution times for .onion and .eth domain lookups. Standard DNS queries unaffected.</div>
+          <div class="incident-resolution">Resolved in 8 minutes. Root cause: stale resolver cache entry. Cache flushed and TTL policy updated.</div>
+        </div>
+
+        <div class="incident-card scroll-fade" data-severity="critical">
+          <div class="incident-terminal-bar" aria-hidden="true">
+            <span class="terminal-dot red"></span>
+            <span class="terminal-dot yellow"></span>
+            <span class="terminal-dot green"></span>
+          </div>
+          <div class="incident-header">
+            <span class="incident-date">2026-02-15 03:30 UTC</span>
+            <span class="incident-severity critical">Critical</span>
+          </div>
+          <div class="incident-title">Database Migration Downtime</div>
+          <div class="incident-description">Scheduled database migration for the Agent Network coordination layer exceeded maintenance window. All agent state persistence was unavailable during the migration.</div>
+          <div class="incident-resolution">Resolved in 30 minutes. Root cause: schema migration on large index table took longer than projected. Rollback strategy and pre-migration testing improved.</div>
+        </div>
+
+        <div class="incident-card scroll-fade" data-severity="minor">
+          <div class="incident-terminal-bar" aria-hidden="true">
+            <span class="terminal-dot red"></span>
+            <span class="terminal-dot yellow"></span>
+            <span class="terminal-dot green"></span>
+          </div>
+          <div class="incident-header">
+            <span class="incident-date">2026-02-10 16:05 UTC</span>
+            <span class="incident-severity minor">Minor</span>
+          </div>
+          <div class="incident-title">SSL Certificate Renewal</div>
+          <div class="incident-description">Automated SSL certificate renewal for api.nullshift.sh triggered a brief TLS handshake failure window during certificate propagation.</div>
+          <div class="incident-resolution">Resolved in 2 minutes. Root cause: propagation delay in edge nodes. Certificate pinning updated to support seamless rotation.</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SUBSCRIBE TO UPDATES -->
+    <section class="section subscribe-section">
+      <div class="container">
+        <div class="section-label scroll-fade">Subscribe to <span>Updates</span></div>
+        <div class="subscribe-terminal scroll-fade">
+          <div class="terminal-bar">
+            <span class="terminal-dot red"></span>
+            <span class="terminal-dot yellow"></span>
+            <span class="terminal-dot green"></span>
+          </div>
+          <div class="terminal-body">
+            <div class="terminal-line">
+              <span class="terminal-prompt">
+                <span class="user">nullshift</span><span class="separator">@</span><span class="host">labs</span><span class="dollar">$</span>
+              </span>
+              <span class="cmd"> subscribe --status-updates</span>
+            </div>
+            <div class="terminal-line"><br></div>
+            <div class="terminal-line"><span class="output">> Get notified when systems go down or recover.</span></div>
+            <div class="terminal-line"><span class="output">> No spam. No tracking. Encrypted delivery.</span></div>
+            <div class="terminal-line"><br></div>
+            <div class="subscribe-form">
+              <div class="input-line">
+                <span class="prompt-label">email</span><span class="prompt-dollar">$</span>
+                <input type="email" class="subscribe-input" placeholder="you@encrypted.dev" aria-label="Email address for status updates">
+              </div>
+              <button class="btn btn-primary" id="subscribe-btn">> Subscribe</button>
+            </div>
+            <div class="subscribe-status" id="subscribe-status"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <span class="name">nullshift.sh</span> — privacy-first builder labs
+        </div>
+        <div class="footer-links">
+          <a href="https://github.com/nullshift" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          </a>
+          <a href="https://x.com/nullshift" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a href="https://t.me/nullshift" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0h-.056zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+          </a>
+        </div>
+        <div class="footer-copy">&copy; 2026 NullShift Labs</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scroll to top -->
+  <button class="scroll-top" aria-label="Scroll to top">&uarr;</button>
+
+  <script src="js/toast.js"></script>
+  <script src="js/search.js"></script>
+  <script src="js/cursor-trail.js"></script>
+  <script src="js/keyboard.js"></script>
+  <script src="js/page-headers.js"></script>
+  <script src="js/command-palette.js"></script>
+  <script src="js/achievements.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    // Cursor Trail
+    new CursorTrail();
+
+    // Live Clock
+    const statusTimeEl = document.getElementById('status-time');
+    function updateClock() {
+      const now = new Date();
+      const opts = { year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZone: 'UTC' };
+      statusTimeEl.textContent = now.toLocaleDateString('en-US', opts) + ' UTC';
+      requestAnimationFrame(updateClock);
+    }
+    if (statusTimeEl) requestAnimationFrame(updateClock);
+
+    // Generate Uptime Chart — Last 30 Days
+    const services = [
+      'NullDNS',
+      'zkProof SDK',
+      'AgentForge',
+      'Whisper Protocol',
+      'Agent Network'
+    ];
+
+    const chartContainer = document.getElementById('uptime-chart-rows');
+    if (chartContainer) {
+      // Seeded random for consistent results per session
+      let seed = 42;
+      function seededRandom() {
+        seed = (seed * 16807 + 0) % 2147483647;
+        return (seed - 1) / 2147483646;
+      }
+
+      services.forEach(function(service) {
+        const row = document.createElement('div');
+        row.className = 'uptime-row';
+
+        const label = document.createElement('span');
+        label.className = 'uptime-row-label';
+        label.textContent = service;
+        row.appendChild(label);
+
+        const blocks = document.createElement('div');
+        blocks.className = 'uptime-blocks';
+
+        for (let i = 0; i < 30; i++) {
+          const block = document.createElement('div');
+          block.className = 'uptime-block';
+          const rand = seededRandom();
+          if (rand < 0.95) {
+            block.classList.add('operational');
+            block.title = 'Day ' + (i + 1) + ': Operational';
+          } else if (rand < 0.99) {
+            block.classList.add('degraded');
+            block.title = 'Day ' + (i + 1) + ': Degraded Performance';
+          } else {
+            block.classList.add('outage');
+            block.title = 'Day ' + (i + 1) + ': Outage';
+          }
+          blocks.appendChild(block);
+        }
+
+        row.appendChild(blocks);
+        chartContainer.appendChild(row);
+      });
+    }
+
+    // Subscribe Button
+    const subBtn = document.getElementById('subscribe-btn');
+    const subStatus = document.getElementById('subscribe-status');
+    if (subBtn) {
+      subBtn.addEventListener('click', function() {
+        const input = document.querySelector('.subscribe-input');
+        const email = input ? input.value.trim() : '';
+        if (!email || !email.includes('@')) {
+          if (typeof Toast !== 'undefined') {
+            Toast.warning('Please enter a valid email address');
+          }
+          return;
+        }
+        subBtn.disabled = true;
+        subBtn.textContent = '> Subscribing...';
+        // Simulate subscription
+        const delay = 1200;
+        const start = performance.now();
+        function checkDone(ts) {
+          if (ts - start >= delay) {
+            subBtn.textContent = '> Subscribed!';
+            subBtn.style.borderColor = 'var(--color-primary)';
+            if (subStatus) {
+              subStatus.innerHTML = '<div class="terminal-line" style="margin-top: var(--space-sm); font-family: var(--font-mono); font-size: var(--text-sm);"><span style="color: var(--color-primary);">> Subscribed successfully.</span> <span style="color: var(--color-text-dim);">You will receive status alerts.</span></div>';
+            }
+            if (typeof Toast !== 'undefined') {
+              Toast.success('Subscribed to status updates.');
+            }
+            if (input) input.value = '';
+          } else {
+            requestAnimationFrame(checkDone);
+          }
+        }
+        requestAnimationFrame(checkDone);
+      });
+    }
+  </script>
+
+</body>
+</html>

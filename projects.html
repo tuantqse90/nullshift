@@ -75,10 +75,19 @@
       </div>
     </section>
 
-    <section class="section">
+    <!-- LISTING VIEW -->
+    <section class="section" id="projects-listing">
       <div class="container">
         <div class="filter-bar" id="projects-filter"></div>
         <div class="card-grid" id="projects-grid"></div>
+      </div>
+    </section>
+
+    <!-- DETAIL VIEW -->
+    <section class="section project-detail" id="project-detail">
+      <div class="container">
+        <a class="project-detail-back" id="project-back">&lt; back to projects</a>
+        <div id="project-detail-content"></div>
       </div>
     </section>
   </main>
@@ -122,6 +131,98 @@
   <script src="js/main.js"></script>
   <script>new CursorTrail();</script>
   <script>
+    let allProjects = [];
+
+    function parseProjectMarkdown(md) {
+      if (!md) return '';
+      return md
+        .replace(/^## (.+)$/gm, '<h2>$1</h2>')
+        .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*(.+?)\*/g, '<em>$1</em>')
+        .replace(/`(.+?)`/g, '<code>$1</code>')
+        .replace(/^- \[x\] (.+)$/gm, '<li style="color:var(--color-primary)">&#10003; $1</li>')
+        .replace(/^- \[ \] (.+)$/gm, '<li style="color:var(--color-text-dim)">&#9744; $1</li>')
+        .replace(/^- (.+)$/gm, '<li>$1</li>')
+        .replace(/(<li>[\s\S]*?<\/li>)/g, function(match) {
+          return match;
+        })
+        .split('\n\n')
+        .map(block => {
+          block = block.trim();
+          if (!block) return '';
+          if (block.startsWith('<h') || block.startsWith('<li')) return block;
+          if (block.includes('<li>')) return '<ul>' + block + '</ul>';
+          return '<p>' + block + '</p>';
+        })
+        .join('\n');
+    }
+
+    function showProjectDetail(projectId) {
+      const project = allProjects.find(p => p.id === projectId);
+      if (!project) return;
+
+      const listing = document.getElementById('projects-listing');
+      const hero = document.querySelector('.projects-hero');
+      const detail = document.getElementById('project-detail');
+      const content = document.getElementById('project-detail-content');
+
+      listing.style.display = 'none';
+      if (hero) hero.style.display = 'none';
+      detail.classList.add('active');
+
+      content.innerHTML = `
+        <div class="project-detail-header">
+          <h1 class="project-detail-title">${project.name}</h1>
+          <div class="project-detail-meta">
+            <span class="status-tag" data-status="${project.status}">[${project.status.toUpperCase()}]</span>
+            <span class="pillar-badge" data-pillar="${project.pillar}">${project.pillar.toUpperCase()}</span>
+            ${project.featured ? '<span class="featured-badge">Featured</span>' : ''}
+          </div>
+          <p class="project-detail-desc">${project.description}</p>
+          <div class="project-tech-grid">
+            ${project.tech_stack.map(t => '<span class="tech-tag">' + t + '</span>').join('')}
+          </div>
+        </div>
+        <div class="project-detail-body">
+          ${parseProjectMarkdown(project.readme)}
+        </div>
+        <div class="project-detail-actions">
+          <a href="${project.url}" class="btn btn-primary">> View Project</a>
+          <a href="${project.source_url}" class="btn btn-ghost">> View Source</a>
+        </div>
+      `;
+
+      window.scrollTo({ top: 0 });
+    }
+
+    function showProjectListing() {
+      const listing = document.getElementById('projects-listing');
+      const hero = document.querySelector('.projects-hero');
+      const detail = document.getElementById('project-detail');
+
+      detail.classList.remove('active');
+      listing.style.display = '';
+      if (hero) hero.style.display = '';
+      window.location.hash = '';
+    }
+
+    // Back button
+    document.getElementById('project-back').addEventListener('click', (e) => {
+      e.preventDefault();
+      showProjectListing();
+    });
+
+    // Hash navigation
+    function checkHash() {
+      const hash = window.location.hash.slice(1);
+      if (hash && allProjects.length > 0) {
+        showProjectDetail(hash);
+      }
+    }
+
+    window.addEventListener('hashchange', checkHash);
+
     initFilters({
       dataUrl: 'data/projects.json',
       containerSelector: '#projects-grid',
@@ -150,7 +251,7 @@
       renderCard: function(project) {
         const featuredHtml = project.featured ? '<span class="featured-badge">Featured</span>' : '';
         return `
-          <div class="hacker-card" data-pillar="${project.pillar}" style="position:relative">
+          <div class="hacker-card" data-pillar="${project.pillar}" data-project-id="${project.id}" style="position:relative;cursor:pointer" onclick="window.location.hash='${project.id}'">
             ${featuredHtml}
             <div class="gradient-placeholder" data-pillar="${project.pillar}"></div>
             <div class="card-header">
@@ -166,6 +267,14 @@
             </div>
           </div>
         `;
+      },
+      onDataLoaded: function(data) {
+        allProjects = data;
+        checkHash();
+        // Re-bind lightbox after cards are rendered
+        if (typeof Lightbox !== 'undefined') {
+          Lightbox.bindToCards();
+        }
       }
     });
   </script>
