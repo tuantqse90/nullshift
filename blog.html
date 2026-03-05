@@ -13,6 +13,7 @@
   <meta name="theme-color" content="#0a0a0a">
   <link rel="canonical" href="https://nullshift.sh/blog">
   <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="alternate" type="application/rss+xml" title="NullShift Blog" href="feed.xml">
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" as="style">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -66,6 +67,7 @@
       <div class="container">
         <!-- Blog Listing View -->
         <div class="blog-listing">
+          <div class="blog-search"></div>
           <div class="filter-bar" id="blog-filter"></div>
           <div class="blog-grid" id="blog-grid"></div>
         </div>
@@ -114,9 +116,12 @@
   <button class="scroll-top" aria-label="Scroll to top">&uarr;</button>
 
   <script src="js/blog-data.js"></script>
+  <script src="js/cursor-trail.js"></script>
+  <script src="js/keyboard.js"></script>
   <script src="js/main.js"></script>
   <script>
     initBlog();
+    new CursorTrail();
   </script>
 
 </body>

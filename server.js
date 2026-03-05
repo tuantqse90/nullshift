@@ -41,6 +41,39 @@ pages.forEach(page => {
   });
 });
 
+// Dynamic sitemap
+app.get('/sitemap.xml', (req, res) => {
+  const fs = require('fs');
+  const baseUrl = 'https://nullshift.sh';
+  const staticPages = [
+    { loc: '/', priority: '1.0' },
+    { loc: '/services', priority: '0.8' },
+    { loc: '/products', priority: '0.8' },
+    { loc: '/projects', priority: '0.8' },
+    { loc: '/agents', priority: '0.7' },
+    { loc: '/blog', priority: '0.7' }
+  ];
+
+  let urls = staticPages.map(p =>
+    `  <url><loc>${baseUrl}${p.loc}</loc><priority>${p.priority}</priority></url>`
+  );
+
+  try {
+    const blogPosts = JSON.parse(fs.readFileSync(path.join(__dirname, 'data/blog-posts.json'), 'utf8'));
+    blogPosts.forEach(post => {
+      urls.push(`  <url><loc>${baseUrl}/blog#${post.id}</loc><lastmod>${post.date}</lastmod><priority>0.6</priority></url>`);
+    });
+  } catch (e) {}
+
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls.join('\n')}
+</urlset>`;
+
+  res.setHeader('Content-Type', 'application/xml');
+  res.send(xml);
+});
+
 app.use((req, res) => {
   res.status(404).sendFile(path.join(__dirname, '404.html'));
 });

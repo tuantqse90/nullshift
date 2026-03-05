@@ -58,14 +58,33 @@ function initBlog() {
   const gridEl = document.querySelector('.blog-grid');
   const filterBar = document.querySelector('.filter-bar');
 
+  const searchContainer = document.querySelector('.blog-search');
   let posts = [];
   let activeFilter = 'all';
+  let searchQuery = '';
+
+  // Show skeleton while loading
+  if (gridEl) {
+    gridEl.innerHTML = Array(4).fill(`
+      <div class="skeleton-card">
+        <div class="skeleton-line short"></div>
+        <div class="skeleton-title"></div>
+        <div class="skeleton-line long"></div>
+        <div class="skeleton-line medium"></div>
+        <div class="skeleton-tags">
+          <div class="skeleton-tag"></div>
+          <div class="skeleton-tag"></div>
+        </div>
+      </div>
+    `).join('');
+  }
 
   fetch('data/blog-posts.json')
     .then(res => res.json())
     .then(data => {
       posts = data;
       buildBlogFilters();
+      buildSearch();
       renderListing(posts);
       handleHash();
     })
@@ -95,11 +114,41 @@ function initBlog() {
         activeFilter = p.value;
         filterBar.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-        const filtered = p.value === 'all' ? posts : posts.filter(post => post.pillar === p.value);
-        renderListing(filtered);
+        applyFiltersAndSearch();
       });
       filterBar.appendChild(btn);
     });
+  }
+
+  function buildSearch() {
+    if (!searchContainer) return;
+
+    searchContainer.innerHTML = `
+      <svg class="blog-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <circle cx="11" cy="11" r="8"/>
+        <path d="m21 21-4.35-4.35"/>
+      </svg>
+      <input type="text" class="blog-search-input" placeholder="Search posts..." aria-label="Search blog posts">
+      <span class="blog-search-kbd">/</span>
+    `;
+
+    const input = searchContainer.querySelector('.blog-search-input');
+    input.addEventListener('input', (e) => {
+      searchQuery = e.target.value.toLowerCase().trim();
+      applyFiltersAndSearch();
+    });
+  }
+
+  function applyFiltersAndSearch() {
+    let filtered = activeFilter === 'all' ? posts : posts.filter(p => p.pillar === activeFilter);
+    if (searchQuery) {
+      filtered = filtered.filter(p =>
+        p.title.toLowerCase().includes(searchQuery) ||
+        p.excerpt.toLowerCase().includes(searchQuery) ||
+        p.content.toLowerCase().includes(searchQuery)
+      );
+    }
+    renderListing(filtered);
   }
 
   function renderListing(items) {

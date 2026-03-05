@@ -16,6 +16,7 @@
   <meta name="theme-color" content="#0a0a0a">
   <link rel="canonical" href="https://nullshift.sh/">
   <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="alternate" type="application/rss+xml" title="NullShift Blog" href="feed.xml">
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" as="style">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -128,6 +129,30 @@
       </div>
     </section>
 
+    <!-- STATS -->
+    <section class="section">
+      <div class="container">
+        <div class="stats-grid scroll-fade" id="stats-counter">
+          <div class="stat-card">
+            <div class="stat-number" data-count="9">0</div>
+            <div class="stat-label">Products</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" data-count="9">0</div>
+            <div class="stat-label">Projects</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" data-count="8">0</div>
+            <div class="stat-label">Active Agents</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" data-count="7">0</div>
+            <div class="stat-label">Blog Posts</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- FEATURED PROJECTS -->
     <section class="featured-section">
       <div class="container">
@@ -228,6 +253,9 @@
 
   <script src="js/effects.js"></script>
   <script src="js/particles.js"></script>
+  <script src="js/stats-counter.js"></script>
+  <script src="js/cursor-trail.js"></script>
+  <script src="js/keyboard.js"></script>
   <script src="js/main.js"></script>
   <script>
     // Matrix Rain
@@ -255,6 +283,13 @@
 
     // Scanlines
     initScanlines();
+
+    // Stats Counter
+    const statsEl = document.getElementById('stats-counter');
+    if (statsEl) new StatsCounter(statsEl);
+
+    // Cursor Trail
+    new CursorTrail();
 
     // Featured Projects
     fetch('data/projects.json')

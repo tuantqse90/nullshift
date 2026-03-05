@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>NullShift Blog</title>
+    <link>https://nullshift.sh/blog</link>
+    <description>Technical deep-dives on privacy, AI, blockchain, and zero-knowledge proofs from NullShift Labs.</description>
+    <language>en</language>
+    <atom:link href="https://nullshift.sh/feed.xml" rel="self" type="application/rss+xml"/>
+
+    <item>
+      <title>The Future of On-Device AI: Why the Cloud is the Enemy</title>
+      <link>https://nullshift.sh/blog#on-device-ai-future</link>
+      <guid>https://nullshift.sh/blog#on-device-ai-future</guid>
+      <pubDate>Wed, 04 Mar 2026 00:00:00 GMT</pubDate>
+      <description>Every API call is a privacy leak. On-device inference isn't just about latency — it's about sovereignty over your own computation.</description>
+      <category>AI</category>
+    </item>
+
+    <item>
+      <title>Why Privacy Matters in the Age of Surveillance Capitalism</title>
+      <link>https://nullshift.sh/blog#why-privacy-matters</link>
+      <guid>https://nullshift.sh/blog#why-privacy-matters</guid>
+      <pubDate>Sat, 28 Feb 2026 00:00:00 GMT</pubDate>
+      <description>Your data is the product. Your attention is the currency. Here's why building privacy-first tools isn't optional — it's survival.</description>
+      <category>Privacy</category>
+    </item>
+
+    <item>
+      <title>Zero-Knowledge Proofs: Proving Everything, Revealing Nothing</title>
+      <link>https://nullshift.sh/blog#zk-proofs-explained</link>
+      <guid>https://nullshift.sh/blog#zk-proofs-explained</guid>
+      <pubDate>Sun, 15 Feb 2026 00:00:00 GMT</pubDate>
+      <description>A technical deep-dive into how ZK proofs work, why they matter for blockchain privacy, and how we're using them at NullShift.</description>
+      <category>ZK</category>
+    </item>
+
+    <item>
+      <title>Mixer Networks and the War on Metadata</title>
+      <link>https://nullshift.sh/blog#mixnets-metadata-resistance</link>
+      <guid>https://nullshift.sh/blog#mixnets-metadata-resistance</guid>
+      <pubDate>Thu, 05 Feb 2026 00:00:00 GMT</pubDate>
+      <description>Encryption protects content. Mixnets protect context. Why metadata resistance is the next frontier in privacy engineering.</description>
+      <category>Privacy</category>
+    </item>
+
+    <item>
+      <title>Autonomous AI Agents in DeFi: Architecture of Our Trading System</title>
+      <link>https://nullshift.sh/blog#autonomous-agents-defi</link>
+      <guid>https://nullshift.sh/blog#autonomous-agents-defi</guid>
+      <pubDate>Fri, 30 Jan 2026 00:00:00 GMT</pubDate>
+      <description>How we built a multi-agent system that monitors markets, executes trades, and manages risk — all without human intervention.</description>
+      <category>AI</category>
+    </item>
+
+    <item>
+      <title>The Case for Decentralized Identity on Blockchain</title>
+      <link>https://nullshift.sh/blog#decentralized-identity</link>
+      <guid>https://nullshift.sh/blog#decentralized-identity</guid>
+      <pubDate>Thu, 15 Jan 2026 00:00:00 GMT</pubDate>
+      <description>Why centralized identity systems are broken, and how blockchain-based self-sovereign identity can fix the internet's trust problem.</description>
+      <category>Blockchain</category>
+    </item>
+
+    <item>
+      <title>Smart Contract Security: Lessons from $3B in DeFi Exploits</title>
+      <link>https://nullshift.sh/blog#smart-contract-security</link>
+      <guid>https://nullshift.sh/blog#smart-contract-security</guid>
+      <pubDate>Fri, 02 Jan 2026 00:00:00 GMT</pubDate>
+      <description>Every major DeFi exploit shares common patterns. Here's what we've learned from auditing contracts and how to build defensively.</description>
+      <category>Blockchain</category>
+    </item>
+  </channel>
+</rss>

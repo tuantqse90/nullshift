@@ -11,6 +11,23 @@ function initFilters(config) {
     activeFilters[group.key] = 'all';
   });
 
+  // Show skeleton while loading
+  const skeletonContainer = document.querySelector(containerSelector);
+  if (skeletonContainer) {
+    skeletonContainer.innerHTML = Array(6).fill(`
+      <div class="skeleton-card">
+        <div class="skeleton-title"></div>
+        <div class="skeleton-line long"></div>
+        <div class="skeleton-line medium"></div>
+        <div class="skeleton-tags">
+          <div class="skeleton-tag"></div>
+          <div class="skeleton-tag"></div>
+          <div class="skeleton-tag"></div>
+        </div>
+      </div>
+    `).join('');
+  }
+
   fetch(dataUrl)
     .then(res => res.json())
     .then(data => {
