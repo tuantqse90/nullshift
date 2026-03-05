@@ -93,15 +93,23 @@
   }
 
   function focusSearch() {
-    const searchInput = document.querySelector('.blog-search-input, .search-input');
-    if (searchInput) {
-      searchInput.focus();
+    // Try blog search first, then global search
+    const blogInput = document.querySelector('.blog-search-input');
+    if (blogInput) {
+      blogInput.focus();
+      return;
+    }
+    if (typeof GlobalSearch !== 'undefined') {
+      GlobalSearch.open();
     }
   }
 
   function closeOverlays() {
     const help = document.getElementById('keyboard-help');
     if (help) help.classList.remove('active');
+
+    const globalSearch = document.getElementById('global-search');
+    if (globalSearch) globalSearch.classList.remove('active');
 
     const mobileNav = document.querySelector('.mobile-nav.open');
     if (mobileNav) {

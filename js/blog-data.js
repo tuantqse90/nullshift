@@ -209,6 +209,12 @@ function initBlog() {
     // Init reading progress bar
     initReadingProgress();
 
+    // Add copy buttons to code blocks
+    addCodeCopyButtons(postViewEl);
+
+    // Add share buttons
+    addShareButtons(postViewEl, post);
+
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
     // Structured data
@@ -281,6 +287,75 @@ function initBlog() {
 
     window.addEventListener('scroll', updateProgress, { passive: true });
     updateProgress();
+  }
+
+  function addCodeCopyButtons(container) {
+    container.querySelectorAll('pre').forEach(pre => {
+      const existing = pre.querySelector('.code-copy-btn');
+      if (existing) return;
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'code-block-wrapper';
+      pre.parentNode.insertBefore(wrapper, pre);
+      wrapper.appendChild(pre);
+
+      const btn = document.createElement('button');
+      btn.className = 'code-copy-btn';
+      btn.textContent = 'Copy';
+      btn.setAttribute('aria-label', 'Copy code');
+      btn.addEventListener('click', () => {
+        const code = pre.querySelector('code');
+        const text = code ? code.textContent : pre.textContent;
+        navigator.clipboard.writeText(text).then(() => {
+          btn.textContent = 'Copied!';
+          btn.classList.add('copied');
+          if (typeof Toast !== 'undefined') Toast.success('Code copied to clipboard');
+          setTimeout(() => {
+            btn.textContent = 'Copy';
+            btn.classList.remove('copied');
+          }, 2000);
+        }).catch(() => {
+          if (typeof Toast !== 'undefined') Toast.error('Failed to copy');
+        });
+      });
+      wrapper.appendChild(btn);
+    });
+  }
+
+  function addShareButtons(container, post) {
+    const existing = container.querySelector('.post-share');
+    if (existing) existing.remove();
+
+    const url = `https://nullshift.sh/blog#${post.id}`;
+    const text = post.title;
+    const shareDiv = document.createElement('div');
+    shareDiv.className = 'post-share';
+    shareDiv.innerHTML = `
+      <span class="share-label">Share:</span>
+      <button class="share-btn" data-action="copy" aria-label="Copy link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+        Link
+      </button>
+      <a class="share-btn" href="https://x.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}" target="_blank" rel="noopener noreferrer" aria-label="Share on X">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        X
+      </a>
+      <a class="share-btn" href="https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}" target="_blank" rel="noopener noreferrer" aria-label="Share on Telegram">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0h-.056zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+        Telegram
+      </a>
+    `;
+
+    const postMeta = container.querySelector('.post-meta');
+    if (postMeta) {
+      postMeta.parentNode.insertBefore(shareDiv, postMeta.nextSibling);
+    }
+
+    shareDiv.querySelector('[data-action="copy"]').addEventListener('click', () => {
+      navigator.clipboard.writeText(url).then(() => {
+        if (typeof Toast !== 'undefined') Toast.success('Link copied to clipboard');
+      });
+    });
   }
 
   function showListing() {

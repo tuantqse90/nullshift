@@ -1,7 +1,7 @@
 /* ==============================
    SERVICE WORKER — NULLSHIFT
    ============================== */
-const CACHE_NAME = 'nullshift-v1';
+const CACHE_NAME = 'nullshift-v2';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
@@ -32,6 +32,8 @@ const STATIC_ASSETS = [
   '/js/keyboard.js',
   '/js/stats-counter.js',
   '/js/terminal.js',
+  '/js/toast.js',
+  '/js/search.js',
   '/assets/icons/favicon.svg',
   '/manifest.json'
 ];

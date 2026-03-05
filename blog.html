@@ -39,6 +39,9 @@
         <a href="projects.html">projects</a>
         <a href="agents.html">agents</a>
         <a href="blog.html">blog</a>
+        <button class="nav-search-btn" aria-label="Search" onclick="GlobalSearch.open()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </button>
       </div>
       <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
         <span></span>
@@ -57,6 +60,7 @@
   </div>
 
   <main id="main-content">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="index.html">home</a> <span>/</span> <span>blog</span></nav>
     <section class="blog-hero">
       <div class="container">
         <h1 class="scroll-fade">/<span class="text-primary">blog</span></h1>
@@ -118,6 +122,8 @@
   <button class="scroll-top" aria-label="Scroll to top">&uarr;</button>
 
   <script src="js/blog-data.js"></script>
+  <script src="js/toast.js"></script>
+  <script src="js/search.js"></script>
   <script src="js/cursor-trail.js"></script>
   <script src="js/keyboard.js"></script>
   <script src="js/main.js"></script>
