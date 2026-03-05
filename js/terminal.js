@@ -296,6 +296,7 @@ class InteractiveTerminal {
   }
 
   startSnake() {
+    document.dispatchEvent(new CustomEvent('snake-started'));
     const output = this.container.querySelector('.terminal-output');
     const input = this.container.querySelector('.term-input');
 

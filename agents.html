@@ -27,6 +27,7 @@
   <link rel="stylesheet" href="css/agents.css">
 </head>
 <body>
+  <script>(function(){const k='ns_analytics',d=JSON.parse(localStorage.getItem(k)||'{"views":[],"sessions":0}');d.sessions++;d.views.push({page:window.location.pathname,time:Date.now(),ref:document.referrer||'direct'});if(d.views.length>500)d.views=d.views.slice(-500);localStorage.setItem(k,JSON.stringify(d))})()</script>
   <a href="#main-content" class="skip-link">Skip to content</a>
 
   <!-- NAVBAR -->
@@ -65,7 +66,8 @@
 
   <main id="main-content">
     <nav class="breadcrumb" aria-label="Breadcrumb"><a href="index.html">home</a> <span>/</span> <span>agents</span></nav>
-    <section class="agents-hero">
+    <section class="agents-hero" style="position: relative;">
+      <canvas class="page-header-canvas" data-animation="neural" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;" aria-hidden="true"></canvas>
       <div class="container">
         <h1 class="scroll-fade">/<span class="text-primary">agents</span></h1>
         <p class="section-subtitle scroll-fade">// autonomous agent network</p>
@@ -115,6 +117,26 @@
         </div>
       </div>
     </section>
+    <!-- AGENT STATUS DASHBOARD -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header scroll-fade">
+          <h2>Status <span class="text-primary">Dashboard</span></h2>
+          <p class="section-subtitle">// real-time agent network status</p>
+        </div>
+        <div class="dashboard-stats" id="dashboard-stats"></div>
+        <div class="dashboard-grid">
+          <div class="dashboard-panel">
+            <h3 class="dashboard-panel-title">Agent Uptime</h3>
+            <div class="uptime-grid" id="uptime-grid"></div>
+          </div>
+          <div class="dashboard-panel">
+            <h3 class="dashboard-panel-title">Activity Feed</h3>
+            <div class="activity-feed" id="activity-feed"></div>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
   <!-- FOOTER -->
@@ -148,6 +170,10 @@
   <script src="js/search.js"></script>
   <script src="js/cursor-trail.js"></script>
   <script src="js/keyboard.js"></script>
+  <script src="js/page-headers.js"></script>
+  <script src="js/command-palette.js"></script>
+  <script src="js/lightbox.js"></script>
+  <script src="js/achievements.js"></script>
   <script src="js/main.js"></script>
   <script>new CursorTrail();</script>
   <script>
@@ -177,6 +203,64 @@
           list.innerHTML = '<div class="empty-state">Failed to load agents. Try opening via a local server.</div>';
         }
       });
+
+    // Agent Status Dashboard
+    fetch('data/agents.json')
+      .then(res => res.json())
+      .then(agents => {
+        // Stats cards
+        const statsEl = document.getElementById('dashboard-stats');
+        if (statsEl) {
+          const active = agents.filter(a => a.status === 'active').length;
+          const idle = agents.filter(a => a.status === 'idle').length;
+          const deprecated = agents.filter(a => a.status === 'deprecated').length;
+          const avgUptime = (agents.filter(a => a.status !== 'deprecated').reduce((sum, a) => sum + parseFloat(a.stats.uptime), 0) / (active + idle)).toFixed(1);
+          statsEl.innerHTML = `
+            <div class="dash-stat"><span class="dash-stat-value text-primary">${active}</span><span class="dash-stat-label">Active</span></div>
+            <div class="dash-stat"><span class="dash-stat-value text-warning">${idle}</span><span class="dash-stat-label">Idle</span></div>
+            <div class="dash-stat"><span class="dash-stat-value text-accent">${deprecated}</span><span class="dash-stat-label">Deprecated</span></div>
+            <div class="dash-stat"><span class="dash-stat-value text-secondary">${avgUptime}%</span><span class="dash-stat-label">Avg Uptime</span></div>
+          `;
+        }
+
+        // Uptime grid
+        const uptimeEl = document.getElementById('uptime-grid');
+        if (uptimeEl) {
+          uptimeEl.innerHTML = agents.filter(a => a.status !== 'deprecated').map(agent => {
+            const uptime = parseFloat(agent.stats.uptime);
+            const barColor = uptime > 99 ? 'var(--color-primary)' : uptime > 95 ? 'var(--color-warning)' : 'var(--color-error)';
+            return `
+              <div class="uptime-row">
+                <span class="uptime-name">${agent.name}</span>
+                <div class="uptime-bar-bg"><div class="uptime-bar" style="width:${uptime}%;background:${barColor}"></div></div>
+                <span class="uptime-value">${agent.stats.uptime}</span>
+              </div>
+            `;
+          }).join('');
+        }
+
+        // Activity feed
+        const feedEl = document.getElementById('activity-feed');
+        if (feedEl) {
+          const events = [
+            { agent: 'Market Scanner', action: 'Signal detected', type: 'info', time: '00:12:34' },
+            { agent: 'Trading Agent', action: 'Trade executed — ETH/USDC', type: 'success', time: '00:11:58' },
+            { agent: 'Alert Bot', action: 'Price alert triggered', type: 'warning', time: '00:10:22' },
+            { agent: 'Privacy Guard', action: 'All channels encrypted', type: 'info', time: '00:09:45' },
+            { agent: 'Data Harvester', action: 'Block #19847523 indexed', type: 'info', time: '00:08:30' },
+            { agent: 'Content Agent', action: 'Weekly report published', type: 'success', time: '00:07:12' },
+            { agent: 'Market Scanner', action: 'Whale movement detected', type: 'warning', time: '00:05:44' },
+            { agent: 'Trading Agent', action: 'Position closed — +2.1%', type: 'success', time: '00:04:18' },
+            { agent: 'Alert Bot', action: 'Security scan completed', type: 'info', time: '00:03:01' },
+            { agent: 'Privacy Guard', action: 'Metadata scrub — 0 leaks', type: 'success', time: '00:01:55' }
+          ];
+          feedEl.innerHTML = events.map(e => {
+            const typeClass = e.type === 'success' ? 'text-primary' : e.type === 'warning' ? 'text-warning' : 'text-secondary';
+            return `<div class="feed-entry"><span class="feed-time">[${e.time}]</span> <span class="${typeClass}">${e.agent}</span> — ${e.action}</div>`;
+          }).join('');
+        }
+      })
+      .catch(() => {});
   </script>
 
 </body>

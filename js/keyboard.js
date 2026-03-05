@@ -17,7 +17,11 @@
     'p': 'products.html',
     'r': 'projects.html',
     'a': 'agents.html',
-    'b': 'blog.html'
+    'b': 'blog.html',
+    'd': 'docs.html',
+    'c': 'changelog.html',
+    'e': 'editor.html',
+    'n': 'analytics.html'
   };
 
   document.addEventListener('keydown', (e) => {
@@ -45,6 +49,7 @@
     if (shortcuts[key]) {
       e.preventDefault();
       shortcuts[key]();
+      document.dispatchEvent(new CustomEvent('shortcut-used'));
     }
   });
 
@@ -73,10 +78,15 @@
             <div class="shortcut-row"><kbd>g</kbd> <kbd>r</kbd> <span>Go to Projects</span></div>
             <div class="shortcut-row"><kbd>g</kbd> <kbd>a</kbd> <span>Go to Agents</span></div>
             <div class="shortcut-row"><kbd>g</kbd> <kbd>b</kbd> <span>Go to Blog</span></div>
+            <div class="shortcut-row"><kbd>g</kbd> <kbd>d</kbd> <span>Go to Docs</span></div>
+            <div class="shortcut-row"><kbd>g</kbd> <kbd>c</kbd> <span>Go to Changelog</span></div>
+            <div class="shortcut-row"><kbd>g</kbd> <kbd>e</kbd> <span>Go to Editor</span></div>
+            <div class="shortcut-row"><kbd>g</kbd> <kbd>n</kbd> <span>Go to Analytics</span></div>
           </div>
           <div class="shortcut-group">
             <h4>Actions</h4>
             <div class="shortcut-row"><kbd>/</kbd> <span>Focus Search</span></div>
+            <div class="shortcut-row"><kbd>Ctrl+K</kbd> <span>Command Palette</span></div>
             <div class="shortcut-row"><kbd>?</kbd> <span>Show this help</span></div>
             <div class="shortcut-row"><kbd>Esc</kbd> <span>Close overlays</span></div>
           </div>

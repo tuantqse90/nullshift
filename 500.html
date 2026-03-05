@@ -3,11 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>404 — NullShift</title>
+  <title>500 — NullShift</title>
   <meta name="theme-color" content="#0a0a0a">
-  <meta property="og:image" content="https://nullshift.sh/assets/images/og-image.svg">
   <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
-  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" as="style">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -23,44 +21,78 @@
       align-items: center;
       justify-content: center;
       padding: var(--space-xl);
+      position: relative;
+      overflow: hidden;
     }
 
     .error-content {
       text-align: center;
       max-width: 500px;
+      position: relative;
+      z-index: 2;
     }
 
     .error-code {
       font-family: var(--font-mono);
       font-size: 8rem;
       font-weight: 700;
-      color: var(--color-primary);
+      color: var(--color-accent);
       line-height: 1;
-      text-shadow: var(--glow-primary);
+      text-shadow: var(--glow-accent);
       margin-bottom: var(--space-lg);
+      animation: error-glitch 2s ease-in-out infinite;
     }
 
     @media (min-width: 768px) {
-      .error-code {
-        font-size: 12rem;
-      }
+      .error-code { font-size: 12rem; }
     }
 
-    .error-terminal {
-      margin: var(--space-2xl) 0;
+    @keyframes error-glitch {
+      0%, 90%, 100% { opacity: 1; text-shadow: var(--glow-accent); }
+      91% { opacity: 0.8; text-shadow: 4px 0 var(--color-primary), -4px 0 var(--color-secondary); transform: translateX(-2px); }
+      93% { opacity: 1; text-shadow: -2px 0 var(--color-secondary), 2px 0 var(--color-primary); transform: translateX(2px); }
+      95% { opacity: 0.9; text-shadow: 2px 0 var(--color-accent); transform: translateX(0); }
     }
 
-    .error-actions {
-      display: flex;
-      gap: var(--space-md);
-      justify-content: center;
-      flex-wrap: wrap;
+    .error-terminal { margin: var(--space-2xl) 0; }
+    .error-actions { display: flex; gap: var(--space-md); justify-content: center; flex-wrap: wrap; }
+
+    .error-scanlines {
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(255, 0, 128, 0.03) 2px,
+        rgba(255, 0, 128, 0.03) 4px
+      );
+      pointer-events: none;
+      z-index: 1;
     }
+
+    .crash-log {
+      text-align: left;
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-text-dim);
+      margin-top: var(--space-xl);
+      padding: var(--space-md);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      background: var(--bg-card);
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .crash-log .log-error { color: var(--color-accent); }
+    .crash-log .log-warn { color: var(--color-warning); }
+    .crash-log .log-dim { color: var(--color-text-dim); }
   </style>
 </head>
 <body>
 
-  <!-- NAVBAR -->
   <nav class="navbar" role="navigation" aria-label="Main navigation">
     <div class="nav-inner">
       <a href="index.html" class="nav-logo" aria-label="NullShift home">null<span>shift.sh</span></a>
@@ -93,11 +125,12 @@
 
   <main>
     <section class="error-page">
+      <div class="error-scanlines"></div>
       <div class="error-content">
-        <div class="error-code glitch-text">404</div>
-        <h1 style="font-size: var(--text-2xl); margin-bottom: var(--space-sm);">Null Reference</h1>
+        <div class="error-code">500</div>
+        <h1 style="font-size: var(--text-2xl); margin-bottom: var(--space-sm);">Internal Server Error</h1>
         <p class="text-dim" style="font-family: var(--font-mono); font-size: var(--text-sm);">
-          The requested resource has been dereferenced or never existed.
+          Something broke on our end. The server encountered a fatal exception.
         </p>
 
         <div class="error-terminal">
@@ -112,16 +145,22 @@
                 <span class="terminal-prompt">
                   <span class="user">nullshift</span><span class="separator">@</span><span class="host">labs</span><span class="dollar">$</span>
                 </span>
-                <span class="cmd"> find / -name "requested-page"</span>
+                <span class="cmd"> systemctl status server</span>
               </div>
               <div class="terminal-line">
-                <span class="output" style="color: var(--color-error);">Error: No such file or directory</span>
+                <span class="output" style="color: var(--color-accent);">FATAL: Unhandled exception in process</span>
+              </div>
+              <div class="terminal-line">
+                <span class="output" style="color: var(--color-warning);">Stack trace dumped to /var/log/nullshift/crash.log</span>
               </div>
               <div class="terminal-line">
                 <span class="terminal-prompt">
                   <span class="user">nullshift</span><span class="separator">@</span><span class="host">labs</span><span class="dollar">$</span>
                 </span>
-                <span class="cmd"> cd /home</span>
+                <span class="cmd"> systemctl restart server</span>
+              </div>
+              <div class="terminal-line">
+                <span class="output" style="color: var(--color-primary);">[OK] Server restarting...</span>
               </div>
             </div>
           </div>
@@ -129,7 +168,17 @@
 
         <div class="error-actions">
           <a href="index.html" class="btn btn-primary">> Go Home</a>
-          <a href="products.html" class="btn btn-ghost">> View Products</a>
+          <button class="btn btn-ghost" onclick="window.location.reload()">> Retry</button>
+        </div>
+
+        <div class="crash-log">
+          <div class="log-error">ERR  process.uncaughtException</div>
+          <div class="log-warn">WARN signal SIGSEGV received</div>
+          <div class="log-dim">INFO core dump written</div>
+          <div class="log-dim">INFO attempting graceful restart</div>
+          <div class="log-dim">---</div>
+          <div class="log-dim">If this persists, report at</div>
+          <div><a href="https://github.com/nullshift" class="text-primary" target="_blank">github.com/nullshift</a></div>
         </div>
       </div>
     </section>
@@ -137,10 +186,5 @@
 
   <script src="js/effects.js"></script>
   <script src="js/main.js"></script>
-  <script>
-    const glitchEl = document.querySelector('.glitch-text');
-    if (glitchEl) new GlitchText(glitchEl);
-  </script>
-
 </body>
 </html>

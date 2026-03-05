@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-const pages = ['services', 'products', 'agents', 'blog', 'projects', 'changelog', 'docs'];
+const pages = ['services', 'products', 'agents', 'blog', 'projects', 'changelog', 'docs', 'editor', 'analytics'];
 pages.forEach(page => {
   app.get(`/${page}`, (req, res) => {
     res.sendFile(path.join(__dirname, `${page}.html`));
@@ -54,7 +54,9 @@ app.get('/sitemap.xml', (req, res) => {
     { loc: '/agents', priority: '0.7' },
     { loc: '/blog', priority: '0.7' },
     { loc: '/docs', priority: '0.6' },
-    { loc: '/changelog', priority: '0.5' }
+    { loc: '/changelog', priority: '0.5' },
+    { loc: '/editor', priority: '0.3' },
+    { loc: '/analytics', priority: '0.3' }
   ];
 
   let urls = staticPages.map(p =>
@@ -79,6 +81,11 @@ ${urls.join('\n')}
 
 app.use((req, res) => {
   res.status(404).sendFile(path.join(__dirname, '404.html'));
+});
+
+app.use((err, req, res, next) => {
+  console.error('[nullshift] server error:', err.message);
+  res.status(500).sendFile(path.join(__dirname, '500.html'));
 });
 
 app.listen(PORT, () => {

@@ -27,6 +27,7 @@
   <link rel="stylesheet" href="css/projects.css">
 </head>
 <body>
+  <script>(function(){const k='ns_analytics',d=JSON.parse(localStorage.getItem(k)||'{"views":[],"sessions":0}');d.sessions++;d.views.push({page:window.location.pathname,time:Date.now(),ref:document.referrer||'direct'});if(d.views.length>500)d.views=d.views.slice(-500);localStorage.setItem(k,JSON.stringify(d))})()</script>
   <a href="#main-content" class="skip-link">Skip to content</a>
 
   <!-- NAVBAR -->
@@ -65,7 +66,8 @@
 
   <main id="main-content">
     <nav class="breadcrumb" aria-label="Breadcrumb"><a href="index.html">home</a> <span>/</span> <span>projects</span></nav>
-    <section class="projects-hero">
+    <section class="projects-hero" style="position: relative;">
+      <canvas class="page-header-canvas" data-animation="blockchain" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;" aria-hidden="true"></canvas>
       <div class="container">
         <h1 class="scroll-fade">/<span class="text-primary">projects</span></h1>
         <p class="section-subtitle scroll-fade">// open-source research & builds</p>
@@ -112,6 +114,11 @@
   <script src="js/search.js"></script>
   <script src="js/cursor-trail.js"></script>
   <script src="js/keyboard.js"></script>
+  <script src="js/page-headers.js"></script>
+  <script src="js/command-palette.js"></script>
+  <script src="js/lightbox.js"></script>
+  <script>Lightbox.bindToCards();</script>
+  <script src="js/achievements.js"></script>
   <script src="js/main.js"></script>
   <script>new CursorTrail();</script>
   <script>

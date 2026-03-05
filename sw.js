@@ -1,7 +1,7 @@
 /* ==============================
    SERVICE WORKER — NULLSHIFT
    ============================== */
-const CACHE_NAME = 'nullshift-v3';
+const CACHE_NAME = 'nullshift-v4';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
@@ -12,7 +12,10 @@ const STATIC_ASSETS = [
   '/blog.html',
   '/changelog.html',
   '/docs.html',
+  '/editor.html',
+  '/analytics.html',
   '/404.html',
+  '/500.html',
   '/css/reset.css',
   '/css/variables.css',
   '/css/global.css',
@@ -36,6 +39,10 @@ const STATIC_ASSETS = [
   '/js/terminal.js',
   '/js/toast.js',
   '/js/search.js',
+  '/js/command-palette.js',
+  '/js/achievements.js',
+  '/js/page-headers.js',
+  '/js/lightbox.js',
   '/assets/icons/favicon.svg',
   '/manifest.json'
 ];

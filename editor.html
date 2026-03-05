@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog Editor — NullShift</title>
+  <meta name="description" content="NullShift blog post editor — create and preview markdown posts for the NullShift blog.">
+  <meta property="og:title" content="Blog Editor — NullShift">
+  <meta property="og:description" content="Terminal-style markdown editor for NullShift blog posts.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://nullshift.sh/assets/images/og-image.svg">
+  <meta name="twitter:card" content="summary">
+  <meta name="theme-color" content="#0a0a0a">
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.json">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" as="style">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+
+  <style>
+    /* Editor Page Styles */
+    .editor-hero {
+      padding: var(--space-3xl) 0 var(--space-xl);
+    }
+
+    .editor-hero h1 {
+      font-family: var(--font-mono);
+      font-size: var(--text-3xl);
+      font-weight: 700;
+      margin-bottom: var(--space-sm);
+    }
+
+    .editor-toolbar {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+      margin-bottom: var(--space-lg);
+      padding: var(--space-lg);
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+    }
+
+    .editor-field {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+      flex: 1;
+      min-width: 180px;
+    }
+
+    .editor-field label {
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      color: var(--color-text-dim);
+      text-transform: lowercase;
+    }
+
+    .editor-field input,
+    .editor-field select {
+      background: var(--bg-input);
+      border: 1px solid var(--border-color);
+      color: var(--color-text);
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      padding: var(--space-sm);
+      border-radius: var(--radius-sm);
+      outline: none;
+      transition: border-color var(--transition-fast);
+    }
+
+    .editor-field input:focus,
+    .editor-field select:focus {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 8px rgba(0, 255, 65, 0.15);
+    }
+
+    .editor-field select option {
+      background: var(--bg-input);
+      color: var(--color-text);
+    }
+
+    .editor-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-lg);
+      margin-bottom: var(--space-xl);
+    }
+
+    @media (max-width: 768px) {
+      .editor-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .editor-pane-label {
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      color: var(--color-text-dim);
+      margin-bottom: var(--space-sm);
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .editor-pane-label .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .editor-pane-label .dot-green {
+      background: var(--color-primary);
+    }
+
+    .editor-pane-label .dot-cyan {
+      background: var(--color-secondary);
+    }
+
+    .editor-textarea {
+      width: 100%;
+      min-height: 400px;
+      background: var(--bg-input);
+      color: var(--color-text);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      padding: var(--space-md);
+      resize: vertical;
+      outline: none;
+      line-height: 1.6;
+      transition: border-color var(--transition-fast);
+      tab-size: 2;
+    }
+
+    .editor-textarea:focus {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 12px rgba(0, 255, 65, 0.1);
+    }
+
+    .editor-textarea::placeholder {
+      color: var(--color-text-dim);
+      opacity: 0.6;
+    }
+
+    .editor-preview {
+      width: 100%;
+      min-height: 400px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: var(--space-md);
+      overflow-y: auto;
+      font-family: var(--font-sans);
+      font-size: var(--text-sm);
+      color: var(--color-text);
+      line-height: 1.7;
+    }
+
+    .editor-preview .preview-empty {
+      color: var(--color-text-dim);
+      font-family: var(--font-mono);
+      font-style: italic;
+    }
+
+    /* Markdown preview styles */
+    .editor-preview h2 {
+      font-family: var(--font-mono);
+      font-size: var(--text-xl);
+      color: var(--color-primary);
+      margin: var(--space-lg) 0 var(--space-sm);
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: var(--space-xs);
+    }
+
+    .editor-preview h3 {
+      font-family: var(--font-mono);
+      font-size: var(--text-lg);
+      color: var(--color-secondary);
+      margin: var(--space-md) 0 var(--space-xs);
+    }
+
+    .editor-preview h4 {
+      font-family: var(--font-mono);
+      font-size: var(--text-base);
+      color: var(--color-warning);
+      margin: var(--space-md) 0 var(--space-xs);
+    }
+
+    .editor-preview p {
+      margin: var(--space-sm) 0;
+    }
+
+    .editor-preview strong {
+      color: var(--color-text-bright);
+      font-weight: 700;
+    }
+
+    .editor-preview em {
+      color: var(--color-text-dim);
+      font-style: italic;
+    }
+
+    .editor-preview code {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      background: var(--bg-input);
+      color: var(--color-primary);
+      padding: 2px 6px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-color);
+    }
+
+    .editor-preview pre {
+      background: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: var(--space-md);
+      margin: var(--space-md) 0;
+      overflow-x: auto;
+    }
+
+    .editor-preview pre code {
+      background: none;
+      border: none;
+      padding: 0;
+      font-size: var(--text-sm);
+      color: var(--color-text);
+      line-height: 1.6;
+    }
+
+    .editor-preview ul {
+      margin: var(--space-sm) 0;
+      padding-left: var(--space-lg);
+    }
+
+    .editor-preview li {
+      margin: var(--space-xs) 0;
+      position: relative;
+    }
+
+    .editor-preview li::marker {
+      color: var(--color-primary);
+    }
+
+    .editor-preview blockquote {
+      border-left: 3px solid var(--color-primary);
+      margin: var(--space-md) 0;
+      padding: var(--space-sm) var(--space-md);
+      background: rgba(0, 255, 65, 0.05);
+      color: var(--color-text-dim);
+      font-style: italic;
+    }
+
+    .editor-preview a {
+      color: var(--color-secondary);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .editor-preview a:hover {
+      color: var(--color-primary);
+    }
+
+    /* Action buttons */
+    .editor-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+      margin-bottom: var(--space-xl);
+    }
+
+    .editor-actions .btn {
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      cursor: pointer;
+    }
+
+    .btn-save {
+      background: transparent;
+      color: var(--color-primary);
+      border: 1px solid var(--color-primary);
+      padding: var(--space-sm) var(--space-lg);
+      border-radius: var(--radius-sm);
+      transition: all var(--transition-fast);
+    }
+
+    .btn-save:hover {
+      background: rgba(0, 255, 65, 0.1);
+      box-shadow: var(--glow-primary);
+    }
+
+    .btn-export {
+      background: transparent;
+      color: var(--color-secondary);
+      border: 1px solid var(--color-secondary);
+      padding: var(--space-sm) var(--space-lg);
+      border-radius: var(--radius-sm);
+      transition: all var(--transition-fast);
+    }
+
+    .btn-export:hover {
+      background: rgba(0, 255, 255, 0.1);
+      box-shadow: var(--glow-secondary);
+    }
+
+    .btn-copy {
+      background: transparent;
+      color: var(--color-warning);
+      border: 1px solid var(--color-warning);
+      padding: var(--space-sm) var(--space-lg);
+      border-radius: var(--radius-sm);
+      transition: all var(--transition-fast);
+    }
+
+    .btn-copy:hover {
+      background: rgba(255, 170, 0, 0.1);
+      box-shadow: var(--glow-warning);
+    }
+
+    .btn-clear {
+      background: transparent;
+      color: var(--color-error);
+      border: 1px solid var(--color-error);
+      padding: var(--space-sm) var(--space-lg);
+      border-radius: var(--radius-sm);
+      transition: all var(--transition-fast);
+    }
+
+    .btn-clear:hover {
+      background: rgba(255, 51, 51, 0.1);
+    }
+
+    .btn-load {
+      background: transparent;
+      color: var(--pillar-zk);
+      border: 1px solid var(--pillar-zk);
+      padding: var(--space-sm) var(--space-lg);
+      border-radius: var(--radius-sm);
+      transition: all var(--transition-fast);
+    }
+
+    .btn-load:hover {
+      background: rgba(168, 85, 247, 0.1);
+      box-shadow: var(--glow-zk);
+    }
+
+    /* JSON output panel */
+    .json-output {
+      display: none;
+      margin-bottom: var(--space-xl);
+    }
+
+    .json-output.visible {
+      display: block;
+    }
+
+    .json-output-label {
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      color: var(--color-text-dim);
+      margin-bottom: var(--space-sm);
+    }
+
+    .json-output pre {
+      background: var(--bg-primary);
+      border: 1px solid var(--color-secondary);
+      border-radius: var(--radius-md);
+      padding: var(--space-md);
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      color: var(--color-secondary);
+      line-height: 1.6;
+    }
+
+    /* Draft status indicator */
+    .draft-status {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-text-dim);
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+
+    .draft-status .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--color-text-dim);
+    }
+
+    .draft-status.saved .status-dot {
+      background: var(--color-primary);
+    }
+
+    .draft-status.unsaved .status-dot {
+      background: var(--color-warning);
+    }
+
+    /* Tags display */
+    .tags-display {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+      margin-top: var(--space-xs);
+    }
+
+    .tag-chip {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-primary);
+      background: rgba(0, 255, 65, 0.1);
+      border: 1px solid rgba(0, 255, 65, 0.3);
+      padding: 2px 8px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .tag-chip .tag-remove {
+      cursor: pointer;
+      color: var(--color-text-dim);
+      font-size: var(--text-xs);
+      line-height: 1;
+    }
+
+    .tag-chip .tag-remove:hover {
+      color: var(--color-error);
+    }
+
+    /* Word count */
+    .editor-stats {
+      display: flex;
+      gap: var(--space-lg);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-text-dim);
+      margin-top: var(--space-sm);
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to content</a>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="NullShift home">null<span>shift.sh</span></a>
+      <div class="nav-links">
+        <a href="services.html">services</a>
+        <a href="products.html">products</a>
+        <a href="projects.html">projects</a>
+        <a href="agents.html">agents</a>
+        <a href="blog.html">blog</a>
+        <a href="docs.html">docs</a>
+        <a href="changelog.html">changelog</a>
+        <button class="nav-search-btn" aria-label="Search" onclick="GlobalSearch.open()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </button>
+      </div>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MOBILE NAV -->
+  <div class="mobile-nav" role="navigation" aria-label="Mobile navigation">
+    <a href="services.html">services</a>
+    <a href="products.html">products</a>
+    <a href="projects.html">projects</a>
+    <a href="agents.html">agents</a>
+    <a href="blog.html">blog</a>
+    <a href="docs.html">docs</a>
+    <a href="changelog.html">changelog</a>
+  </div>
+
+  <main id="main-content">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="index.html">home</a> <span>/</span> <a href="blog.html">blog</a> <span>/</span> <span>editor</span></nav>
+
+    <section class="editor-hero">
+      <div class="container">
+        <h1 class="scroll-fade">/<span class="text-primary">editor</span></h1>
+        <p class="section-subtitle scroll-fade">// compose blog posts in markdown</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <!-- Toolbar: metadata fields -->
+        <div class="editor-toolbar scroll-fade">
+          <div class="editor-field" style="flex: 2;">
+            <label for="post-title">title</label>
+            <input type="text" id="post-title" placeholder="Enter post title..." autocomplete="off">
+          </div>
+          <div class="editor-field">
+            <label for="post-id">id (slug)</label>
+            <input type="text" id="post-id" placeholder="auto-generated" readonly>
+          </div>
+          <div class="editor-field">
+            <label for="post-pillar">pillar</label>
+            <select id="post-pillar">
+              <option value="privacy">privacy</option>
+              <option value="ai">ai</option>
+              <option value="blockchain">blockchain</option>
+              <option value="zk">zk</option>
+            </select>
+          </div>
+          <div class="editor-field">
+            <label for="post-tags">tags (enter to add)</label>
+            <input type="text" id="post-tags" placeholder="add tag..." autocomplete="off">
+            <div class="tags-display" id="tags-display"></div>
+          </div>
+          <div class="draft-status" id="draft-status">
+            <span class="status-dot"></span>
+            <span class="status-text">no draft</span>
+          </div>
+        </div>
+
+        <!-- Action buttons -->
+        <div class="editor-actions scroll-fade">
+          <button class="btn btn-save" onclick="saveDraft()">> Save Draft</button>
+          <button class="btn btn-load" onclick="loadDraft()">> Load Draft</button>
+          <button class="btn btn-export" onclick="exportJSON()">> Export JSON</button>
+          <button class="btn btn-copy" onclick="copyJSON()">> Copy JSON</button>
+          <button class="btn btn-clear" onclick="clearEditor()">> Clear</button>
+        </div>
+
+        <!-- JSON output panel -->
+        <div class="json-output" id="json-output">
+          <div class="json-output-label">// exported json</div>
+          <pre id="json-output-code"></pre>
+        </div>
+
+        <!-- Split editor / preview -->
+        <div class="editor-layout">
+          <div class="editor-input-pane">
+            <div class="editor-pane-label">
+              <span class="dot dot-green"></span>
+              markdown input
+            </div>
+            <textarea
+              class="editor-textarea"
+              id="editor-textarea"
+              placeholder="## Start writing markdown...
+
+**Bold text**, *italic text*, `inline code`
+
+- List item one
+- List item two
+
+> Blockquote text
+
+```
+code block
+```
+
+[Link text](https://example.com)"
+              spellcheck="true"
+            ></textarea>
+            <div class="editor-stats" id="editor-stats">
+              <span id="word-count">0 words</span>
+              <span id="char-count">0 chars</span>
+              <span id="read-time">0 min read</span>
+            </div>
+          </div>
+          <div class="editor-preview-pane">
+            <div class="editor-pane-label">
+              <span class="dot dot-cyan"></span>
+              live preview
+            </div>
+            <div class="editor-preview" id="editor-preview">
+              <p class="preview-empty">// preview will appear here as you type...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <span class="name">nullshift.sh</span> — privacy-first builder labs
+        </div>
+        <div class="footer-links">
+          <a href="https://github.com/nullshift" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          </a>
+          <a href="https://x.com/nullshift" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a href="https://t.me/nullshift" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0h-.056zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+          </a>
+        </div>
+        <div class="footer-copy">&copy; 2026 NullShift Labs</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scroll to top -->
+  <button class="scroll-top" aria-label="Scroll to top">&uarr;</button>
+
+  <script src="js/toast.js"></script>
+  <script src="js/search.js"></script>
+  <script src="js/cursor-trail.js"></script>
+  <script src="js/keyboard.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    // Initialize CursorTrail
+    new CursorTrail();
+
+    // ── State ──
+    const DRAFT_KEY = 'nullshift-editor-draft';
+    let tags = [];
+
+    // ── DOM refs ──
+    const titleInput = document.getElementById('post-title');
+    const idInput = document.getElementById('post-id');
+    const pillarSelect = document.getElementById('post-pillar');
+    const tagsInput = document.getElementById('post-tags');
+    const tagsDisplay = document.getElementById('tags-display');
+    const textarea = document.getElementById('editor-textarea');
+    const preview = document.getElementById('editor-preview');
+    const jsonOutput = document.getElementById('json-output');
+    const jsonOutputCode = document.getElementById('json-output-code');
+    const draftStatus = document.getElementById('draft-status');
+    const wordCountEl = document.getElementById('word-count');
+    const charCountEl = document.getElementById('char-count');
+    const readTimeEl = document.getElementById('read-time');
+
+    // ── Slug generation ──
+    function generateSlug(title) {
+      return title
+        .toLowerCase()
+        .trim()
+        .replace(/[^a-z0-9\s-]/g, '')
+        .replace(/\s+/g, '-')
+        .replace(/-+/g, '-')
+        .replace(/^-|-$/g, '');
+    }
+
+    titleInput.addEventListener('input', () => {
+      idInput.value = generateSlug(titleInput.value);
+    });
+
+    // ── Tags ──
+    tagsInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        const tag = tagsInput.value.trim().toLowerCase().replace(/[^a-z0-9-]/g, '');
+        if (tag && !tags.includes(tag)) {
+          tags.push(tag);
+          renderTags();
+        }
+        tagsInput.value = '';
+      }
+    });
+
+    function removeTag(index) {
+      tags.splice(index, 1);
+      renderTags();
+    }
+
+    function renderTags() {
+      tagsDisplay.innerHTML = tags.map((tag, i) =>
+        '<span class="tag-chip">' + escapeHTML(tag) +
+        ' <span class="tag-remove" onclick="removeTag(' + i + ')">&times;</span></span>'
+      ).join('');
+    }
+
+    // ── Markdown parser ──
+    function parseMarkdown(md) {
+      if (!md.trim()) {
+        return '<p class="preview-empty">// preview will appear here as you type...</p>';
+      }
+
+      let html = md;
+
+      // Escape HTML entities first to prevent injection
+      html = escapeHTML(html);
+
+      // Code blocks (``` ... ```) — must be processed before other inline rules
+      html = html.replace(/```(\w*)\n([\s\S]*?)```/g, (match, lang, code) => {
+        return '<pre><code>' + code.trimEnd() + '</code></pre>';
+      });
+
+      // Also handle code blocks without language specifier on same line
+      html = html.replace(/```([\s\S]*?)```/g, (match, code) => {
+        return '<pre><code>' + code.trim() + '</code></pre>';
+      });
+
+      // Inline code (must be before bold/italic to prevent conflicts)
+      html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
+
+      // Headings
+      html = html.replace(/^#### (.+)$/gm, '<h4>$1</h4>');
+      html = html.replace(/^### (.+)$/gm, '<h3>$1</h3>');
+      html = html.replace(/^## (.+)$/gm, '<h2>$1</h2>');
+
+      // Blockquotes
+      html = html.replace(/^&gt; (.+)$/gm, '<blockquote>$1</blockquote>');
+
+      // Bold
+      html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+
+      // Italic
+      html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
+
+      // Links
+      html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+
+      // Unordered list items
+      html = html.replace(/^- (.+)$/gm, '<li>$1</li>');
+      // Wrap consecutive <li> in <ul>
+      html = html.replace(/((?:<li>.*<\/li>\n?)+)/g, '<ul>$1</ul>');
+
+      // Paragraphs: wrap remaining lines that are not already wrapped in block elements
+      const lines = html.split('\n');
+      const result = [];
+      let inPre = false;
+
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+
+        if (line.includes('<pre>')) inPre = true;
+        if (line.includes('</pre>')) {
+          inPre = false;
+          result.push(line);
+          continue;
+        }
+
+        if (inPre) {
+          result.push(line);
+          continue;
+        }
+
+        const trimmed = line.trim();
+        if (!trimmed) {
+          result.push('');
+          continue;
+        }
+
+        // Skip lines that are already block-level elements
+        if (
+          trimmed.startsWith('<h') ||
+          trimmed.startsWith('<ul') ||
+          trimmed.startsWith('<li') ||
+          trimmed.startsWith('</ul') ||
+          trimmed.startsWith('<blockquote') ||
+          trimmed.startsWith('<pre')
+        ) {
+          result.push(line);
+          continue;
+        }
+
+        result.push('<p>' + trimmed + '</p>');
+      }
+
+      return result.join('\n');
+    }
+
+    function escapeHTML(str) {
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    // ── Live preview & stats ──
+    function updatePreview() {
+      const content = textarea.value;
+      preview.innerHTML = parseMarkdown(content);
+      updateStats(content);
+    }
+
+    function updateStats(content) {
+      const text = content.trim();
+      const words = text ? text.split(/\s+/).length : 0;
+      const chars = text.length;
+      const minutes = Math.max(1, Math.ceil(words / 200));
+
+      wordCountEl.textContent = words + ' words';
+      charCountEl.textContent = chars + ' chars';
+      readTimeEl.textContent = words === 0 ? '0 min read' : minutes + ' min read';
+    }
+
+    textarea.addEventListener('input', updatePreview);
+
+    // ── Today's date ──
+    function getTodayDate() {
+      const now = new Date();
+      const y = now.getFullYear();
+      const m = String(now.getMonth() + 1).padStart(2, '0');
+      const d = String(now.getDate()).padStart(2, '0');
+      return y + '-' + m + '-' + d;
+    }
+
+    // ── Build JSON object ──
+    function buildPostJSON() {
+      const title = titleInput.value.trim();
+      const id = idInput.value.trim() || generateSlug(title);
+      const pillar = pillarSelect.value;
+      const content = textarea.value.trim();
+      const summary = content.replace(/[#*`>\[\]()-]/g, '').trim().substring(0, 150);
+
+      return {
+        id: id,
+        title: title || 'Untitled Post',
+        date: getTodayDate(),
+        pillar: pillar,
+        tags: tags.slice(),
+        summary: summary,
+        content: content
+      };
+    }
+
+    // ── Save draft ──
+    function saveDraft() {
+      const draft = {
+        title: titleInput.value,
+        pillar: pillarSelect.value,
+        tags: tags.slice(),
+        content: textarea.value
+      };
+      try {
+        localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
+        setDraftStatus('saved');
+        if (typeof Toast !== 'undefined') {
+          Toast.success('Draft saved to localStorage');
+        }
+      } catch (err) {
+        if (typeof Toast !== 'undefined') {
+          Toast.error('Failed to save draft');
+        }
+      }
+    }
+
+    // ── Load draft ──
+    function loadDraft() {
+      try {
+        const raw = localStorage.getItem(DRAFT_KEY);
+        if (!raw) {
+          if (typeof Toast !== 'undefined') {
+            Toast.warning('No draft found in localStorage');
+          }
+          return;
+        }
+        const draft = JSON.parse(raw);
+        titleInput.value = draft.title || '';
+        idInput.value = generateSlug(draft.title || '');
+        pillarSelect.value = draft.pillar || 'privacy';
+        tags = draft.tags || [];
+        renderTags();
+        textarea.value = draft.content || '';
+        updatePreview();
+        setDraftStatus('saved');
+        if (typeof Toast !== 'undefined') {
+          Toast.success('Draft loaded from localStorage');
+        }
+      } catch (err) {
+        if (typeof Toast !== 'undefined') {
+          Toast.error('Failed to load draft');
+        }
+      }
+    }
+
+    // ── Export JSON ──
+    function exportJSON() {
+      const post = buildPostJSON();
+      if (!post.title || post.title === 'Untitled Post') {
+        if (typeof Toast !== 'undefined') {
+          Toast.warning('Enter a title before exporting');
+        }
+        return;
+      }
+      const json = JSON.stringify(post, null, 2);
+      jsonOutputCode.textContent = json;
+      jsonOutput.classList.add('visible');
+      if (typeof Toast !== 'undefined') {
+        Toast.success('JSON exported below');
+      }
+    }
+
+    // ── Copy JSON to clipboard ──
+    function copyJSON() {
+      const post = buildPostJSON();
+      if (!post.title || post.title === 'Untitled Post') {
+        if (typeof Toast !== 'undefined') {
+          Toast.warning('Enter a title before copying');
+        }
+        return;
+      }
+      const json = JSON.stringify(post, null, 2);
+      navigator.clipboard.writeText(json).then(() => {
+        if (typeof Toast !== 'undefined') {
+          Toast.success('JSON copied to clipboard');
+        }
+      }).catch(() => {
+        // Fallback for older browsers
+        const ta = document.createElement('textarea');
+        ta.value = json;
+        ta.style.position = 'fixed';
+        ta.style.left = '-9999px';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        if (typeof Toast !== 'undefined') {
+          Toast.success('JSON copied to clipboard');
+        }
+      });
+    }
+
+    // ── Clear editor ──
+    function clearEditor() {
+      titleInput.value = '';
+      idInput.value = '';
+      pillarSelect.value = 'privacy';
+      tags = [];
+      renderTags();
+      textarea.value = '';
+      updatePreview();
+      jsonOutput.classList.remove('visible');
+      setDraftStatus('none');
+      if (typeof Toast !== 'undefined') {
+        Toast.success('Editor cleared');
+      }
+    }
+
+    // ── Draft status indicator ──
+    function setDraftStatus(state) {
+      const statusText = draftStatus.querySelector('.status-text');
+      draftStatus.classList.remove('saved', 'unsaved');
+
+      if (state === 'saved') {
+        draftStatus.classList.add('saved');
+        statusText.textContent = 'draft saved';
+      } else if (state === 'unsaved') {
+        draftStatus.classList.add('unsaved');
+        statusText.textContent = 'unsaved changes';
+      } else {
+        statusText.textContent = 'no draft';
+      }
+    }
+
+    // Mark unsaved on any input change
+    titleInput.addEventListener('input', () => { setDraftStatus('unsaved'); });
+    pillarSelect.addEventListener('change', () => { setDraftStatus('unsaved'); });
+    textarea.addEventListener('input', () => { setDraftStatus('unsaved'); });
+
+    // ── Auto-load draft on page load ──
+    (function init() {
+      try {
+        const raw = localStorage.getItem(DRAFT_KEY);
+        if (raw) {
+          const draft = JSON.parse(raw);
+          titleInput.value = draft.title || '';
+          idInput.value = generateSlug(draft.title || '');
+          pillarSelect.value = draft.pillar || 'privacy';
+          tags = draft.tags || [];
+          renderTags();
+          textarea.value = draft.content || '';
+          updatePreview();
+          setDraftStatus('saved');
+        }
+      } catch (err) {
+        // Silently ignore corrupted drafts
+      }
+    })();
+  </script>
+
+</body>
+</html>
