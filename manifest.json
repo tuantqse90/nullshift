@@ -1,0 +1,17 @@
+{
+  "name": "NullShift — Privacy-First Builder Labs",
+  "short_name": "NullShift",
+  "description": "Building tools for the encrypted future. Privacy, AI, Blockchain, ZK Proofs.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
+  "icons": [
+    {
+      "src": "assets/icons/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

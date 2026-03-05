@@ -16,6 +16,7 @@
   <meta name="theme-color" content="#0a0a0a">
   <link rel="canonical" href="https://nullshift.sh/">
   <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.json">
   <link rel="alternate" type="application/rss+xml" title="NullShift Blog" href="feed.xml">
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" as="style">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,6 +30,7 @@
   <link rel="stylesheet" href="css/home.css">
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to content</a>
 
   <!-- NAVBAR -->
   <nav class="navbar" role="navigation" aria-label="Main navigation">
@@ -58,7 +60,7 @@
     <a href="blog.html">blog</a>
   </div>
 
-  <main>
+  <main id="main-content">
     <!-- HERO -->
     <section class="hero">
       <canvas class="hero-canvas" id="matrix-canvas" aria-hidden="true"></canvas>
@@ -146,7 +148,7 @@
             <div class="stat-label">Active Agents</div>
           </div>
           <div class="stat-card">
-            <div class="stat-number" data-count="7">0</div>
+            <div class="stat-number" data-count="11">0</div>
             <div class="stat-label">Blog Posts</div>
           </div>
         </div>
@@ -202,7 +204,71 @@
         </div>
       </div>
     </section>
+
+    <!-- CONTACT -->
+    <section class="section contact-section" id="contact">
+      <div class="container">
+        <div class="section-header scroll-fade">
+          <h2>/<span class="text-primary">contact</span></h2>
+          <p class="section-subtitle">// open a channel</p>
+        </div>
+        <div class="contact-grid scroll-fade">
+          <div class="contact-terminal">
+            <div class="terminal-window">
+              <div class="terminal-bar">
+                <span class="terminal-dot red"></span>
+                <span class="terminal-dot yellow"></span>
+                <span class="terminal-dot green"></span>
+              </div>
+              <div class="terminal-body">
+                <div class="terminal-line">
+                  <span class="terminal-prompt">
+                    <span class="user">nullshift</span><span class="separator">@</span><span class="host">labs</span><span class="dollar">$</span>
+                  </span>
+                  <span class="cmd"> cat contact.txt</span>
+                </div>
+                <div class="terminal-line"><br></div>
+                <div class="terminal-line"><span class="output">> Got a project idea? Want to collaborate?</span></div>
+                <div class="terminal-line"><span class="output">> Reach out through any channel below.</span></div>
+                <div class="terminal-line"><br></div>
+                <div class="terminal-line"><span class="text-primary">EMAIL</span>    <a href="mailto:hello@nullshift.sh" class="contact-link">hello@nullshift.sh</a></div>
+                <div class="terminal-line"><span class="text-secondary">GITHUB</span>   <a href="https://github.com/nullshift" target="_blank" rel="noopener noreferrer" class="contact-link">github.com/nullshift</a></div>
+                <div class="terminal-line"><span class="text-accent">TELEGRAM</span> <a href="https://t.me/nullshift" target="_blank" rel="noopener noreferrer" class="contact-link">t.me/nullshift</a></div>
+                <div class="terminal-line"><span class="text-warning">X</span>        <a href="https://x.com/nullshift" target="_blank" rel="noopener noreferrer" class="contact-link">x.com/nullshift</a></div>
+                <div class="terminal-line"><br></div>
+                <div class="terminal-line">
+                  <span class="terminal-prompt">
+                    <span class="user">nullshift</span><span class="separator">@</span><span class="host">labs</span><span class="dollar">$</span>
+                  </span>
+                  <span class="cursor-blink">_</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="contact-info">
+            <div class="contact-card scroll-fade">
+              <h3>Collaborate</h3>
+              <p>We're always looking for builders who share our vision of a privacy-first future. Open source contributors, researchers, and cryptographers welcome.</p>
+            </div>
+            <div class="contact-card scroll-fade">
+              <h3>Build With Us</h3>
+              <p>Need privacy engineering, ZK integration, or on-device AI? We help teams ship products that respect user sovereignty.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <!-- INTERACTIVE TERMINAL (Easter Egg) -->
+  <div class="interactive-terminal" id="interactive-terminal">
+  </div>
+  <button class="terminal-trigger" id="terminal-trigger" aria-label="Open terminal" title="Open terminal">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <polyline points="4 17 10 11 4 5"></polyline>
+      <line x1="12" y1="19" x2="20" y2="19"></line>
+    </svg>
+  </button>
 
   <!-- FOOTER -->
   <footer class="footer">
@@ -255,6 +321,7 @@
   <script src="js/particles.js"></script>
   <script src="js/stats-counter.js"></script>
   <script src="js/cursor-trail.js"></script>
+  <script src="js/terminal.js"></script>
   <script src="js/keyboard.js"></script>
   <script src="js/main.js"></script>
   <script>
@@ -290,6 +357,24 @@
 
     // Cursor Trail
     new CursorTrail();
+
+    // Interactive Terminal Easter Egg
+    const termContainer = document.getElementById('interactive-terminal');
+    const termTrigger = document.getElementById('terminal-trigger');
+    if (termContainer && termTrigger) {
+      let termInitialized = false;
+      termTrigger.addEventListener('click', () => {
+        if (!termInitialized) {
+          new InteractiveTerminal(termContainer);
+          termInitialized = true;
+        }
+        termContainer.classList.toggle('active');
+        if (termContainer.classList.contains('active')) {
+          const input = termContainer.querySelector('.term-input');
+          if (input) input.focus();
+        }
+      });
+    }
 
     // Featured Projects
     fetch('data/projects.json')

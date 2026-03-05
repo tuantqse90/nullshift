@@ -8,6 +8,42 @@
     <atom:link href="https://nullshift.sh/feed.xml" rel="self" type="application/rss+xml"/>
 
     <item>
+      <title>Recursive SNARKs: Proofs That Verify Proofs</title>
+      <link>https://nullshift.sh/blog#recursive-snarks-proofs-verify-proofs</link>
+      <guid>https://nullshift.sh/blog#recursive-snarks-proofs-verify-proofs</guid>
+      <pubDate>Wed, 04 Mar 2026 00:00:00 GMT</pubDate>
+      <description>How recursive proof composition enables unbounded computation verification and powers the next generation of ZK systems.</description>
+      <category>ZK</category>
+    </item>
+
+    <item>
+      <title>Cross-Chain Bridges: Attack Vectors and Defenses</title>
+      <link>https://nullshift.sh/blog#cross-chain-bridge-attacks</link>
+      <guid>https://nullshift.sh/blog#cross-chain-bridge-attacks</guid>
+      <pubDate>Sun, 01 Mar 2026 00:00:00 GMT</pubDate>
+      <description>Bridge exploits have cost billions. Here's a deep technical analysis of attack vectors and the defense patterns that actually work.</description>
+      <category>Blockchain</category>
+    </item>
+
+    <item>
+      <title>Building a Privacy-First DNS Resolver</title>
+      <link>https://nullshift.sh/blog#privacy-first-dns-resolver</link>
+      <guid>https://nullshift.sh/blog#privacy-first-dns-resolver</guid>
+      <pubDate>Sat, 28 Feb 2026 00:00:00 GMT</pubDate>
+      <description>DNS is the biggest metadata leak on the internet. Here's how we built NullDNS to encrypt, filter, and protect every query.</description>
+      <category>Privacy</category>
+    </item>
+
+    <item>
+      <title>Federated Learning Without the Trust Problem</title>
+      <link>https://nullshift.sh/blog#federated-learning-trust</link>
+      <guid>https://nullshift.sh/blog#federated-learning-trust</guid>
+      <pubDate>Sun, 15 Feb 2026 00:00:00 GMT</pubDate>
+      <description>Federated learning promised privacy. Differential privacy and secure aggregation actually deliver it.</description>
+      <category>AI</category>
+    </item>
+
+    <item>
       <title>The Future of On-Device AI: Why the Cloud is the Enemy</title>
       <link>https://nullshift.sh/blog#on-device-ai-future</link>
       <guid>https://nullshift.sh/blog#on-device-ai-future</guid>

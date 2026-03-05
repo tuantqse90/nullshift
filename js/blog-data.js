@@ -200,7 +200,14 @@ function initBlog() {
       pillarEl.textContent = post.pillar.toUpperCase();
     }
 
-    postViewEl.querySelector('.post-content').innerHTML = parseMarkdown(post.content);
+    const contentHtml = parseMarkdown(post.content);
+    postViewEl.querySelector('.post-content').innerHTML = contentHtml;
+
+    // Generate TOC from headings
+    buildTOC(postViewEl);
+
+    // Init reading progress bar
+    initReadingProgress();
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
@@ -220,10 +227,69 @@ function initBlog() {
     document.head.appendChild(ld);
   }
 
+  function buildTOC(container) {
+    const existingToc = container.querySelector('.post-toc');
+    if (existingToc) existingToc.remove();
+
+    const headings = container.querySelectorAll('.post-content h2, .post-content h3');
+    if (headings.length < 2) return;
+
+    const toc = document.createElement('nav');
+    toc.className = 'post-toc';
+    toc.setAttribute('aria-label', 'Table of contents');
+    toc.innerHTML = '<h4 class="toc-title">Table of Contents</h4>';
+
+    const list = document.createElement('ul');
+    headings.forEach((h, i) => {
+      const id = 'heading-' + i;
+      h.id = id;
+      const li = document.createElement('li');
+      li.className = h.tagName === 'H3' ? 'toc-sub' : '';
+      const a = document.createElement('a');
+      a.href = '#' + id;
+      a.textContent = h.textContent;
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        h.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+      li.appendChild(a);
+      list.appendChild(li);
+    });
+    toc.appendChild(list);
+
+    const postContent = container.querySelector('.post-content');
+    postContent.parentNode.insertBefore(toc, postContent);
+  }
+
+  function initReadingProgress() {
+    let progressBar = document.querySelector('.reading-progress');
+    if (!progressBar) {
+      progressBar = document.createElement('div');
+      progressBar.className = 'reading-progress';
+      progressBar.innerHTML = '<div class="reading-progress-fill"></div>';
+      document.body.appendChild(progressBar);
+    }
+    progressBar.classList.add('active');
+
+    const fill = progressBar.querySelector('.reading-progress-fill');
+    const updateProgress = () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      fill.style.width = progress + '%';
+    };
+
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+  }
+
   function showListing() {
     if (!listingEl || !postViewEl) return;
     listingEl.classList.remove('hidden');
     postViewEl.classList.remove('active');
+
+    const progressBar = document.querySelector('.reading-progress');
+    if (progressBar) progressBar.classList.remove('active');
   }
 
   function handleHash() {

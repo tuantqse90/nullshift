@@ -94,3 +94,31 @@ if (navbar) {
       : '';
   }, { passive: true });
 }
+
+/* ==============================
+   PAGE TRANSITIONS
+   ============================== */
+document.body.classList.add('page-loaded');
+
+document.querySelectorAll('a[href$=".html"], .nav-links a, .mobile-nav a').forEach(link => {
+  link.addEventListener('click', (e) => {
+    const href = link.getAttribute('href');
+    if (!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('mailto')) return;
+
+    e.preventDefault();
+    document.body.classList.add('page-exit');
+
+    setTimeout(() => {
+      window.location.href = href;
+    }, 300);
+  });
+});
+
+/* ==============================
+   SERVICE WORKER REGISTRATION
+   ============================== */
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch(() => {});
+  });
+}

@@ -10,9 +10,18 @@ class AgentGraph {
     this.edges = [];
     this.selectedNode = null;
     this.hoveredNode = null;
+    this.dragNode = null;
+    this.isDragging = false;
     this.running = false;
     this.frameId = null;
     this.edgePulse = 0;
+
+    // Zoom & pan state
+    this.scale = 1;
+    this.panX = 0;
+    this.panY = 0;
+    this.isPanning = false;
+    this.panStart = { x: 0, y: 0 };
 
     this.resize();
     this.buildGraph();
@@ -22,8 +31,14 @@ class AgentGraph {
       this.layoutNodes();
     });
 
-    this.canvas.addEventListener('click', (e) => this.handleClick(e));
+    this.canvas.addEventListener('click', (e) => {
+      if (!this.isDragging) this.handleClick(e);
+    });
     this.canvas.addEventListener('mousemove', (e) => this.handleMouseMove(e));
+    this.canvas.addEventListener('mousedown', (e) => this.handleMouseDown(e));
+    this.canvas.addEventListener('mouseup', (e) => this.handleMouseUp(e));
+    this.canvas.addEventListener('mouseleave', () => this.handleMouseUp());
+    this.canvas.addEventListener('wheel', (e) => this.handleWheel(e), { passive: false });
 
     this.visibilityObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -116,6 +131,66 @@ class AgentGraph {
     return null;
   }
 
+  screenToWorld(sx, sy) {
+    return {
+      x: (sx - this.panX) / this.scale,
+      y: (sy - this.panY) / this.scale
+    };
+  }
+
+  getNodeAt(x, y) {
+    const world = this.screenToWorld(x, y);
+    for (let i = this.nodes.length - 1; i >= 0; i--) {
+      const node = this.nodes[i];
+      const dx = world.x - node.x;
+      const dy = world.y - node.y;
+      if (Math.sqrt(dx * dx + dy * dy) <= node.radius + 4) {
+        return node;
+      }
+    }
+    return null;
+  }
+
+  handleMouseDown(e) {
+    const rect = this.canvas.getBoundingClientRect();
+    const sx = e.clientX - rect.left;
+    const sy = e.clientY - rect.top;
+    const node = this.getNodeAt(sx, sy);
+
+    if (node) {
+      this.dragNode = node;
+      this.isDragging = false;
+      this.dragStartPos = { x: sx, y: sy };
+    } else {
+      this.isPanning = true;
+      this.panStart = { x: sx - this.panX, y: sy - this.panY };
+    }
+  }
+
+  handleMouseUp(e) {
+    if (this.dragNode && !this.isDragging && e) {
+      // It was a click, not a drag
+    }
+    this.dragNode = null;
+    this.isPanning = false;
+    setTimeout(() => { this.isDragging = false; }, 10);
+  }
+
+  handleWheel(e) {
+    e.preventDefault();
+    const rect = this.canvas.getBoundingClientRect();
+    const mx = e.clientX - rect.left;
+    const my = e.clientY - rect.top;
+
+    const delta = e.deltaY > 0 ? 0.9 : 1.1;
+    const newScale = Math.max(0.5, Math.min(3, this.scale * delta));
+
+    // Zoom toward mouse position
+    this.panX = mx - (mx - this.panX) * (newScale / this.scale);
+    this.panY = my - (my - this.panY) * (newScale / this.scale);
+    this.scale = newScale;
+  }
+
   handleClick(e) {
     const rect = this.canvas.getBoundingClientRect();
     const x = e.clientX - rect.left;
@@ -132,11 +207,30 @@ class AgentGraph {
 
   handleMouseMove(e) {
     const rect = this.canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const node = this.getNodeAt(x, y);
+    const sx = e.clientX - rect.left;
+    const sy = e.clientY - rect.top;
+
+    // Dragging a node
+    if (this.dragNode) {
+      const world = this.screenToWorld(sx, sy);
+      this.dragNode.x = world.x;
+      this.dragNode.y = world.y;
+      this.isDragging = true;
+      this.canvas.style.cursor = 'grabbing';
+      return;
+    }
+
+    // Panning
+    if (this.isPanning) {
+      this.panX = sx - this.panStart.x;
+      this.panY = sy - this.panStart.y;
+      this.canvas.style.cursor = 'move';
+      return;
+    }
+
+    const node = this.getNodeAt(sx, sy);
     this.hoveredNode = node;
-    this.canvas.style.cursor = node ? 'pointer' : 'crosshair';
+    this.canvas.style.cursor = node ? 'grab' : 'crosshair';
   }
 
   showAgentPanel(agent) {
@@ -213,8 +307,12 @@ class AgentGraph {
 
   drawStatic() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.ctx.save();
+    this.ctx.translate(this.panX, this.panY);
+    this.ctx.scale(this.scale, this.scale);
     this.drawEdges(0);
-    this.drawNodes();
+    this.drawNodes(0);
+    this.ctx.restore();
   }
 
   draw() {
@@ -223,8 +321,12 @@ class AgentGraph {
     this.edgePulse += 0.02;
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
+    this.ctx.save();
+    this.ctx.translate(this.panX, this.panY);
+    this.ctx.scale(this.scale, this.scale);
     this.drawEdges(this.edgePulse);
-    this.drawNodes();
+    this.drawNodes(this.edgePulse);
+    this.ctx.restore();
 
     this.frameId = requestAnimationFrame(() => this.draw());
   }
@@ -260,10 +362,24 @@ class AgentGraph {
     });
   }
 
-  drawNodes() {
+  drawNodes(pulse) {
     this.nodes.forEach(node => {
       const isSelected = this.selectedNode && this.selectedNode.id === node.id;
       const isHovered = this.hoveredNode && this.hoveredNode.id === node.id;
+      const isActive = node.data.status === 'active';
+
+      // Pulse ring for active agents
+      if (isActive && pulse) {
+        const pulseRadius = node.radius + 6 + Math.sin(pulse * 1.5) * 4;
+        const pulseAlpha = 0.15 + Math.sin(pulse * 1.5) * 0.1;
+        this.ctx.beginPath();
+        this.ctx.arc(node.x, node.y, pulseRadius, 0, Math.PI * 2);
+        this.ctx.strokeStyle = node.color;
+        this.ctx.globalAlpha = pulseAlpha;
+        this.ctx.lineWidth = 1;
+        this.ctx.stroke();
+        this.ctx.globalAlpha = 1;
+      }
 
       if (isSelected || isHovered) {
         this.ctx.beginPath();
@@ -281,6 +397,16 @@ class AgentGraph {
       this.ctx.globalAlpha = node.alpha;
       this.ctx.stroke();
       this.ctx.globalAlpha = 1;
+
+      // Inner icon dot for active nodes
+      if (isActive) {
+        this.ctx.beginPath();
+        this.ctx.arc(node.x, node.y, 4, 0, Math.PI * 2);
+        this.ctx.fillStyle = node.color;
+        this.ctx.globalAlpha = 0.6 + Math.sin((pulse || 0) * 2) * 0.4;
+        this.ctx.fill();
+        this.ctx.globalAlpha = 1;
+      }
 
       this.ctx.font = '11px JetBrains Mono, monospace';
       this.ctx.textAlign = 'center';
