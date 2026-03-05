@@ -898,3 +898,50 @@ main {
   font-family: var(--font-mono);
   font-size: var(--text-sm);
 }
+
+/* ==============================
+   MOBILE REFINEMENTS
+   ============================== */
+@media (max-width: 639px) {
+  .card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-xs);
+  }
+
+  .card-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .filter-bar {
+    padding: var(--space-sm);
+    gap: var(--space-xs);
+  }
+
+  .filter-btn {
+    font-size: 0.65rem;
+    padding: 2px var(--space-sm);
+  }
+
+  .terminal-body {
+    padding: var(--space-md);
+    font-size: var(--text-xs);
+  }
+
+  .blog-post-view .post-title {
+    font-size: var(--text-2xl);
+  }
+
+  .blog-post-view .post-content {
+    font-size: var(--text-sm);
+  }
+
+  .footer-inner {
+    gap: var(--space-md);
+  }
+
+  .agent-panel .agent-stats {
+    grid-template-columns: 1fr;
+  }
+}

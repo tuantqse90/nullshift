@@ -94,5 +94,37 @@
       "status": "offline"
     },
     "connections": []
+  },
+  {
+    "id": "data-harvester",
+    "name": "Data Harvester",
+    "role": "On-Chain Indexer",
+    "description": "Indexes and normalizes on-chain data across 12 blockchains. Provides structured feeds for all other agents in the network.",
+    "status": "active",
+    "pillar": "blockchain",
+    "capabilities": ["Multi-Chain Indexing", "Event Parsing", "Data Normalization", "Historical Backfill"],
+    "stats": {
+      "uptime": "99.8%",
+      "chains": "12",
+      "blocks_indexed": "2.1M",
+      "latency": "< 500ms"
+    },
+    "connections": ["market-scanner", "content-agent", "portfolio-tracker"]
+  },
+  {
+    "id": "privacy-guard",
+    "name": "Privacy Guard",
+    "role": "Security Monitor",
+    "description": "Monitors agent communications for metadata leaks and enforces privacy policies. All inter-agent traffic passes through encrypted channels.",
+    "status": "active",
+    "pillar": "privacy",
+    "capabilities": ["Traffic Encryption", "Metadata Scrubbing", "Leak Detection", "Policy Enforcement"],
+    "stats": {
+      "uptime": "99.99%",
+      "leaks_blocked": "0",
+      "encrypted_msgs": "1.4M",
+      "audit_score": "A+"
+    },
+    "connections": ["alert-bot", "market-scanner", "trading-agent"]
   }
 ]
