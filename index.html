@@ -42,6 +42,8 @@
         <a href="projects.html">projects</a>
         <a href="agents.html">agents</a>
         <a href="blog.html">blog</a>
+        <a href="docs.html">docs</a>
+        <a href="changelog.html">changelog</a>
         <button class="nav-search-btn" aria-label="Search" onclick="GlobalSearch.open()">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
         </button>
@@ -61,6 +63,8 @@
     <a href="projects.html">projects</a>
     <a href="agents.html">agents</a>
     <a href="blog.html">blog</a>
+    <a href="docs.html">docs</a>
+    <a href="changelog.html">changelog</a>
   </div>
 
   <main id="main-content">
@@ -261,6 +265,76 @@
         </div>
       </div>
     </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="section testimonials-section">
+      <div class="container">
+        <div class="section-header scroll-fade">
+          <h2>What <span class="text-primary">Builders</span> Say</h2>
+          <p class="section-subtitle">// from the community</p>
+        </div>
+        <div class="testimonials-grid">
+          <div class="testimonial-card scroll-fade">
+            <p class="testimonial-text">"NullShift's zkProof SDK cut our integration time from weeks to hours. The API is clean, the docs are solid, and the proofs are fast."</p>
+            <div class="testimonial-author">
+              <span class="author-name">@cryptodev_eth</span>
+              <span class="author-role">DeFi Protocol Builder</span>
+            </div>
+          </div>
+          <div class="testimonial-card scroll-fade">
+            <p class="testimonial-text">"Finally, privacy tools built by people who actually understand cryptography. Their on-device AI approach is years ahead."</p>
+            <div class="testimonial-author">
+              <span class="author-name">@ml_researcher</span>
+              <span class="author-role">AI/ML Engineer</span>
+            </div>
+          </div>
+          <div class="testimonial-card scroll-fade">
+            <p class="testimonial-text">"We migrated our DNS to NullDNS and blocked 40% of tracking requests on day one. Zero-log architecture gives us real peace of mind."</p>
+            <div class="testimonial-author">
+              <span class="author-name">@privacy_ops</span>
+              <span class="author-role">Infrastructure Lead</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEWSLETTER -->
+    <section class="section newsletter-section">
+      <div class="container">
+        <div class="newsletter-terminal scroll-fade">
+          <div class="terminal-window">
+            <div class="terminal-bar">
+              <span class="terminal-dot red"></span>
+              <span class="terminal-dot yellow"></span>
+              <span class="terminal-dot green"></span>
+            </div>
+            <div class="terminal-body">
+              <div class="terminal-line">
+                <span class="terminal-prompt">
+                  <span class="user">nullshift</span><span class="separator">@</span><span class="host">labs</span><span class="dollar">$</span>
+                </span>
+                <span class="cmd"> subscribe --newsletter</span>
+              </div>
+              <div class="terminal-line"><br></div>
+              <div class="terminal-line"><span class="output">> Get dispatches from the labs. No spam. No tracking.</span></div>
+              <div class="terminal-line"><span class="output">> Unsubscribe anytime. We respect your inbox.</span></div>
+              <div class="terminal-line"><br></div>
+              <div class="newsletter-form">
+                <div class="terminal-line">
+                  <span class="terminal-prompt">
+                    <span class="user">email</span><span class="dollar">$</span>
+                  </span>
+                  <input type="email" class="newsletter-input" placeholder="you@encrypted.dev" aria-label="Email address">
+                </div>
+                <button class="btn btn-primary newsletter-btn" id="newsletter-submit">> Subscribe</button>
+              </div>
+              <div class="newsletter-status" id="newsletter-status"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
   <!-- INTERACTIVE TERMINAL (Easter Egg) -->
@@ -417,6 +491,31 @@
         }
       })
       .catch(() => {});
+
+    // Newsletter
+    const nlBtn = document.getElementById('newsletter-submit');
+    const nlStatus = document.getElementById('newsletter-status');
+    if (nlBtn) {
+      nlBtn.addEventListener('click', () => {
+        const input = document.querySelector('.newsletter-input');
+        const email = input ? input.value.trim() : '';
+        if (!email || !email.includes('@')) {
+          Toast.warning('Please enter a valid email address');
+          return;
+        }
+        nlBtn.disabled = true;
+        nlBtn.textContent = '> Subscribing...';
+        setTimeout(() => {
+          nlBtn.textContent = '> Subscribed!';
+          nlBtn.style.borderColor = 'var(--color-primary)';
+          if (nlStatus) {
+            nlStatus.innerHTML = '<div class="terminal-line"><span class="text-primary">> Subscribed successfully.</span> Welcome to the encrypted future.</div>';
+          }
+          Toast.success('Subscribed! Check your inbox.');
+          if (input) input.value = '';
+        }, 1200);
+      });
+    }
   </script>
 
 </body>

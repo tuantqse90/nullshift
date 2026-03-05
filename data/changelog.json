@@ -1,0 +1,78 @@
+[
+  {
+    "version": "0.5.0",
+    "date": "2026-03-05",
+    "title": "Search, Sharing & Polish",
+    "type": "feature",
+    "changes": [
+      "Global search overlay across all content",
+      "Code copy buttons on blog code blocks",
+      "Share buttons (X, Telegram, copy link) on blog posts",
+      "Breadcrumb navigation on sub-pages",
+      "Toast notification system",
+      "Animated gradient borders on pillar cards",
+      "Print-optimized styles for blog posts"
+    ]
+  },
+  {
+    "version": "0.4.0",
+    "date": "2026-03-05",
+    "title": "Terminal, PWA & Accessibility",
+    "type": "feature",
+    "changes": [
+      "Interactive terminal easter egg on homepage",
+      "Blog reading progress bar and auto-generated TOC",
+      "PWA support with service worker for offline access",
+      "Smooth page transitions with fade effect",
+      "Agent graph: draggable nodes, zoom/pan, pulse animations",
+      "Contact section with terminal-style layout",
+      "Accessibility: skip links, focus-visible, ARIA improvements",
+      "4 new technical blog posts"
+    ]
+  },
+  {
+    "version": "0.3.0",
+    "date": "2026-03-04",
+    "title": "Interactive Features",
+    "type": "feature",
+    "changes": [
+      "Blog search with real-time filtering",
+      "Cursor trail particle effect",
+      "Animated stats counter on homepage",
+      "RSS feed (feed.xml)",
+      "Dynamic sitemap generation",
+      "Loading skeleton states",
+      "Keyboard shortcuts (? for help)"
+    ]
+  },
+  {
+    "version": "0.2.0",
+    "date": "2026-03-03",
+    "title": "Content & Deployment",
+    "type": "feature",
+    "changes": [
+      "Custom 404 page with glitch effect",
+      "Open Graph image for social sharing",
+      "3 new products: NullDNS, AgentForge, ZK Bridge",
+      "3 new projects: CipherFS, TokenScope, ProofNet",
+      "Mobile responsive improvements",
+      "Deployed to Railway with custom domain",
+      "Pushed to GitHub"
+    ]
+  },
+  {
+    "version": "0.1.0",
+    "date": "2026-03-02",
+    "title": "Initial Launch",
+    "type": "release",
+    "changes": [
+      "6 pages: Home, Services, Products, Projects, Agents, Blog",
+      "Matrix rain, glitch text, typing effects",
+      "Agent network graph with canvas",
+      "Blog with client-side markdown rendering",
+      "Filter system for products/projects",
+      "Dark hacker/cyberpunk aesthetic",
+      "Express.js server with security headers"
+    ]
+  }
+]

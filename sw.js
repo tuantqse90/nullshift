@@ -1,7 +1,7 @@
 /* ==============================
    SERVICE WORKER — NULLSHIFT
    ============================== */
-const CACHE_NAME = 'nullshift-v2';
+const CACHE_NAME = 'nullshift-v3';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
@@ -10,6 +10,8 @@ const STATIC_ASSETS = [
   '/projects.html',
   '/agents.html',
   '/blog.html',
+  '/changelog.html',
+  '/docs.html',
   '/404.html',
   '/css/reset.css',
   '/css/variables.css',
@@ -42,7 +44,8 @@ const DATA_ASSETS = [
   '/data/products.json',
   '/data/projects.json',
   '/data/agents.json',
-  '/data/blog-posts.json'
+  '/data/blog-posts.json',
+  '/data/changelog.json'
 ];
 
 // Install — cache static assets

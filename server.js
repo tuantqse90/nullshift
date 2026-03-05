@@ -13,6 +13,18 @@ app.use((req, res, next) => {
   next();
 });
 
+// Page routes (before static to avoid docs/ directory conflict)
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+const pages = ['services', 'products', 'agents', 'blog', 'projects', 'changelog', 'docs'];
+pages.forEach(page => {
+  app.get(`/${page}`, (req, res) => {
+    res.sendFile(path.join(__dirname, `${page}.html`));
+  });
+});
+
 app.use(express.static(path.join(__dirname), {
   maxAge: '1h',
   etag: true,
@@ -30,17 +42,6 @@ app.use(express.static(path.join(__dirname), {
   }
 }));
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
-});
-
-const pages = ['services', 'products', 'agents', 'blog', 'projects'];
-pages.forEach(page => {
-  app.get(`/${page}`, (req, res) => {
-    res.sendFile(path.join(__dirname, `${page}.html`));
-  });
-});
-
 // Dynamic sitemap
 app.get('/sitemap.xml', (req, res) => {
   const fs = require('fs');
@@ -51,7 +52,9 @@ app.get('/sitemap.xml', (req, res) => {
     { loc: '/products', priority: '0.8' },
     { loc: '/projects', priority: '0.8' },
     { loc: '/agents', priority: '0.7' },
-    { loc: '/blog', priority: '0.7' }
+    { loc: '/blog', priority: '0.7' },
+    { loc: '/docs', priority: '0.6' },
+    { loc: '/changelog', priority: '0.5' }
   ];
 
   let urls = staticPages.map(p =>

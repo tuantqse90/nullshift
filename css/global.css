@@ -136,6 +136,18 @@ a:hover {
   background-clip: text;
 }
 
+/* Lazy loaded images */
+img.lazy {
+  opacity: 0;
+  filter: blur(10px);
+  transition: opacity 0.4s ease, filter 0.4s ease;
+}
+
+img.lazy-loaded {
+  opacity: 1;
+  filter: none;
+}
+
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *,

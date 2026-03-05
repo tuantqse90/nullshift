@@ -32,6 +32,8 @@ class InteractiveTerminal {
         '  neofetch      — system info',
         '  echo [text]   — echo text',
         '  goto [page]   — navigate to page',
+        '  play snake    — play Snake game',
+        '  snake         — play Snake game',
         '  clear         — clear terminal',
         '  exit          — close terminal'
       ],
@@ -137,6 +139,17 @@ class InteractiveTerminal {
           return [`Navigating to /${dest}...`];
         }
         return [`goto: '${dest}' — unknown destination`];
+      },
+      play: (args) => {
+        if (args && args[0] === 'snake') {
+          this.startSnake();
+          return null;
+        }
+        return ['Usage: play snake'];
+      },
+      snake: () => {
+        this.startSnake();
+        return null;
       },
       clear: () => {
         this.container.querySelector('.terminal-output').innerHTML = '';
@@ -280,5 +293,124 @@ class InteractiveTerminal {
     if (input) {
       this.container.addEventListener('click', () => input.focus());
     }
+  }
+
+  startSnake() {
+    const output = this.container.querySelector('.terminal-output');
+    const input = this.container.querySelector('.term-input');
+
+    // Game state
+    const W = 20, H = 10;
+    let snake = [{x: 10, y: 5}];
+    let dir = {x: 1, y: 0};
+    let food = {x: 15, y: 5};
+    let score = 0;
+    let gameOver = false;
+    let tickTimer = null;
+
+    // Create game display
+    const gameEl = document.createElement('pre');
+    gameEl.className = 'term-line';
+    gameEl.style.lineHeight = '1.2';
+    gameEl.style.color = 'var(--color-primary)';
+    output.appendChild(gameEl);
+
+    // Key handler
+    const keyHandler = (e) => {
+      if (e.key === 'q' || e.key === 'Q') {
+        cleanup();
+        return;
+      }
+      const dirs = {
+        ArrowUp: {x:0,y:-1}, ArrowDown: {x:0,y:1},
+        ArrowLeft: {x:-1,y:0}, ArrowRight: {x:1,y:0}
+      };
+      if (dirs[e.key]) {
+        // Prevent reverse
+        const newDir = dirs[e.key];
+        if (newDir.x !== -dir.x || newDir.y !== -dir.y) {
+          dir = newDir;
+        }
+        e.preventDefault();
+      }
+    };
+
+    const placeFood = () => {
+      do {
+        food = {x: Math.floor(Math.random()*W), y: Math.floor(Math.random()*H)};
+      } while (snake.some(s => s.x === food.x && s.y === food.y));
+    };
+
+    const tick = () => {
+      if (gameOver) return;
+
+      const head = {x: snake[0].x + dir.x, y: snake[0].y + dir.y};
+
+      // Wall collision
+      if (head.x < 0 || head.x >= W || head.y < 0 || head.y >= H) {
+        gameOver = true;
+        render();
+        cleanup();
+        return;
+      }
+
+      // Self collision
+      if (snake.some(s => s.x === head.x && s.y === head.y)) {
+        gameOver = true;
+        render();
+        cleanup();
+        return;
+      }
+
+      snake.unshift(head);
+
+      if (head.x === food.x && head.y === food.y) {
+        score++;
+        placeFood();
+      } else {
+        snake.pop();
+      }
+
+      render();
+      tickTimer = setTimeout(tick, 150);
+    };
+
+    const render = () => {
+      let screen = `Score: ${score}  ${gameOver ? '[GAME OVER]' : '[Q] quit'}\n`;
+      screen += '+' + '-'.repeat(W) + '+\n';
+      for (let y = 0; y < H; y++) {
+        let row = '|';
+        for (let x = 0; x < W; x++) {
+          if (snake[0].x === x && snake[0].y === y) row += '\u2588';
+          else if (snake.some(s => s.x === x && s.y === y)) row += '\u2593';
+          else if (food.x === x && food.y === y) row += '\u25CF';
+          else row += ' ';
+        }
+        row += '|';
+        screen += row + '\n';
+      }
+      screen += '+' + '-'.repeat(W) + '+';
+      gameEl.textContent = screen;
+      output.scrollTop = output.scrollHeight;
+    };
+
+    const cleanup = () => {
+      if (tickTimer) clearTimeout(tickTimer);
+      document.removeEventListener('keydown', keyHandler);
+      input.disabled = false;
+      input.focus();
+      if (gameOver) {
+        this.addOutput(`Game over! Final score: <span class="text-primary">${score}</span>`);
+      } else {
+        this.addOutput('Game ended. Score: ' + score);
+      }
+    };
+
+    // Start
+    input.disabled = true;
+    document.addEventListener('keydown', keyHandler);
+    this.addOutput('Snake \u2014 Arrow keys to move, Q to quit.');
+    render();
+    tickTimer = setTimeout(tick, 150);
   }
 }

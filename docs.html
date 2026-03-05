@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Docs — NullShift</title>
+  <meta name="description" content="NullShift API documentation — zkProof SDK and AgentForge.">
+  <meta property="og:title" content="Docs — NullShift">
+  <meta property="og:description" content="NullShift API documentation — zkProof SDK and AgentForge.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://nullshift.sh/assets/images/og-image.svg">
+  <meta name="twitter:card" content="summary">
+  <meta name="theme-color" content="#0a0a0a">
+  <link rel="canonical" href="https://nullshift.sh/docs">
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.json">
+  <link rel="alternate" type="application/rss+xml" title="NullShift Blog" href="feed.xml">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" as="style">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to content</a>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="NullShift home">null<span>shift.sh</span></a>
+      <div class="nav-links">
+        <a href="services.html">services</a>
+        <a href="products.html">products</a>
+        <a href="projects.html">projects</a>
+        <a href="agents.html">agents</a>
+        <a href="blog.html">blog</a>
+        <a href="docs.html">docs</a>
+        <a href="changelog.html">changelog</a>
+        <button class="nav-search-btn" aria-label="Search" onclick="GlobalSearch.open()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </button>
+      </div>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="mobile-nav" role="navigation" aria-label="Mobile navigation">
+    <a href="services.html">services</a>
+    <a href="products.html">products</a>
+    <a href="projects.html">projects</a>
+    <a href="agents.html">agents</a>
+    <a href="blog.html">blog</a>
+    <a href="docs.html">docs</a>
+    <a href="changelog.html">changelog</a>
+  </div>
+
+  <main id="main-content">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="index.html">home</a> <span>/</span> <span>docs</span></nav>
+
+    <!-- HERO -->
+    <section class="section">
+      <div class="container">
+        <h1 class="scroll-fade">/<span class="text-primary">docs</span></h1>
+        <p class="section-subtitle scroll-fade">// API reference & integration guides</p>
+      </div>
+    </section>
+
+    <!-- zkProof SDK -->
+    <section class="section" id="zk-sdk">
+      <div class="container">
+        <div class="docs-section">
+          <h2><span class="text-primary">01.</span> zkProof SDK</h2>
+          <p class="docs-desc">Generate and verify zero-knowledge proofs in your application. Supports Groth16 and Plonk proving systems.</p>
+
+          <h3>Installation</h3>
+          <div class="terminal-window">
+            <div class="terminal-bar">
+              <span class="terminal-dot red"></span>
+              <span class="terminal-dot yellow"></span>
+              <span class="terminal-dot green"></span>
+            </div>
+            <div class="terminal-body">
+              <pre><code>npm install @nullshift/zk-sdk</code></pre>
+            </div>
+          </div>
+
+          <h3>Quick Start</h3>
+          <div class="terminal-window">
+            <div class="terminal-bar">
+              <span class="terminal-dot red"></span>
+              <span class="terminal-dot yellow"></span>
+              <span class="terminal-dot green"></span>
+            </div>
+            <div class="terminal-body">
+              <pre><code>import { Prover, Verifier } from '@nullshift/zk-sdk';
+
+// Initialize prover with circuit
+const prover = new Prover({
+  circuit: './circuits/age-check.r1cs',
+  provingKey: './keys/proving.key',
+  system: 'groth16'
+});
+
+// Generate proof
+const proof = await prover.prove({
+  age: 25,
+  threshold: 18
+});
+
+// Verify proof
+const verifier = new Verifier({
+  verificationKey: './keys/verification.key'
+});
+
+const isValid = await verifier.verify(proof);
+console.log('Proof valid:', isValid); // true</code></pre>
+            </div>
+          </div>
+
+          <h3>API Reference</h3>
+          <div class="docs-api">
+            <div class="api-method">
+              <code class="api-signature">Prover.prove(inputs: object): Promise&lt;Proof&gt;</code>
+              <p>Generates a zero-knowledge proof for the given inputs against the loaded circuit.</p>
+            </div>
+            <div class="api-method">
+              <code class="api-signature">Verifier.verify(proof: Proof): Promise&lt;boolean&gt;</code>
+              <p>Verifies a proof against the verification key. Returns true if valid.</p>
+            </div>
+            <div class="api-method">
+              <code class="api-signature">Prover.exportCalldata(proof: Proof): string</code>
+              <p>Exports proof as Solidity calldata for on-chain verification.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AgentForge -->
+    <section class="section" id="agent-forge">
+      <div class="container">
+        <div class="docs-section">
+          <h2><span class="text-primary">02.</span> AgentForge</h2>
+          <p class="docs-desc">Deploy autonomous AI agents with built-in risk management, monitoring, and privacy guardrails.</p>
+
+          <h3>Installation</h3>
+          <div class="terminal-window">
+            <div class="terminal-bar">
+              <span class="terminal-dot red"></span>
+              <span class="terminal-dot yellow"></span>
+              <span class="terminal-dot green"></span>
+            </div>
+            <div class="terminal-body">
+              <pre><code>pip install agentforge</code></pre>
+            </div>
+          </div>
+
+          <h3>Create an Agent</h3>
+          <div class="terminal-window">
+            <div class="terminal-bar">
+              <span class="terminal-dot red"></span>
+              <span class="terminal-dot yellow"></span>
+              <span class="terminal-dot green"></span>
+            </div>
+            <div class="terminal-body">
+              <pre><code>from agentforge import Agent, Strategy, RiskManager
+
+# Define trading strategy
+class MomentumStrategy(Strategy):
+    def evaluate(self, market_data):
+        rsi = self.indicators.rsi(market_data, period=14)
+        if rsi &lt; 30:
+            return self.signal('BUY', confidence=0.85)
+        elif rsi &gt; 70:
+            return self.signal('SELL', confidence=0.80)
+        return self.signal('HOLD')
+
+# Create agent with risk limits
+agent = Agent(
+    name='momentum-scanner',
+    strategy=MomentumStrategy(),
+    risk=RiskManager(
+        max_position_size=0.05,
+        stop_loss=0.02,
+        daily_loss_limit=0.10
+    )
+)
+
+# Deploy agent
+agent.start(
+    data_feed='wss://feed.nullshift.sh/v1',
+    interval='1m',
+    mode='paper'  # 'paper' or 'live'
+)</code></pre>
+            </div>
+          </div>
+
+          <h3>API Reference</h3>
+          <div class="docs-api">
+            <div class="api-method">
+              <code class="api-signature">Agent(name, strategy, risk): Agent</code>
+              <p>Creates a new autonomous agent with the specified strategy and risk parameters.</p>
+            </div>
+            <div class="api-method">
+              <code class="api-signature">Agent.start(data_feed, interval, mode): void</code>
+              <p>Starts the agent. Mode can be 'paper' (simulated) or 'live' (real execution).</p>
+            </div>
+            <div class="api-method">
+              <code class="api-signature">Agent.stop(): void</code>
+              <p>Gracefully stops the agent and closes all open positions.</p>
+            </div>
+            <div class="api-method">
+              <code class="api-signature">Agent.status(): AgentStatus</code>
+              <p>Returns current agent status including P&amp;L, open positions, and uptime.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <span class="name">nullshift.sh</span> — privacy-first builder labs
+        </div>
+        <div class="footer-links">
+          <a href="https://github.com/nullshift" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          </a>
+          <a href="https://x.com/nullshift" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a href="https://t.me/nullshift" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0h-.056zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+          </a>
+        </div>
+        <div class="footer-copy">&copy; 2026 NullShift Labs</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scroll to top -->
+  <button class="scroll-top" aria-label="Scroll to top">&uarr;</button>
+
+  <script src="js/toast.js"></script>
+  <script src="js/search.js"></script>
+  <script src="js/cursor-trail.js"></script>
+  <script src="js/keyboard.js"></script>
+  <script src="js/main.js"></script>
+  <script>new CursorTrail();</script>
+
+</body>
+</html>

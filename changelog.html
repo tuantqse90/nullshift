@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Projects — NullShift</title>
-  <meta name="description" content="NullShift open-source projects across Privacy, AI, Blockchain, and ZK Proofs.">
-  <meta property="og:title" content="Projects — NullShift">
-  <meta property="og:description" content="Open-source projects and research.">
+  <title>Changelog — NullShift</title>
+  <meta name="description" content="NullShift changelog — version history and updates.">
+  <meta property="og:title" content="Changelog — NullShift">
+  <meta property="og:description" content="NullShift changelog — version history and updates.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="https://nullshift.sh/assets/images/og-image.svg">
   <meta name="twitter:card" content="summary">
   <meta name="theme-color" content="#0a0a0a">
-  <link rel="canonical" href="https://nullshift.sh/projects">
+  <link rel="canonical" href="https://nullshift.sh/changelog">
   <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
   <link rel="manifest" href="manifest.json">
   <link rel="alternate" type="application/rss+xml" title="NullShift Blog" href="feed.xml">
@@ -24,7 +24,6 @@
   <link rel="stylesheet" href="css/global.css">
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/animations.css">
-  <link rel="stylesheet" href="css/projects.css">
 </head>
 <body>
   <a href="#main-content" class="skip-link">Skip to content</a>
@@ -64,19 +63,17 @@
   </div>
 
   <main id="main-content">
-    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="index.html">home</a> <span>/</span> <span>projects</span></nav>
-    <section class="projects-hero">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="index.html">home</a> <span>/</span> <span>changelog</span></nav>
+    <section class="blog-hero">
       <div class="container">
-        <h1 class="scroll-fade">/<span class="text-primary">projects</span></h1>
-        <p class="section-subtitle scroll-fade">// open-source research & builds</p>
-        <p class="projects-count filter-count scroll-fade">Showing <span class="count">0</span> projects</p>
+        <h1 class="scroll-fade">/<span class="text-primary">changelog</span></h1>
+        <p class="section-subtitle scroll-fade">// version history</p>
       </div>
     </section>
 
     <section class="section">
       <div class="container">
-        <div class="filter-bar" id="projects-filter"></div>
-        <div class="card-grid" id="projects-grid"></div>
+        <div id="changelog-timeline" class="changelog-timeline"></div>
       </div>
     </section>
   </main>
@@ -107,60 +104,39 @@
   <!-- Scroll to top -->
   <button class="scroll-top" aria-label="Scroll to top">&uarr;</button>
 
-  <script src="js/filter.js"></script>
   <script src="js/toast.js"></script>
   <script src="js/search.js"></script>
   <script src="js/cursor-trail.js"></script>
   <script src="js/keyboard.js"></script>
   <script src="js/main.js"></script>
-  <script>new CursorTrail();</script>
   <script>
-    initFilters({
-      dataUrl: 'data/projects.json',
-      containerSelector: '#projects-grid',
-      filterBarSelector: '#projects-filter',
-      filterGroups: [
-        {
-          key: 'pillar',
-          label: 'Pillars',
-          values: [
-            { value: 'privacy', label: 'Privacy' },
-            { value: 'ai', label: 'AI' },
-            { value: 'blockchain', label: 'Blockchain' },
-            { value: 'zk', label: 'ZK' }
-          ]
-        },
-        {
-          key: 'status',
-          label: 'Status',
-          values: [
-            { value: 'live', label: 'Live' },
-            { value: 'building', label: 'Building' },
-            { value: 'concept', label: 'Concept' }
-          ]
-        }
-      ],
-      renderCard: function(project) {
-        const featuredHtml = project.featured ? '<span class="featured-badge">Featured</span>' : '';
-        return `
-          <div class="hacker-card" data-pillar="${project.pillar}" style="position:relative">
-            ${featuredHtml}
-            <div class="gradient-placeholder" data-pillar="${project.pillar}"></div>
-            <div class="card-header">
-              <span class="card-title">${project.name}</span>
-              <span class="status-tag" data-status="${project.status}">[${project.status.toUpperCase()}]</span>
+    fetch('data/changelog.json')
+      .then(res => res.json())
+      .then(entries => {
+        const timeline = document.getElementById('changelog-timeline');
+        if (!timeline) return;
+        timeline.innerHTML = entries.map(entry => `
+          <div class="changelog-entry">
+            <div class="changelog-marker">
+              <span class="changelog-version">${entry.version}</span>
+              <span class="changelog-date">${new Date(entry.date + 'T00:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</span>
             </div>
-            <p class="card-description">${project.description}</p>
-            <div class="card-footer">
-              <div class="card-tags">
-                ${project.tech_stack.map(t => '<span class="tech-tag">' + t + '</span>').join('')}
-              </div>
-              <span class="pillar-badge" data-pillar="${project.pillar}">${project.pillar.toUpperCase()}</span>
+            <div class="changelog-content">
+              <h3 class="changelog-title">${entry.title}</h3>
+              <span class="changelog-type" data-type="${entry.type}">${entry.type.toUpperCase()}</span>
+              <ul class="changelog-list">
+                ${entry.changes.map(c => '<li>' + c + '</li>').join('')}
+              </ul>
             </div>
           </div>
-        `;
-      }
-    });
+        `).join('');
+      })
+      .catch(() => {
+        const timeline = document.getElementById('changelog-timeline');
+        if (timeline) timeline.innerHTML = '<div class="empty-state">Failed to load changelog.</div>';
+      });
+
+    new CursorTrail();
   </script>
 
 </body>

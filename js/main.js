@@ -68,31 +68,30 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 /* ==============================
-   SCROLL TO TOP BUTTON
+   SCROLL EFFECTS (combined handler)
    ============================== */
 const scrollTopBtn = document.querySelector('.scroll-top');
-
-if (scrollTopBtn) {
-  window.addEventListener('scroll', () => {
-    scrollTopBtn.classList.toggle('visible', window.scrollY > 400);
-  }, { passive: true });
-
-  scrollTopBtn.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-}
-
-/* ==============================
-   NAVBAR SCROLL EFFECT
-   ============================== */
 const navbar = document.querySelector('.navbar');
 
-if (navbar) {
+if (scrollTopBtn || navbar) {
+  let ticking = false;
   window.addEventListener('scroll', () => {
-    navbar.style.borderBottomColor = window.scrollY > 50
-      ? 'rgba(0, 255, 65, 0.15)'
-      : '';
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        const y = window.scrollY;
+        if (scrollTopBtn) scrollTopBtn.classList.toggle('visible', y > 400);
+        if (navbar) navbar.style.borderBottomColor = y > 50 ? 'rgba(0, 255, 65, 0.15)' : '';
+        ticking = false;
+      });
+      ticking = true;
+    }
   }, { passive: true });
+
+  if (scrollTopBtn) {
+    scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
 }
 
 /* ==============================
@@ -113,6 +112,33 @@ document.querySelectorAll('a[href$=".html"], .nav-links a, .mobile-nav a').forEa
     }, 300);
   });
 });
+
+/* ==============================
+   SERVICE WORKER REGISTRATION
+   ============================== */
+/* ==============================
+   LAZY LOADING IMAGES
+   ============================== */
+document.querySelectorAll('img[data-src]').forEach(img => {
+  img.classList.add('lazy');
+});
+
+const lazyObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const img = entry.target;
+      if (img.dataset.src) {
+        img.src = img.dataset.src;
+        img.removeAttribute('data-src');
+        img.classList.remove('lazy');
+        img.classList.add('lazy-loaded');
+      }
+      lazyObserver.unobserve(img);
+    }
+  });
+}, { rootMargin: '200px' });
+
+document.querySelectorAll('img[data-src]').forEach(img => lazyObserver.observe(img));
 
 /* ==============================
    SERVICE WORKER REGISTRATION
