@@ -62,6 +62,10 @@
   color: var(--color-primary);
 }
 
+.nav-links a:hover::before {
+  color: var(--color-primary);
+}
+
 .nav-links a.active::after {
   content: '';
   position: absolute;
@@ -70,6 +74,7 @@
   right: 0;
   height: 2px;
   background: var(--color-primary);
+  box-shadow: 0 0 8px rgba(0, 255, 65, 0.5);
 }
 
 @media (min-width: 768px) {
@@ -321,6 +326,12 @@ main {
   color: var(--color-text-dim);
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--border-color);
+  transition: color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.hacker-card:hover .tech-tag {
+  color: var(--color-text);
+  border-color: var(--border-color-hover);
 }
 
 .pillar-badge {
@@ -540,6 +551,11 @@ main {
 .blog-card:hover {
   border-color: var(--color-primary);
   box-shadow: var(--glow-primary);
+  transform: translateY(-2px);
+}
+
+.blog-card {
+  transition: border-color var(--transition-base), box-shadow var(--transition-base), transform var(--transition-base);
 }
 
 .blog-card .blog-date {
@@ -805,6 +821,14 @@ main {
 
 .footer-links a:hover {
   color: var(--color-primary);
+}
+
+.footer-links a svg {
+  transition: transform var(--transition-fast);
+}
+
+.footer-links a:hover svg {
+  transform: translateY(-2px);
 }
 
 .footer-copy {

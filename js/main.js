@@ -66,3 +66,31 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     }
   });
 });
+
+/* ==============================
+   SCROLL TO TOP BUTTON
+   ============================== */
+const scrollTopBtn = document.querySelector('.scroll-top');
+
+if (scrollTopBtn) {
+  window.addEventListener('scroll', () => {
+    scrollTopBtn.classList.toggle('visible', window.scrollY > 400);
+  }, { passive: true });
+
+  scrollTopBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+}
+
+/* ==============================
+   NAVBAR SCROLL EFFECT
+   ============================== */
+const navbar = document.querySelector('.navbar');
+
+if (navbar) {
+  window.addEventListener('scroll', () => {
+    navbar.style.borderBottomColor = window.scrollY > 50
+      ? 'rgba(0, 255, 65, 0.15)'
+      : '';
+  }, { passive: true });
+}

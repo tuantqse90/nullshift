@@ -64,5 +64,38 @@
     "featured": false,
     "url": "#",
     "source_url": "#"
+  },
+  {
+    "id": "cipher-fs",
+    "name": "CipherFS",
+    "description": "Encrypted file system layer with plausible deniability. Hidden volumes, secure deletion, and zero-knowledge access control.",
+    "pillar": "privacy",
+    "status": "building",
+    "tech_stack": ["Rust", "FUSE", "AES-256-GCM"],
+    "featured": false,
+    "url": "#",
+    "source_url": "#"
+  },
+  {
+    "id": "token-scope",
+    "name": "TokenScope",
+    "description": "Real-time token analytics dashboard with on-chain data aggregation. Whale alerts, liquidity tracking, and holder distribution.",
+    "pillar": "blockchain",
+    "status": "live",
+    "tech_stack": ["TypeScript", "The Graph", "D3.js"],
+    "featured": false,
+    "url": "#",
+    "source_url": "#"
+  },
+  {
+    "id": "proof-net",
+    "name": "ProofNet",
+    "description": "Decentralized marketplace for ZK proof generation. Outsource heavy computation to specialized provers while maintaining privacy.",
+    "pillar": "zk",
+    "status": "concept",
+    "tech_stack": ["Rust", "gRPC", "GPU Compute"],
+    "featured": false,
+    "url": "#",
+    "source_url": "#"
   }
 ]

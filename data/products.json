@@ -58,5 +58,35 @@
     "tech_stack": ["Python", "Transformer", "Solidity AST"],
     "url": "#",
     "source_url": "#"
+  },
+  {
+    "id": "null-dns",
+    "name": "NullDNS",
+    "description": "Encrypted DNS resolver with built-in ad blocking and tracker filtering. DNS-over-HTTPS with zero logging.",
+    "pillar": "privacy",
+    "status": "live",
+    "tech_stack": ["Rust", "DoH", "DNSSEC"],
+    "url": "#",
+    "source_url": "#"
+  },
+  {
+    "id": "agent-forge",
+    "name": "AgentForge",
+    "description": "Framework for building and orchestrating autonomous AI agents. Define goals, tools, and constraints — let agents handle the rest.",
+    "pillar": "ai",
+    "status": "building",
+    "tech_stack": ["Python", "LangGraph", "Redis"],
+    "url": "#",
+    "source_url": "#"
+  },
+  {
+    "id": "zk-bridge",
+    "name": "ZK Bridge",
+    "description": "Cross-chain bridge powered by zero-knowledge proofs. Trustless asset transfers without revealing transaction details.",
+    "pillar": "zk",
+    "status": "concept",
+    "tech_stack": ["Solidity", "PLONK", "Rust"],
+    "url": "#",
+    "source_url": "#"
   }
 ]

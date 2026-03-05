@@ -82,6 +82,60 @@ a:hover {
   transform: translateY(0);
 }
 
+/* Stagger animation for grids */
+.card-grid .scroll-fade:nth-child(1) { transition-delay: 0ms; }
+.card-grid .scroll-fade:nth-child(2) { transition-delay: 100ms; }
+.card-grid .scroll-fade:nth-child(3) { transition-delay: 200ms; }
+.card-grid .scroll-fade:nth-child(4) { transition-delay: 300ms; }
+.card-grid .scroll-fade:nth-child(5) { transition-delay: 400ms; }
+.card-grid .scroll-fade:nth-child(6) { transition-delay: 500ms; }
+
+.pillars-grid .scroll-fade:nth-child(1) { transition-delay: 0ms; }
+.pillars-grid .scroll-fade:nth-child(2) { transition-delay: 100ms; }
+.pillars-grid .scroll-fade:nth-child(3) { transition-delay: 200ms; }
+.pillars-grid .scroll-fade:nth-child(4) { transition-delay: 300ms; }
+
+/* Scroll to top button */
+.scroll-top {
+  position: fixed;
+  bottom: var(--space-xl);
+  right: var(--space-xl);
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  color: var(--color-primary);
+  font-family: var(--font-mono);
+  font-size: var(--text-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: var(--z-card);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-base), border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.scroll-top.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.scroll-top:hover {
+  border-color: var(--color-primary);
+  box-shadow: var(--glow-primary);
+}
+
+/* Gradient text utility */
+.gradient-text {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *,

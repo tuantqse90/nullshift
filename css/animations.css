@@ -90,6 +90,54 @@
   animation: glitch 0.3s ease-in-out;
 }
 
+/* Shimmer effect for cards */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.hacker-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.02) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  opacity: 0;
+  transition: opacity var(--transition-base);
+  pointer-events: none;
+}
+
+.hacker-card:hover::after {
+  opacity: 1;
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+/* Pulse dot for active status */
+@keyframes status-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0, 255, 65, 0.4); }
+  50% { box-shadow: 0 0 0 4px rgba(0, 255, 65, 0); }
+}
+
+.status-tag[data-status="live"]::before,
+.status-tag[data-status="active"]::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  margin-right: 4px;
+  animation: status-pulse 2s ease-in-out infinite;
+}
+
 /* Scanline overlay */
 .scanlines::after {
   content: '';
