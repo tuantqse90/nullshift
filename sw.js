@@ -1,17 +1,15 @@
 /* ==============================
    SERVICE WORKER — NULLSHIFT
    ============================== */
-const CACHE_NAME = 'nullshift-v7';
+const CACHE_NAME = 'nullshift-v8';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
   '/services.html',
-  '/products.html',
   '/projects.html',
   '/agents.html',
   '/blog.html',
   '/changelog.html',
-  '/docs.html',
   '/editor.html',
   '/analytics.html',
   '/404.html',
