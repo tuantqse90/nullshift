@@ -1,92 +1,92 @@
 [
   {
-    "id": "voidmail",
-    "name": "VoidMail",
-    "description": "Disposable encrypted email service with zero-knowledge architecture. No logs, no metadata, no trace.",
-    "pillar": "privacy",
-    "status": "live",
-    "tech_stack": ["Go", "libsodium", "Tor"],
-    "url": "#",
-    "source_url": "#"
-  },
-  {
-    "id": "spectra-ai",
-    "name": "Spectra AI",
-    "description": "On-device LLM inference engine. Run models locally without sending data to the cloud. Privacy-preserving AI.",
+    "id": "seo-keyword-agents",
+    "name": "SEO Keyword Agents",
+    "description": "Full-stack SEO dashboard with AI-powered keyword research, content optimization, competitor analysis, and SERP tracking. Vietnamese UI with LLM streaming.",
     "pillar": "ai",
-    "status": "building",
-    "tech_stack": ["Rust", "ONNX", "WebGPU"],
-    "url": "#",
-    "source_url": "#"
+    "status": "live",
+    "tech_stack": ["Python", "FastAPI", "Next.js", "PostgreSQL"],
+    "url": "https://github.com/tuantqse90/seo-keyword-agents",
+    "source_url": "https://github.com/tuantqse90/seo-keyword-agents"
   },
   {
-    "id": "chainvault",
-    "name": "ChainVault",
-    "description": "Multi-chain non-custodial wallet with built-in DEX aggregator. Your keys, your crypto.",
+    "id": "p2p-escrow-marketplace",
+    "name": "P2P Escrow Marketplace",
+    "description": "Decentralized P2P marketplace on BNB Smart Chain. Smart contract escrow, E2E encrypted messaging, and on-chain dispute resolution.",
     "pillar": "blockchain",
     "status": "live",
-    "tech_stack": ["Solidity", "ethers.js", "React Native"],
-    "url": "#",
-    "source_url": "#"
+    "tech_stack": ["TypeScript", "Solidity", "BNB Chain"],
+    "url": "https://github.com/tuantqse90/p2p-mmo",
+    "source_url": "https://github.com/tuantqse90/p2p-mmo"
   },
   {
-    "id": "zkproof-sdk",
-    "name": "zkProof SDK",
-    "description": "Developer toolkit for generating and verifying zero-knowledge proofs. Supports SNARK and STARK circuits.",
+    "id": "nullshift-guardian",
+    "name": "NullShift Guardian",
+    "description": "AI-powered home safety system for Raspberry Pi. Real-time fire/smoke detection, fall detection, seizure detection, and smart AC control via computer vision.",
+    "pillar": "ai",
+    "status": "building",
+    "tech_stack": ["Python", "Raspberry Pi", "OpenCV", "IoT"],
+    "url": "#",
+    "source_url": "https://github.com/tuantqse90/nullshift-guardian"
+  },
+  {
+    "id": "nullshift-perf-agent",
+    "name": "Perf Marketing Agent",
+    "description": "Automated cross-platform performance marketing intelligence agent. AI-driven campaign analysis, budget optimization, and reporting.",
+    "pillar": "ai",
+    "status": "building",
+    "tech_stack": ["Python", "AI Agents", "Marketing APIs"],
+    "url": "#",
+    "source_url": "https://github.com/tuantqse90/nullshift-perf-agent"
+  },
+  {
+    "id": "privacy-defi-lending",
+    "name": "Privacy DeFi Lending",
+    "description": "Privacy-focused DeFi lending protocol. Zero-knowledge proof verification for creditworthiness without exposing financial data on-chain.",
     "pillar": "zk",
     "status": "building",
-    "tech_stack": ["Rust", "Circom", "Groth16"],
+    "tech_stack": ["Solidity", "ZK Proofs", "DeFi"],
     "url": "#",
-    "source_url": "#"
+    "source_url": "https://github.com/tuantqse90/privacy-focused-defi-lending"
   },
   {
-    "id": "ghostnet-vpn",
-    "name": "GhostNet VPN",
-    "description": "Decentralized VPN mesh network. Traffic routed through community nodes. No central server, no logs.",
-    "pillar": "privacy",
-    "status": "concept",
-    "tech_stack": ["WireGuard", "libp2p", "Go"],
-    "url": "#",
-    "source_url": "#"
-  },
-  {
-    "id": "neural-sentinel",
-    "name": "Neural Sentinel",
-    "description": "AI-powered smart contract auditing engine. Detects vulnerabilities before deployment using trained models.",
+    "id": "clawxfilm",
+    "name": "ClawxFilm",
+    "description": "AI-powered IP character video pipeline. Script-to-video generation with consistent character rendering and voice synthesis.",
     "pillar": "ai",
-    "status": "concept",
-    "tech_stack": ["Python", "Transformer", "Solidity AST"],
+    "status": "building",
+    "tech_stack": ["Python", "AI Video", "Character Engine"],
     "url": "#",
-    "source_url": "#"
+    "source_url": "https://github.com/tuantqse90/clawxfilm"
   },
   {
-    "id": "null-dns",
-    "name": "NullDNS",
-    "description": "Encrypted DNS resolver with built-in ad blocking and tracker filtering. DNS-over-HTTPS with zero logging.",
-    "pillar": "privacy",
+    "id": "telegram-notify-hub",
+    "name": "Telegram Notify Hub",
+    "description": "Centralized notification hub aggregating alerts from multiple services. Priority routing, templates, and deduplication via Telegram bot.",
+    "pillar": "ai",
+    "status": "building",
+    "tech_stack": ["Python", "Telegram Bot API", "Webhooks"],
+    "url": "#",
+    "source_url": "https://github.com/tuantqse90/telegram-notify-hub"
+  },
+  {
+    "id": "lobsterpot",
+    "name": "LobsterPot (Moltiverse)",
+    "description": "Fun lottery game on Monad blockchain with NFT minting. Provably fair mechanics and collectible rewards.",
+    "pillar": "blockchain",
     "status": "live",
-    "tech_stack": ["Rust", "DoH", "DNSSEC"],
-    "url": "#",
-    "source_url": "#"
+    "tech_stack": ["TypeScript", "Monad", "NFT", "Solidity"],
+    "url": "https://github.com/tuantqse90/Moltiverse",
+    "source_url": "https://github.com/tuantqse90/Moltiverse"
   },
   {
-    "id": "agent-forge",
-    "name": "AgentForge",
-    "description": "Framework for building and orchestrating autonomous AI agents. Define goals, tools, and constraints — let agents handle the rest.",
-    "pillar": "ai",
-    "status": "building",
-    "tech_stack": ["Python", "LangGraph", "Redis"],
-    "url": "#",
-    "source_url": "#"
-  },
-  {
-    "id": "zk-bridge",
-    "name": "ZK Bridge",
-    "description": "Cross-chain bridge powered by zero-knowledge proofs. Trustless asset transfers without revealing transaction details.",
-    "pillar": "zk",
-    "status": "concept",
-    "tech_stack": ["Solidity", "PLONK", "Rust"],
-    "url": "#",
-    "source_url": "#"
+    "id": "whampay",
+    "name": "WhamPay",
+    "description": "Mobile payment platform with native iOS Swift app and TypeScript backend. Built during hackathon for seamless payment UX.",
+    "pillar": "blockchain",
+    "status": "live",
+    "tech_stack": ["Swift", "TypeScript", "iOS", "Payments"],
+    "url": "https://github.com/tuantqse90/WhamPay",
+    "source_url": "https://github.com/tuantqse90/WhamPay"
   }
 ]

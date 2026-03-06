@@ -1,130 +1,146 @@
 [
   {
-    "id": "market-scanner",
-    "name": "Market Scanner",
-    "role": "Market Intelligence",
-    "description": "Monitors on-chain and off-chain market data across 50+ sources. Identifies arbitrage opportunities, whale movements, and trend reversals in real-time.",
+    "id": "seo-research-agent",
+    "name": "SEO Research Agent",
+    "role": "Keyword Intelligence",
+    "description": "AI-powered keyword research agent from SEO Keyword Agents platform. Analyzes search trends, competition, and identifies high-value keyword opportunities with LLM streaming.",
     "status": "active",
     "pillar": "ai",
-    "capabilities": ["Price Feeds", "Whale Tracking", "Trend Analysis", "Anomaly Detection"],
+    "capabilities": ["Keyword Research", "Search Trends", "Competition Analysis", "LLM Streaming"],
     "stats": {
       "uptime": "99.7%",
-      "signals_24h": "1,247",
+      "queries_24h": "2,847",
       "accuracy": "94.2%",
-      "latency": "< 200ms"
+      "latency": "< 300ms"
     },
-    "connections": ["trading-agent", "alert-bot"]
+    "connections": ["content-optimizer", "serp-tracker"]
   },
   {
-    "id": "trading-agent",
-    "name": "Trading Agent",
-    "role": "Autonomous Execution",
-    "description": "Executes trades based on signals from Market Scanner. Implements risk management, position sizing, and multi-strategy portfolio allocation across DeFi protocols.",
-    "status": "active",
-    "pillar": "blockchain",
-    "capabilities": ["DEX Trading", "Risk Management", "Position Sizing", "Multi-Protocol"],
-    "stats": {
-      "uptime": "99.9%",
-      "trades_24h": "342",
-      "win_rate": "67.8%",
-      "pnl_30d": "+12.4%"
-    },
-    "connections": ["market-scanner", "portfolio-tracker"]
-  },
-  {
-    "id": "content-agent",
-    "name": "Content Agent",
-    "role": "Research & Analysis",
-    "description": "Generates research reports, market analysis, and technical deep-dives. Monitors governance proposals and protocol updates across ecosystems.",
+    "id": "content-optimizer",
+    "name": "Content Optimizer",
+    "role": "Content Analysis",
+    "description": "Analyzes content quality, readability, and SEO optimization. Provides real-time suggestions for improving search rankings and user engagement.",
     "status": "active",
     "pillar": "ai",
-    "capabilities": ["Report Generation", "Governance Monitoring", "Protocol Analysis", "Trend Synthesis"],
+    "capabilities": ["Content Scoring", "Readability Analysis", "SEO Optimization", "Suggestion Engine"],
     "stats": {
       "uptime": "98.5%",
-      "reports_week": "14",
-      "sources": "200+",
-      "languages": "3"
+      "pages_analyzed": "14,200",
+      "avg_improvement": "+32%",
+      "languages": "2"
     },
-    "connections": ["market-scanner"]
+    "connections": ["seo-research-agent"]
+  },
+  {
+    "id": "perf-marketing-agent",
+    "name": "Perf Marketing Agent",
+    "role": "Campaign Intelligence",
+    "description": "Cross-platform performance marketing agent from NullShift Perf Agent. Monitors campaigns across Google Ads, Meta, TikTok and optimizes budgets autonomously.",
+    "status": "active",
+    "pillar": "ai",
+    "capabilities": ["Campaign Tracking", "Budget Optimization", "ROI Analysis", "Cross-Platform"],
+    "stats": {
+      "uptime": "99.9%",
+      "campaigns_active": "24",
+      "budget_saved": "18.5%",
+      "platforms": "3"
+    },
+    "connections": ["alert-bot", "seo-research-agent"]
+  },
+  {
+    "id": "guardian-vision",
+    "name": "Guardian Vision",
+    "role": "Safety Monitor",
+    "description": "Computer vision agent from NullShift Guardian. Real-time fire/smoke detection, fall detection, and seizure detection on Raspberry Pi edge devices.",
+    "status": "active",
+    "pillar": "ai",
+    "capabilities": ["Fire Detection", "Fall Detection", "Seizure Detection", "Smart AC Control"],
+    "stats": {
+      "uptime": "99.99%",
+      "frames_processed": "1.2M",
+      "false_positive_rate": "0.3%",
+      "response_time": "< 100ms"
+    },
+    "connections": ["alert-bot", "privacy-guard"]
   },
   {
     "id": "alert-bot",
     "name": "Alert Bot",
-    "role": "Notification System",
-    "description": "Real-time alert system for critical market events, security threats, and portfolio triggers. Delivers via encrypted channels only.",
+    "role": "Notification Hub",
+    "description": "Centralized notification agent powered by Telegram Notify Hub. Aggregates alerts from all agents and delivers via encrypted Telegram channels with priority routing.",
     "status": "active",
     "pillar": "privacy",
-    "capabilities": ["Price Alerts", "Security Warnings", "Portfolio Triggers", "Encrypted Delivery"],
+    "capabilities": ["Telegram Alerts", "Priority Routing", "Multi-Source", "Encrypted Delivery"],
     "stats": {
       "uptime": "99.99%",
-      "alerts_24h": "89",
+      "alerts_24h": "189",
       "avg_latency": "< 50ms",
-      "channels": "4"
+      "channels": "6"
     },
-    "connections": ["market-scanner", "trading-agent", "portfolio-tracker"]
+    "connections": ["perf-marketing-agent", "guardian-vision", "serp-tracker", "escrow-monitor"]
   },
   {
-    "id": "portfolio-tracker",
-    "name": "Portfolio Tracker",
-    "role": "Asset Management",
-    "description": "Tracks portfolio performance across chains and protocols. Calculates PnL, impermanent loss, yield farming returns, and tax implications.",
+    "id": "serp-tracker",
+    "name": "SERP Tracker",
+    "role": "Rank Monitoring",
+    "description": "Search engine results page tracking agent. Monitors keyword rankings, detects ranking changes, and identifies SERP feature opportunities.",
     "status": "idle",
-    "pillar": "blockchain",
-    "capabilities": ["Multi-Chain", "PnL Tracking", "Yield Analysis", "Tax Reports"],
+    "pillar": "ai",
+    "capabilities": ["Rank Tracking", "SERP Features", "Competitor Monitoring", "Trend Detection"],
     "stats": {
       "uptime": "95.0%",
-      "chains": "8",
-      "protocols": "45",
-      "sync_interval": "5min"
+      "keywords_tracked": "1,200",
+      "check_interval": "6h",
+      "engines": "2"
     },
-    "connections": ["trading-agent", "alert-bot"]
+    "connections": ["seo-research-agent", "alert-bot"]
   },
   {
-    "id": "zk-prover",
-    "name": "ZK Prover",
-    "role": "Proof Generation",
-    "description": "Deprecated proof generation service. Replaced by zkProof SDK for better performance and developer experience.",
-    "status": "deprecated",
-    "pillar": "zk",
-    "capabilities": ["SNARK Proofs", "Batch Verification"],
-    "stats": {
-      "uptime": "0%",
-      "proofs_total": "12,847",
-      "avg_time": "2.3s",
-      "status": "offline"
-    },
-    "connections": []
-  },
-  {
-    "id": "data-harvester",
-    "name": "Data Harvester",
-    "role": "On-Chain Indexer",
-    "description": "Indexes and normalizes on-chain data across 12 blockchains. Provides structured feeds for all other agents in the network.",
+    "id": "escrow-monitor",
+    "name": "Escrow Monitor",
+    "role": "Smart Contract Watcher",
+    "description": "Monitors P2P escrow smart contracts on BNB Chain. Tracks trade status, dispute triggers, and escrow fund movements in real-time.",
     "status": "active",
     "pillar": "blockchain",
-    "capabilities": ["Multi-Chain Indexing", "Event Parsing", "Data Normalization", "Historical Backfill"],
+    "capabilities": ["Contract Monitoring", "Dispute Detection", "Fund Tracking", "Event Parsing"],
     "stats": {
       "uptime": "99.8%",
-      "chains": "12",
-      "blocks_indexed": "2.1M",
-      "latency": "< 500ms"
+      "trades_monitored": "3,400",
+      "disputes_flagged": "12",
+      "chains": "1"
     },
-    "connections": ["market-scanner", "content-agent", "portfolio-tracker"]
+    "connections": ["alert-bot", "privacy-guard"]
   },
   {
     "id": "privacy-guard",
     "name": "Privacy Guard",
     "role": "Security Monitor",
-    "description": "Monitors agent communications for metadata leaks and enforces privacy policies. All inter-agent traffic passes through encrypted channels.",
+    "description": "Monitors all agent communications for metadata leaks and enforces privacy policies. All inter-agent traffic passes through encrypted channels.",
     "status": "active",
     "pillar": "privacy",
     "capabilities": ["Traffic Encryption", "Metadata Scrubbing", "Leak Detection", "Policy Enforcement"],
     "stats": {
       "uptime": "99.99%",
       "leaks_blocked": "0",
-      "encrypted_msgs": "1.4M",
+      "encrypted_msgs": "2.8M",
       "audit_score": "A+"
     },
-    "connections": ["alert-bot", "market-scanner", "trading-agent"]
+    "connections": ["alert-bot", "guardian-vision", "escrow-monitor"]
+  },
+  {
+    "id": "video-pipeline-agent",
+    "name": "Video Pipeline",
+    "role": "Content Generation",
+    "description": "Deprecated agent from ClawxFilm. Previously handled script-to-video pipeline. Replaced by direct API integration.",
+    "status": "deprecated",
+    "pillar": "ai",
+    "capabilities": ["Script Parsing", "Character Rendering"],
+    "stats": {
+      "uptime": "0%",
+      "videos_total": "847",
+      "avg_render": "4.2min",
+      "status": "offline"
+    },
+    "connections": []
   }
 ]
