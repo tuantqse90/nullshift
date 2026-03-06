@@ -24,9 +24,9 @@ function parseMarkdown(md) {
   // Blockquotes
   html = html.replace(/^> (.+)$/gm, '<blockquote><p>$1</p></blockquote>');
 
-  // Unordered lists
+  // Unordered lists — wrap consecutive <li> groups
   html = html.replace(/^- (.+)$/gm, '<li>$1</li>');
-  html = html.replace(/(<li>.*<\/li>)/s, (match) => `<ul>${match}</ul>`);
+  html = html.replace(/((?:<li>.*<\/li>\n?)+)/g, (match) => `<ul>${match}</ul>`);
 
   // Ordered lists
   html = html.replace(/^\d+\. (.+)$/gm, '<li>$1</li>');
@@ -62,6 +62,7 @@ function initBlog() {
   let posts = [];
   let activeFilter = 'all';
   let searchQuery = '';
+  let scrollHandler = null;
 
   // Show skeleton while loading
   if (gridEl) {
@@ -80,7 +81,10 @@ function initBlog() {
   }
 
   fetch('data/blog-posts.json')
-    .then(res => res.json())
+    .then(res => {
+      if (!res.ok) throw new Error('Failed to fetch');
+      return res.json();
+    })
     .then(data => {
       posts = data;
       buildBlogFilters();
@@ -268,6 +272,11 @@ function initBlog() {
   }
 
   function initReadingProgress() {
+    // Remove previous scroll handler to prevent leaks
+    if (scrollHandler) {
+      window.removeEventListener('scroll', scrollHandler);
+    }
+
     let progressBar = document.querySelector('.reading-progress');
     if (!progressBar) {
       progressBar = document.createElement('div');
@@ -278,21 +287,20 @@ function initBlog() {
     progressBar.classList.add('active');
 
     const fill = progressBar.querySelector('.reading-progress-fill');
-    const updateProgress = () => {
+    scrollHandler = () => {
       const scrollTop = window.scrollY;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
       fill.style.width = progress + '%';
     };
 
-    window.addEventListener('scroll', updateProgress, { passive: true });
-    updateProgress();
+    window.addEventListener('scroll', scrollHandler, { passive: true });
+    scrollHandler();
   }
 
   function addCodeCopyButtons(container) {
     container.querySelectorAll('pre').forEach(pre => {
-      const existing = pre.querySelector('.code-copy-btn');
-      if (existing) return;
+      if (pre.parentElement && pre.parentElement.classList.contains('code-block-wrapper')) return;
 
       const wrapper = document.createElement('div');
       wrapper.className = 'code-block-wrapper';
@@ -365,6 +373,12 @@ function initBlog() {
 
     const progressBar = document.querySelector('.reading-progress');
     if (progressBar) progressBar.classList.remove('active');
+
+    // Clean up scroll handler
+    if (scrollHandler) {
+      window.removeEventListener('scroll', scrollHandler);
+      scrollHandler = null;
+    }
   }
 
   function handleHash() {
