@@ -77,8 +77,14 @@
 
     <section class="section">
       <div class="container">
-        <div class="filter-bar" id="products-filter"></div>
+        <div class="filter-bar" id="products-filter">
+          <div class="view-toggle" id="view-toggle">
+            <button class="view-btn active" data-view="cards" aria-label="Card view">&#9638;</button>
+            <button class="view-btn" data-view="table" aria-label="Table view">&#9776;</button>
+          </div>
+        </div>
         <div class="card-grid" id="products-grid"></div>
+        <div class="products-table-wrap" id="products-table" style="display:none"></div>
       </div>
     </section>
   </main>
@@ -121,6 +127,35 @@
   <script src="js/main.js"></script>
   <script>new CursorTrail();</script>
   <script>
+    // View toggle
+    let allProducts = [];
+    document.querySelectorAll('.view-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const view = btn.dataset.view;
+        document.getElementById('products-grid').style.display = view === 'cards' ? '' : 'none';
+        document.getElementById('products-table').style.display = view === 'table' ? '' : 'none';
+        if (view === 'table' && allProducts.length > 0) renderTable(allProducts);
+      });
+    });
+
+    function renderTable(products) {
+      const wrap = document.getElementById('products-table');
+      wrap.innerHTML = '<table class="products-table"><thead><tr>' +
+        '<th>Product</th><th>Pillar</th><th>Status</th><th>Tech Stack</th><th>Description</th>' +
+        '</tr></thead><tbody>' +
+        products.map(p => '<tr>' +
+          '<td class="table-name">' + p.name + '</td>' +
+          '<td><span class="pillar-badge table-pillar" data-pillar="' + p.pillar + '">' + p.pillar.toUpperCase() + '</span></td>' +
+          '<td><span class="status-tag" data-status="' + p.status + '">[' + p.status.toUpperCase() + ']</span></td>' +
+          '<td>' + p.tech_stack.map(t => '<span class="tech-tag">' + t + '</span>').join(' ') + '</td>' +
+          '<td class="text-dim">' + p.description.substring(0, 80) + '...</td>' +
+          '</tr>'
+        ).join('') +
+        '</tbody></table>';
+    }
+
     initFilters({
       dataUrl: 'data/products.json',
       containerSelector: '#products-grid',
@@ -162,9 +197,17 @@
             </div>
           </div>
         `;
+      },
+      onDataLoaded: function(data) {
+        allProducts = data;
       }
     });
   </script>
+
+  <script src="/js/theme-customizer.js"></script>
+  <script src="/js/notifications.js"></script>
+  <script src="/js/bookmarks.js"></script>
+  <script src="/js/agent-chat.js"></script>
 
 </body>
 </html>

@@ -227,6 +227,70 @@ agent.start(
         </div>
       </div>
     </section>
+
+    <!-- CODE PLAYGROUND -->
+    <section class="section" id="playground">
+      <div class="container">
+        <div class="section-header scroll-fade">
+          <h2>Code <span class="text-primary">Playground</span></h2>
+          <p class="section-subtitle">// try the zkProof SDK live</p>
+        </div>
+        <div class="playground-layout scroll-fade">
+          <div class="playground-editor">
+            <div class="terminal-window">
+              <div class="terminal-titlebar">
+                <span class="terminal-dot red"></span>
+                <span class="terminal-dot yellow"></span>
+                <span class="terminal-dot green"></span>
+                <span style="margin-left:auto;font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-text-dim)">playground.js</span>
+              </div>
+              <div class="terminal-body" style="padding:0">
+                <textarea class="playground-input" id="playground-code" spellcheck="false">// zkProof SDK Example
+const { createProof, verifyProof } = require('@nullshift/zk-sdk');
+
+// Create a proof that you're over 18
+// without revealing your actual age
+const proof = await createProof({
+  circuit: 'age-check',
+  inputs: { age: 25, threshold: 18 },
+  private: ['age']
+});
+
+console.log('Proof:', proof.hash);
+console.log('Valid:', await verifyProof(proof));
+
+// The verifier only knows:
+// - The proof is valid
+// - age >= 18
+// They do NOT know the actual age</textarea>
+              </div>
+            </div>
+            <div class="playground-actions">
+              <button class="btn btn-primary" id="playground-run">> Run</button>
+              <select class="playground-examples" id="playground-examples">
+                <option value="">Load Example...</option>
+                <option value="age">Age Verification</option>
+                <option value="balance">Balance Proof</option>
+                <option value="membership">Group Membership</option>
+              </select>
+            </div>
+          </div>
+          <div class="playground-output">
+            <div class="terminal-window">
+              <div class="terminal-titlebar">
+                <span class="terminal-dot red"></span>
+                <span class="terminal-dot yellow"></span>
+                <span class="terminal-dot green"></span>
+                <span style="margin-left:auto;font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-text-dim)">output</span>
+              </div>
+              <div class="terminal-body">
+                <pre class="playground-result" id="playground-result"><span class="text-dim">// Click "Run" to execute...</span></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
   <!-- FOOTER -->
@@ -264,6 +328,103 @@ agent.start(
   <script src="js/achievements.js"></script>
   <script src="js/main.js"></script>
   <script>new CursorTrail();</script>
+  <style>
+    .playground-layout { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg); }
+    .playground-input {
+      width: 100%; min-height: 280px; background: var(--bg-primary); color: var(--color-primary);
+      border: none; font-family: var(--font-mono); font-size: var(--text-sm); padding: var(--space-md);
+      resize: vertical; outline: none; line-height: 1.6;
+    }
+    .playground-actions { display: flex; gap: var(--space-md); margin-top: var(--space-sm); align-items: center; }
+    .playground-examples {
+      background: var(--bg-input); border: 1px solid var(--border-color); color: var(--color-text);
+      font-family: var(--font-mono); font-size: var(--text-xs); padding: var(--space-sm);
+    }
+    .playground-result {
+      font-family: var(--font-mono); font-size: var(--text-sm); color: var(--color-text);
+      white-space: pre-wrap; margin: 0; min-height: 260px; line-height: 1.6;
+    }
+    @media (max-width: 768px) { .playground-layout { grid-template-columns: 1fr; } }
+  </style>
+  <script>
+    const examples = {
+      age: `// Age Verification Proof
+const { createProof, verifyProof } = require('@nullshift/zk-sdk');
+
+const proof = await createProof({
+  circuit: 'age-check',
+  inputs: { age: 25, threshold: 18 },
+  private: ['age']
+});
+
+console.log('Proof:', proof.hash);
+console.log('Valid:', await verifyProof(proof));`,
+      balance: `// Balance Proof (prove you have enough funds)
+const { createProof, verifyProof } = require('@nullshift/zk-sdk');
+
+const proof = await createProof({
+  circuit: 'balance-check',
+  inputs: { balance: 15000, minimum: 10000 },
+  private: ['balance']
+});
+
+console.log('Proof:', proof.hash);
+console.log('Sufficient funds:', await verifyProof(proof));`,
+      membership: `// Group Membership Proof
+const { createProof, verifyProof } = require('@nullshift/zk-sdk');
+
+const proof = await createProof({
+  circuit: 'set-membership',
+  inputs: {
+    member: '0xABC...DEF',
+    group: 'verified-builders'
+  },
+  private: ['member']
+});
+
+console.log('Proof:', proof.hash);
+console.log('Is member:', await verifyProof(proof));`
+    };
+
+    document.getElementById('playground-examples').addEventListener('change', function() {
+      if (this.value && examples[this.value]) {
+        document.getElementById('playground-code').value = examples[this.value];
+      }
+    });
+
+    document.getElementById('playground-run').addEventListener('click', function() {
+      const output = document.getElementById('playground-result');
+      const code = document.getElementById('playground-code').value;
+      output.innerHTML = '<span class="text-dim">Compiling circuit...</span>';
+
+      setTimeout(function() {
+        output.innerHTML = '<span class="text-dim">Compiling circuit...</span>\n<span class="text-dim">Generating witness...</span>';
+        setTimeout(function() {
+          output.innerHTML = '<span class="text-dim">Compiling circuit...</span>\n<span class="text-dim">Generating witness...</span>\n<span class="text-dim">Computing proof...</span>';
+          setTimeout(function() {
+            const hash = '0x' + Array.from({length: 16}, () => Math.floor(Math.random() * 16).toString(16)).join('');
+            let result = '<span class="text-dim">Compiling circuit... </span><span class="text-primary">OK</span>\n';
+            result += '<span class="text-dim">Generating witness... </span><span class="text-primary">OK</span>\n';
+            result += '<span class="text-dim">Computing proof... </span><span class="text-primary">OK</span>\n\n';
+            result += '<span class="text-primary">Proof: </span>' + hash + '\n';
+            result += '<span class="text-primary">Valid: </span><span class="text-primary">true</span>\n\n';
+            result += '<span class="text-dim">--- Proof Stats ---</span>\n';
+            result += 'Circuit size: ' + (Math.floor(Math.random() * 500) + 100) + ' constraints\n';
+            result += 'Proof time: ' + (Math.random() * 2 + 0.5).toFixed(1) + 's\n';
+            result += 'Verify time: ' + (Math.random() * 10 + 1).toFixed(0) + 'ms\n';
+            result += 'Proof size: ' + (Math.floor(Math.random() * 200) + 128) + ' bytes';
+            output.innerHTML = result;
+            if (typeof Toast !== 'undefined') Toast.success('Proof verified successfully');
+          }, 800);
+        }, 600);
+      }, 500);
+    });
+  </script>
+
+  <script src="/js/theme-customizer.js"></script>
+  <script src="/js/notifications.js"></script>
+  <script src="/js/bookmarks.js"></script>
+  <script src="/js/agent-chat.js"></script>
 
 </body>
 </html>

@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-const pages = ['services', 'products', 'agents', 'blog', 'projects', 'changelog', 'docs', 'editor', 'analytics', 'status', 'about'];
+const pages = ['services', 'products', 'agents', 'blog', 'projects', 'changelog', 'docs', 'editor', 'analytics', 'status', 'about', 'sitemap-visual'];
 pages.forEach(page => {
   app.get(`/${page}`, (req, res) => {
     res.sendFile(path.join(__dirname, `${page}.html`));

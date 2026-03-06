@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visual Sitemap — NullShift</title>
+  <meta name="description" content="Interactive visual sitemap of the NullShift website. Explore all pages and their connections.">
+  <meta property="og:title" content="Visual Sitemap — NullShift">
+  <meta property="og:description" content="Interactive graph showing all NullShift pages and how they connect.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://nullshift.sh/assets/images/og-image.svg">
+  <meta name="twitter:card" content="summary">
+  <meta name="theme-color" content="#0a0a0a">
+  <link rel="canonical" href="https://nullshift.sh/sitemap-visual">
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.json">
+  <link rel="alternate" type="application/rss+xml" title="NullShift Blog" href="feed.xml">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" as="style">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <style>
+    .sitemap-hero {
+      padding: var(--space-16) 0 var(--space-8);
+      text-align: center;
+    }
+    .sitemap-hero h1 {
+      font-family: var(--font-mono);
+      font-size: var(--text-4xl);
+      color: var(--color-text);
+    }
+    .sitemap-hero .section-subtitle {
+      font-family: var(--font-mono);
+      color: var(--color-text-muted);
+      margin-top: var(--space-2);
+    }
+    .sitemap-canvas-wrap {
+      display: flex;
+      justify-content: center;
+      padding: var(--space-8) var(--space-4);
+    }
+    #sitemap-canvas {
+      background: var(--bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      cursor: grab;
+      max-width: 100%;
+      touch-action: none;
+    }
+    #sitemap-canvas:active {
+      cursor: grabbing;
+    }
+    .sitemap-legend {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--space-6);
+      padding: var(--space-4) var(--space-4) var(--space-12);
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+    .sitemap-legend .legend-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .sitemap-instructions {
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      padding-bottom: var(--space-4);
+    }
+    .sitemap-instructions span {
+      color: var(--color-primary);
+    }
+
+    /* Tooltip overlay */
+    .sitemap-tooltip {
+      position: fixed;
+      pointer-events: none;
+      background: var(--bg-primary);
+      border: 1px solid var(--color-primary);
+      border-radius: var(--radius-md);
+      padding: var(--space-2) var(--space-3);
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      color: var(--color-text);
+      z-index: 1000;
+      opacity: 0;
+      transition: opacity 0.15s ease;
+      max-width: 260px;
+    }
+    .sitemap-tooltip.visible {
+      opacity: 1;
+    }
+    .sitemap-tooltip .tt-name {
+      color: var(--color-primary);
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+    .sitemap-tooltip .tt-desc {
+      color: var(--color-text-muted);
+      font-size: var(--text-xs);
+    }
+
+    @media (max-width: 640px) {
+      .sitemap-hero h1 {
+        font-size: var(--text-2xl);
+      }
+    }
+  </style>
+</head>
+<body>
+  <script>(function(){const k='ns_analytics',d=JSON.parse(localStorage.getItem(k)||'{"views":[],"sessions":0}');d.sessions++;d.views.push({page:window.location.pathname,time:Date.now(),ref:document.referrer||'direct'});if(d.views.length>500)d.views=d.views.slice(-500);localStorage.setItem(k,JSON.stringify(d))})()</script>
+  <a href="#main-content" class="skip-link">Skip to content</a>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="NullShift home">null<span>shift.sh</span></a>
+      <div class="nav-links">
+        <a href="services.html">services</a>
+        <a href="products.html">products</a>
+        <a href="projects.html">projects</a>
+        <a href="agents.html">agents</a>
+        <a href="blog.html">blog</a>
+        <a href="docs.html">docs</a>
+        <a href="changelog.html">changelog</a>
+        <button class="nav-search-btn" aria-label="Search" onclick="GlobalSearch.open()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </button>
+      </div>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MOBILE NAV -->
+  <div class="mobile-nav" role="navigation" aria-label="Mobile navigation">
+    <a href="services.html">services</a>
+    <a href="products.html">products</a>
+    <a href="projects.html">projects</a>
+    <a href="agents.html">agents</a>
+    <a href="blog.html">blog</a>
+    <a href="docs.html">docs</a>
+    <a href="changelog.html">changelog</a>
+  </div>
+
+  <main id="main-content">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="index.html">home</a> <span>/</span> <span>sitemap</span></nav>
+
+    <section class="sitemap-hero">
+      <div class="container">
+        <h1 class="scroll-fade">/<span class="text-primary">sitemap</span></h1>
+        <p class="section-subtitle scroll-fade">// interactive site topology</p>
+      </div>
+    </section>
+
+    <div class="sitemap-instructions scroll-fade">
+      <span>&gt;</span> Drag nodes to rearrange. Hover for info. Click to navigate.
+    </div>
+
+    <div class="sitemap-canvas-wrap">
+      <canvas id="sitemap-canvas" width="800" height="600" aria-label="Interactive visual sitemap of NullShift pages" role="img"></canvas>
+    </div>
+
+    <div class="sitemap-legend scroll-fade">
+      <div class="legend-item"><span class="legend-dot" style="background:#00ff41;"></span> Home</div>
+      <div class="legend-item"><span class="legend-dot" style="background:#00ffff;"></span> Main Nav</div>
+      <div class="legend-item"><span class="legend-dot" style="background:#ff0080;"></span> Tools</div>
+      <div class="legend-item"><span class="legend-dot" style="background:#555;"></span> Error Pages</div>
+    </div>
+  </main>
+
+  <!-- Tooltip -->
+  <div class="sitemap-tooltip" id="sitemap-tooltip">
+    <div class="tt-name"></div>
+    <div class="tt-desc"></div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <span class="name">nullshift.sh</span> — privacy-first builder labs
+        </div>
+        <div class="footer-links">
+          <a href="https://github.com/nullshift" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          </a>
+          <a href="https://x.com/nullshift" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a href="https://t.me/nullshift" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0h-.056zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+          </a>
+        </div>
+        <div class="footer-copy">&copy; 2026 NullShift Labs</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scroll to top -->
+  <button class="scroll-top" aria-label="Scroll to top">&uarr;</button>
+
+  <script src="js/toast.js"></script>
+  <script src="js/search.js"></script>
+  <script src="js/cursor-trail.js"></script>
+  <script src="js/keyboard.js"></script>
+  <script src="js/command-palette.js"></script>
+  <script src="js/achievements.js"></script>
+  <script src="js/main.js"></script>
+  <script>new CursorTrail();</script>
+
+  <script>
+  (function() {
+    'use strict';
+
+    const canvas = document.getElementById('sitemap-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const tooltip = document.getElementById('sitemap-tooltip');
+    const ttName = tooltip.querySelector('.tt-name');
+    const ttDesc = tooltip.querySelector('.tt-desc');
+
+    /* ── Responsive canvas sizing ── */
+    const BASE_W = 800;
+    const BASE_H = 600;
+
+    function resizeCanvas() {
+      const wrap = canvas.parentElement;
+      const maxW = Math.min(wrap.clientWidth - 32, BASE_W);
+      const scale = maxW / BASE_W;
+      canvas.width = maxW;
+      canvas.height = BASE_H * scale;
+      return scale;
+    }
+
+    let canvasScale = resizeCanvas();
+
+    /* ── Color palette ── */
+    const COL_GREEN = '#00ff41';
+    const COL_CYAN  = '#00ffff';
+    const COL_PINK  = '#ff0080';
+    const COL_DIM   = '#555555';
+    const COL_LINE  = 'rgba(0,255,65,0.15)';
+    const COL_LINE_HOVER = 'rgba(0,255,65,0.45)';
+    const COL_BG    = '#1a1a1a';
+    const COL_TEXT  = '#e0e0e0';
+    const COL_TEXT_MUTED = '#888888';
+
+    /* ── Node definitions ── */
+    const nodeData = [
+      // Center
+      { id: 'home',      label: 'Home',      href: 'index.html',     desc: 'Landing page — hero, pillars overview, newsletter',                radius: 30, color: COL_GREEN, ring: 0 },
+      // Inner ring — main nav
+      { id: 'services',  label: 'Services',  href: 'services.html',  desc: 'Engineering services across Privacy, AI, Blockchain, ZK',         radius: 20, color: COL_CYAN, ring: 1 },
+      { id: 'products',  label: 'Products',  href: 'products.html',  desc: 'Privacy-first tools and products built by NullShift',             radius: 20, color: COL_CYAN, ring: 1 },
+      { id: 'projects',  label: 'Projects',  href: 'projects.html',  desc: 'Open-source research projects and experiments',                   radius: 20, color: COL_CYAN, ring: 1 },
+      { id: 'agents',    label: 'Agents',    href: 'agents.html',    desc: 'Autonomous AI agents — status, graph, and reports',                radius: 20, color: COL_CYAN, ring: 1 },
+      { id: 'blog',      label: 'Blog',      href: 'blog.html',      desc: 'Technical deep-dives and dispatches from the labs',               radius: 20, color: COL_CYAN, ring: 1 },
+      // Outer ring — secondary / tools
+      { id: 'docs',      label: 'Docs',      href: 'docs.html',      desc: 'Architecture, design system, deployment, and data schemas',        radius: 15, color: COL_PINK, ring: 2 },
+      { id: 'changelog', label: 'Changelog', href: 'changelog.html', desc: 'Version history and release notes',                               radius: 15, color: COL_PINK, ring: 2 },
+      { id: 'editor',    label: 'Editor',    href: 'editor.html',    desc: 'Markdown blog post editor with live preview',                     radius: 15, color: COL_PINK, ring: 2 },
+      { id: 'analytics', label: 'Analytics', href: 'analytics.html', desc: 'Privacy-first local analytics dashboard',                         radius: 15, color: COL_PINK, ring: 2 },
+      { id: 'status',    label: 'Status',    href: 'status.html',    desc: 'System health and agent operational status',                      radius: 15, color: COL_PINK, ring: 2 },
+      { id: 'about',     label: 'About',     href: 'about.html',     desc: 'Mission, philosophy, and the builder behind NullShift',           radius: 15, color: COL_PINK, ring: 2 },
+      // Error pages
+      { id: '404',       label: '404',       href: '404.html',       desc: 'Page not found — lost in the void',                               radius: 10, color: COL_DIM, ring: 3 },
+      { id: '500',       label: '500',       href: '500.html',       desc: 'Server error — something broke in the matrix',                    radius: 10, color: COL_DIM, ring: 3 },
+    ];
+
+    /* ── Edges ── */
+    const edges = [
+      ['home', 'services'],
+      ['home', 'products'],
+      ['home', 'projects'],
+      ['home', 'agents'],
+      ['home', 'blog'],
+      ['services', 'products'],
+      ['products', 'projects'],
+      ['agents', 'blog'],
+      ['blog', 'editor'],
+      ['docs', 'changelog'],
+      ['status', 'agents'],
+    ];
+
+    /* ── Build nodes with initial positions ── */
+    const cx = BASE_W / 2;
+    const cy = BASE_H / 2;
+    const nodeMap = {};
+
+    const ringRadii = [0, 140, 250, 0]; // ring 3 handled separately
+    const ringCounts = [0, 0, 0, 0];
+    nodeData.forEach(n => ringCounts[n.ring]++);
+    const ringIndices = [0, 0, 0, 0];
+
+    const nodes = nodeData.map(d => {
+      let x, y;
+      if (d.ring === 0) {
+        x = cx;
+        y = cy;
+      } else if (d.ring === 3) {
+        // Error pages at bottom
+        const idx = ringIndices[3];
+        x = cx + (idx === 0 ? -60 : 60);
+        y = cy + 230;
+        ringIndices[3]++;
+      } else {
+        const count = ringCounts[d.ring];
+        const idx = ringIndices[d.ring];
+        const angle = (Math.PI * 2 * idx / count) - Math.PI / 2;
+        const r = ringRadii[d.ring];
+        x = cx + Math.cos(angle) * r;
+        y = cy + Math.sin(angle) * r;
+        ringIndices[d.ring]++;
+      }
+
+      const node = {
+        ...d,
+        x: x,
+        y: y,
+        vx: 0,
+        vy: 0,
+        targetX: x,
+        targetY: y,
+      };
+      nodeMap[d.id] = node;
+      return node;
+    });
+
+    /* ── Force-directed simulation ── */
+    const REPULSION = 6000;
+    const SPRING_K = 0.005;
+    const SPRING_REST = 160;
+    const DAMPING = 0.85;
+    const CENTER_PULL = 0.001;
+    const SETTLE_THRESHOLD = 0.1;
+    let settled = false;
+    let simulationTicks = 0;
+    const MAX_SIM_TICKS = 500;
+
+    function simulate() {
+      if (settled) return;
+
+      let totalMovement = 0;
+
+      // Reset forces
+      nodes.forEach(n => { n.fx = 0; n.fy = 0; });
+
+      // Repulsion between all pairs
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const a = nodes[i];
+          const b = nodes[j];
+          let dx = a.x - b.x;
+          let dy = a.y - b.y;
+          let dist = Math.sqrt(dx * dx + dy * dy) || 1;
+          const minDist = a.radius + b.radius + 20;
+          if (dist < minDist) dist = minDist;
+          const force = REPULSION / (dist * dist);
+          const fx = (dx / dist) * force;
+          const fy = (dy / dist) * force;
+          a.fx += fx;
+          a.fy += fy;
+          b.fx -= fx;
+          b.fy -= fy;
+        }
+      }
+
+      // Spring attraction along edges
+      edges.forEach(([idA, idB]) => {
+        const a = nodeMap[idA];
+        const b = nodeMap[idB];
+        if (!a || !b) return;
+        const dx = b.x - a.x;
+        const dy = b.y - a.y;
+        const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+        const displacement = dist - SPRING_REST;
+        const force = SPRING_K * displacement;
+        const fx = (dx / dist) * force;
+        const fy = (dy / dist) * force;
+        a.fx += fx;
+        a.fy += fy;
+        b.fx -= fx;
+        b.fy -= fy;
+      });
+
+      // Gentle pull toward target (initial layout) to keep structure
+      nodes.forEach(n => {
+        n.fx += (n.targetX - n.x) * CENTER_PULL * 5;
+        n.fy += (n.targetY - n.y) * CENTER_PULL * 5;
+      });
+
+      // Center gravity
+      nodes.forEach(n => {
+        n.fx += (cx - n.x) * CENTER_PULL;
+        n.fy += (cy - n.y) * CENTER_PULL;
+      });
+
+      // Apply forces
+      nodes.forEach(n => {
+        if (n === dragNode) return;
+        n.vx = (n.vx + n.fx) * DAMPING;
+        n.vy = (n.vy + n.fy) * DAMPING;
+        n.x += n.vx;
+        n.y += n.vy;
+
+        // Keep in bounds
+        const pad = n.radius + 5;
+        n.x = Math.max(pad, Math.min(BASE_W - pad, n.x));
+        n.y = Math.max(pad, Math.min(BASE_H - pad, n.y));
+
+        totalMovement += Math.abs(n.vx) + Math.abs(n.vy);
+      });
+
+      simulationTicks++;
+      if (totalMovement < SETTLE_THRESHOLD || simulationTicks > MAX_SIM_TICKS) {
+        settled = true;
+      }
+    }
+
+    /* ── Interaction state ── */
+    let dragNode = null;
+    let hoverNode = null;
+    let dragOffsetX = 0;
+    let dragOffsetY = 0;
+    let mouseX = 0;
+    let mouseY = 0;
+    let isVisible = true;
+    let reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* ── Hit detection ── */
+    function getNodeAt(mx, my) {
+      // Reverse order so top-drawn nodes are hit first
+      for (let i = nodes.length - 1; i >= 0; i--) {
+        const n = nodes[i];
+        const sx = n.x * canvasScale;
+        const sy = n.y * canvasScale;
+        const sr = n.radius * canvasScale;
+        const dx = mx - sx;
+        const dy = my - sy;
+        if (dx * dx + dy * dy <= sr * sr) return n;
+      }
+      return null;
+    }
+
+    function getCanvasPos(e) {
+      const rect = canvas.getBoundingClientRect();
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      return {
+        x: clientX - rect.left,
+        y: clientY - rect.top,
+      };
+    }
+
+    /* ── Mouse / touch events ── */
+    function onPointerDown(e) {
+      const pos = getCanvasPos(e);
+      const node = getNodeAt(pos.x, pos.y);
+      if (node) {
+        dragNode = node;
+        dragOffsetX = node.x * canvasScale - pos.x;
+        dragOffsetY = node.y * canvasScale - pos.y;
+        settled = false;
+        e.preventDefault();
+      }
+    }
+
+    function onPointerMove(e) {
+      const pos = getCanvasPos(e);
+      mouseX = pos.x;
+      mouseY = pos.y;
+
+      if (dragNode) {
+        dragNode.x = (pos.x + dragOffsetX) / canvasScale;
+        dragNode.y = (pos.y + dragOffsetY) / canvasScale;
+        // Keep in bounds
+        const pad = dragNode.radius + 5;
+        dragNode.x = Math.max(pad, Math.min(BASE_W - pad, dragNode.x));
+        dragNode.y = Math.max(pad, Math.min(BASE_H - pad, dragNode.y));
+        dragNode.vx = 0;
+        dragNode.vy = 0;
+        settled = false;
+        simulationTicks = Math.max(0, simulationTicks - 10);
+        e.preventDefault();
+      }
+
+      // Hover detection
+      const node = getNodeAt(pos.x, pos.y);
+      if (node !== hoverNode) {
+        hoverNode = node;
+        canvas.style.cursor = node ? 'pointer' : 'grab';
+        if (node) {
+          ttName.textContent = '> ' + node.label;
+          ttDesc.textContent = node.desc;
+          tooltip.classList.add('visible');
+        } else {
+          tooltip.classList.remove('visible');
+        }
+      }
+
+      // Position tooltip
+      if (hoverNode) {
+        const rect = canvas.getBoundingClientRect();
+        let tx = (e.touches ? e.touches[0].clientX : e.clientX) + 16;
+        let ty = (e.touches ? e.touches[0].clientY : e.clientY) - 10;
+        // Keep tooltip on screen
+        if (tx + 270 > window.innerWidth) tx = tx - 290;
+        if (ty < 10) ty = 10;
+        tooltip.style.left = tx + 'px';
+        tooltip.style.top = ty + 'px';
+      }
+    }
+
+    function onPointerUp(e) {
+      if (dragNode) {
+        // If barely moved, treat as click
+        dragNode = null;
+      }
+    }
+
+    function onClick(e) {
+      if (dragNode) return;
+      const pos = getCanvasPos(e);
+      const node = getNodeAt(pos.x, pos.y);
+      if (node && node.href) {
+        window.location.href = node.href;
+      }
+    }
+
+    canvas.addEventListener('mousedown', onPointerDown);
+    canvas.addEventListener('mousemove', onPointerMove);
+    canvas.addEventListener('mouseup', onPointerUp);
+    canvas.addEventListener('click', onClick);
+    canvas.addEventListener('mouseleave', function() {
+      hoverNode = null;
+      tooltip.classList.remove('visible');
+      canvas.style.cursor = 'grab';
+    });
+
+    // Touch support
+    canvas.addEventListener('touchstart', onPointerDown, { passive: false });
+    canvas.addEventListener('touchmove', onPointerMove, { passive: false });
+    canvas.addEventListener('touchend', onPointerUp);
+
+    /* ── Drawing ── */
+    let animationId = null;
+    let pulsePhase = 0;
+
+    function draw() {
+      const w = canvas.width;
+      const h = canvas.height;
+      const s = canvasScale;
+
+      ctx.clearRect(0, 0, w, h);
+
+      // Background
+      ctx.fillStyle = COL_BG;
+      ctx.fillRect(0, 0, w, h);
+
+      // Subtle grid
+      ctx.strokeStyle = 'rgba(0,255,65,0.03)';
+      ctx.lineWidth = 1;
+      const gridStep = 40 * s;
+      for (let gx = 0; gx < w; gx += gridStep) {
+        ctx.beginPath();
+        ctx.moveTo(gx, 0);
+        ctx.lineTo(gx, h);
+        ctx.stroke();
+      }
+      for (let gy = 0; gy < h; gy += gridStep) {
+        ctx.beginPath();
+        ctx.moveTo(0, gy);
+        ctx.lineTo(w, gy);
+        ctx.stroke();
+      }
+
+      // Draw edges
+      edges.forEach(([idA, idB]) => {
+        const a = nodeMap[idA];
+        const b = nodeMap[idB];
+        if (!a || !b) return;
+
+        const isHighlighted = (hoverNode && (hoverNode === a || hoverNode === b));
+
+        ctx.beginPath();
+        ctx.moveTo(a.x * s, a.y * s);
+        ctx.lineTo(b.x * s, b.y * s);
+        ctx.strokeStyle = isHighlighted ? COL_LINE_HOVER : COL_LINE;
+        ctx.lineWidth = isHighlighted ? 2 : 1;
+        ctx.stroke();
+
+        // Draw small dots along the edge for a "data flow" look
+        if (!reducedMotion && isHighlighted) {
+          const dx = b.x - a.x;
+          const dy = b.y - a.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          const dotCount = 3;
+          for (let i = 0; i < dotCount; i++) {
+            const t = ((pulsePhase / 60 + i / dotCount) % 1);
+            const px = (a.x + dx * t) * s;
+            const py = (a.y + dy * t) * s;
+            ctx.beginPath();
+            ctx.arc(px, py, 2 * s / canvasScale, 0, Math.PI * 2);
+            ctx.fillStyle = COL_GREEN;
+            ctx.globalAlpha = 0.6;
+            ctx.fill();
+            ctx.globalAlpha = 1;
+          }
+        }
+      });
+
+      // Draw nodes
+      nodes.forEach(n => {
+        const nx = n.x * s;
+        const ny = n.y * s;
+        const nr = n.radius * s;
+        const isHovered = (n === hoverNode);
+        const isError = (n.ring === 3);
+
+        // Glow for hovered node
+        if (isHovered && !reducedMotion) {
+          const glow = ctx.createRadialGradient(nx, ny, nr * 0.5, nx, ny, nr * 2.5);
+          glow.addColorStop(0, n.color + '33');
+          glow.addColorStop(1, 'transparent');
+          ctx.beginPath();
+          ctx.arc(nx, ny, nr * 2.5, 0, Math.PI * 2);
+          ctx.fillStyle = glow;
+          ctx.fill();
+        }
+
+        // Outer ring pulse for home node
+        if (n.id === 'home' && !reducedMotion) {
+          const pulseR = nr + 4 + Math.sin(pulsePhase * 0.05) * 3;
+          ctx.beginPath();
+          ctx.arc(nx, ny, pulseR, 0, Math.PI * 2);
+          ctx.strokeStyle = n.color + '44';
+          ctx.lineWidth = 2;
+          ctx.stroke();
+        }
+
+        // Node circle — dark fill with colored border
+        ctx.beginPath();
+        ctx.arc(nx, ny, nr, 0, Math.PI * 2);
+        ctx.fillStyle = isError ? '#111111' : '#0d0d0d';
+        ctx.fill();
+        ctx.strokeStyle = isHovered ? '#ffffff' : n.color;
+        ctx.lineWidth = isHovered ? 3 : 2;
+        ctx.globalAlpha = isError ? 0.5 : 1;
+        ctx.stroke();
+        ctx.globalAlpha = 1;
+
+        // Node label
+        const fontSize = Math.max(9, Math.round((n.radius <= 10 ? 9 : n.radius <= 15 ? 10 : n.radius <= 20 ? 11 : 13) * s));
+        ctx.font = '600 ' + fontSize + 'px "JetBrains Mono", monospace';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillStyle = isHovered ? '#ffffff' : (isError ? COL_TEXT_MUTED : COL_TEXT);
+        ctx.globalAlpha = isError ? 0.5 : 1;
+        ctx.fillText(n.label, nx, ny);
+        ctx.globalAlpha = 1;
+      });
+    }
+
+    /* ── Animation loop ── */
+    function loop() {
+      if (document.hidden || !isVisible) {
+        animationId = requestAnimationFrame(loop);
+        return;
+      }
+
+      if (!reducedMotion) {
+        simulate();
+        pulsePhase++;
+      }
+
+      draw();
+      animationId = requestAnimationFrame(loop);
+    }
+
+    /* ── Reduced motion: run simulation to completion instantly, then draw static ── */
+    if (reducedMotion) {
+      for (let i = 0; i < MAX_SIM_TICKS; i++) {
+        simulate();
+      }
+      settled = true;
+      draw();
+    } else {
+      loop();
+    }
+
+    /* ── Visibility API ── */
+    document.addEventListener('visibilitychange', function() {
+      // Just track — the loop already checks document.hidden
+    });
+
+    /* ── IntersectionObserver — pause when canvas is off screen ── */
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          isVisible = entry.isIntersecting;
+        });
+      }, { threshold: 0.05 });
+      observer.observe(canvas);
+    }
+
+    /* ── Resize handler ── */
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function() {
+        canvasScale = resizeCanvas();
+        draw();
+      }, 100);
+    });
+
+  })();
+  </script>
+
+  <script src="/js/theme-customizer.js"></script>
+  <script src="/js/notifications.js"></script>
+  <script src="/js/bookmarks.js"></script>
+  <script src="/js/agent-chat.js"></script>
+
+</body>
+</html>
