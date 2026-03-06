@@ -52,6 +52,10 @@ const STATIC_ASSETS = [
   '/js/agent-chat.js',
   '/js/boot-sequence.js',
   '/js/contribution-graph.js',
+  '/js/reading-progress.js',
+  '/js/matrix-customizer.js',
+  '/js/perf-monitor.js',
+  '/easter-eggs.html',
   '/sitemap-visual.html',
   '/assets/icons/favicon.svg',
   '/manifest.json'

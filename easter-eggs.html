@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>// CLASSIFIED — NullShift</title>
+  <meta name="description" content="You found the hidden page. All discoverable easter eggs across NullShift.">
+  <meta property="og:title" content="// CLASSIFIED — NullShift">
+  <meta property="og:description" content="Hidden secrets of nullshift.sh.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://nullshift.sh/assets/images/og-image.svg">
+  <meta name="twitter:card" content="summary">
+  <meta name="theme-color" content="#0a0a0a">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.json">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" as="style">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <style>
+    /* ============================
+       EASTER EGGS PAGE STYLES
+       ============================ */
+
+    .ee-hero {
+      min-height: 40vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: var(--space-4xl) var(--space-lg) var(--space-2xl);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ee-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(0, 255, 65, 0.05) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 50%, rgba(255, 0, 128, 0.05) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .ee-classified-tag {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-accent);
+      border: 1px solid var(--color-accent);
+      padding: var(--space-xs) var(--space-md);
+      border-radius: var(--radius-sm);
+      margin-bottom: var(--space-lg);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      animation: glow-pulse 2s ease-in-out infinite;
+      box-shadow: var(--glow-accent);
+    }
+
+    .ee-title {
+      font-family: var(--font-mono);
+      font-size: var(--text-3xl);
+      font-weight: 700;
+      color: var(--color-text-bright);
+      margin-bottom: var(--space-md);
+      position: relative;
+    }
+
+    .ee-title:hover {
+      animation: glitch 0.3s ease-in-out;
+    }
+
+    .ee-title .accent {
+      color: var(--color-primary);
+    }
+
+    .ee-subtitle {
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      color: var(--color-text-dim);
+      max-width: 500px;
+      line-height: 1.6;
+    }
+
+    .ee-counter {
+      font-family: var(--font-mono);
+      font-size: var(--text-lg);
+      color: var(--color-primary);
+      margin-top: var(--space-xl);
+      padding: var(--space-sm) var(--space-lg);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      background: var(--bg-card);
+    }
+
+    .ee-counter .count-num {
+      color: var(--color-text-bright);
+      font-weight: 700;
+    }
+
+    .ee-counter .count-total {
+      color: var(--color-text-dim);
+    }
+
+    /* Easter Egg Grid */
+    .ee-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 var(--space-lg) var(--space-4xl);
+    }
+
+    @media (min-width: 640px) {
+      .ee-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .ee-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .ee-title {
+        font-size: var(--text-4xl);
+      }
+    }
+
+    /* Easter Egg Card */
+    .ee-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+      position: relative;
+      overflow: hidden;
+      transition: border-color var(--transition-base), box-shadow var(--transition-base), transform var(--transition-base);
+    }
+
+    .ee-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--border-color);
+      transition: background var(--transition-base);
+    }
+
+    .ee-card:hover {
+      transform: translateY(-2px);
+    }
+
+    /* Discovered state */
+    .ee-card[data-discovered="true"] {
+      border-color: rgba(0, 255, 65, 0.3);
+    }
+
+    .ee-card[data-discovered="true"]::before {
+      background: var(--color-primary);
+      box-shadow: var(--glow-primary);
+    }
+
+    .ee-card[data-discovered="true"]:hover {
+      box-shadow: 0 0 30px rgba(0, 255, 65, 0.15);
+    }
+
+    /* Undiscovered state */
+    .ee-card[data-discovered="false"] {
+      opacity: 0.5;
+      border-color: var(--border-color);
+    }
+
+    .ee-card[data-discovered="false"]:hover {
+      opacity: 0.7;
+      border-color: var(--border-color-hover);
+    }
+
+    .ee-card[data-discovered="false"] .ee-card-hint {
+      filter: blur(3px);
+      user-select: none;
+    }
+
+    .ee-card[data-discovered="false"]:hover .ee-card-hint {
+      filter: blur(1px);
+    }
+
+    /* Card Header */
+    .ee-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--space-md);
+    }
+
+    .ee-card-number {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-text-dim);
+    }
+
+    .ee-card-status {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      padding: 2px var(--space-sm);
+      border-radius: var(--radius-sm);
+      border: 1px solid;
+    }
+
+    .ee-card-status[data-status="discovered"] {
+      color: var(--color-primary);
+      border-color: rgba(0, 255, 65, 0.3);
+      background: rgba(0, 255, 65, 0.05);
+    }
+
+    .ee-card-status[data-status="undiscovered"] {
+      color: var(--color-text-dim);
+      border-color: var(--border-color);
+      background: transparent;
+    }
+
+    /* Card Name */
+    .ee-card-name {
+      font-family: var(--font-mono);
+      font-size: var(--text-lg);
+      font-weight: 700;
+      color: var(--color-text-bright);
+      margin-bottom: var(--space-sm);
+    }
+
+    .ee-card[data-discovered="true"] .ee-card-name {
+      color: var(--color-primary);
+    }
+
+    /* Card Hint */
+    .ee-card-hint {
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      color: var(--color-text-dim);
+      line-height: 1.6;
+      margin-bottom: var(--space-md);
+      transition: filter var(--transition-base);
+    }
+
+    /* Difficulty */
+    .ee-card-difficulty {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-text-dim);
+    }
+
+    .ee-skulls {
+      letter-spacing: 2px;
+    }
+
+    .ee-skull-active {
+      color: var(--color-accent);
+    }
+
+    .ee-skull-inactive {
+      color: var(--border-color);
+    }
+
+    /* Scanline decoration */
+    .ee-scanline {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--color-primary);
+      opacity: 0.1;
+      animation: scanline 8s linear infinite;
+      pointer-events: none;
+      z-index: 9998;
+    }
+
+    /* Konami flash effect */
+    @keyframes konami-flash {
+      0% {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+      15% {
+        opacity: 1;
+        transform: scale(1.05);
+      }
+      30% {
+        transform: scale(0.95);
+      }
+      45% {
+        transform: scale(1.02);
+      }
+      60% {
+        transform: scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(1);
+      }
+    }
+
+    .konami-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 99999;
+      pointer-events: none;
+      animation: konami-flash 2.5s ease-out forwards;
+    }
+
+    .konami-text {
+      font-family: var(--font-mono);
+      font-size: var(--text-4xl);
+      font-weight: 700;
+      color: var(--color-primary);
+      text-shadow:
+        0 0 10px rgba(0, 255, 65, 0.8),
+        0 0 20px rgba(0, 255, 65, 0.5),
+        0 0 40px rgba(0, 255, 65, 0.3),
+        0 0 80px rgba(0, 255, 65, 0.1);
+      animation: glitch 0.3s ease-in-out 0.2s 3;
+    }
+
+    @keyframes konami-glitch-screen {
+      0%, 100% { filter: none; }
+      10% { filter: hue-rotate(90deg) saturate(2); }
+      20% { filter: hue-rotate(180deg) invert(0.1); }
+      30% { filter: hue-rotate(270deg) saturate(3); }
+      40% { filter: hue-rotate(0deg) brightness(1.5); }
+      50% { filter: hue-rotate(90deg) contrast(1.5); }
+      60% { filter: hue-rotate(180deg) saturate(2); }
+      70% { filter: hue-rotate(270deg); }
+      80% { filter: hue-rotate(0deg) brightness(0.8); }
+      90% { filter: hue-rotate(45deg) saturate(1.5); }
+    }
+
+    .konami-glitch-active {
+      animation: konami-glitch-screen 1s ease-out;
+    }
+
+    /* Classified stamp decoration */
+    .ee-stamp {
+      position: absolute;
+      top: var(--space-md);
+      right: var(--space-md);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: rgba(255, 0, 128, 0.15);
+      transform: rotate(12deg);
+      border: 1px solid rgba(255, 0, 128, 0.1);
+      padding: 2px var(--space-xs);
+      pointer-events: none;
+      letter-spacing: 0.1em;
+    }
+
+    .ee-card[data-discovered="true"] .ee-stamp {
+      color: rgba(0, 255, 65, 0.2);
+      border-color: rgba(0, 255, 65, 0.1);
+    }
+
+    /* Footer spacing fix */
+    .ee-page-footer {
+      margin-top: 0;
+    }
+  </style>
+</head>
+<body>
+  <script>(function(){const k='ns_analytics',d=JSON.parse(localStorage.getItem(k)||'{"views":[],"sessions":0}');d.sessions++;d.views.push({page:window.location.pathname,time:Date.now(),ref:document.referrer||'direct'});if(d.views.length>500)d.views=d.views.slice(-500);localStorage.setItem(k,JSON.stringify(d))})()</script>
+  <a href="#main-content" class="skip-link">Skip to content</a>
+
+  <!-- NAVBAR (same as all pages, but this page is NOT linked from it) -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="NullShift home">null<span>shift.sh</span></a>
+      <div class="nav-links">
+        <a href="services.html">services</a>
+        <a href="products.html">products</a>
+        <a href="projects.html">projects</a>
+        <a href="agents.html">agents</a>
+        <a href="blog.html">blog</a>
+        <a href="docs.html">docs</a>
+        <a href="changelog.html">changelog</a>
+        <button class="nav-search-btn" aria-label="Search" onclick="GlobalSearch.open()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </button>
+      </div>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MOBILE NAV -->
+  <div class="mobile-nav" role="navigation" aria-label="Mobile navigation">
+    <a href="services.html">services</a>
+    <a href="products.html">products</a>
+    <a href="projects.html">projects</a>
+    <a href="agents.html">agents</a>
+    <a href="blog.html">blog</a>
+    <a href="docs.html">docs</a>
+    <a href="changelog.html">changelog</a>
+  </div>
+
+  <!-- SCANLINE DECORATION -->
+  <div class="ee-scanline" aria-hidden="true"></div>
+
+  <main id="main-content">
+    <!-- HERO -->
+    <section class="ee-hero">
+      <span class="ee-classified-tag">Classified</span>
+      <h1 class="ee-title glitch-text">// <span class="accent">EASTER EGGS</span></h1>
+      <p class="ee-subtitle">You found the hidden page. Here's everything waiting to be discovered.</p>
+      <div class="ee-counter" id="ee-counter">
+        > <span class="count-num" id="ee-discovered-count">0</span> <span class="count-total">/ 8 discovered</span>
+      </div>
+    </section>
+
+    <!-- EASTER EGG GRID -->
+    <div class="ee-grid" id="ee-grid">
+      <!-- Cards rendered by JS below -->
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer ee-page-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <span class="name">nullshift.sh</span> — privacy-first builder labs
+        </div>
+        <div class="footer-links">
+          <a href="https://github.com/nullshift" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          </a>
+          <a href="https://x.com/nullshift" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a href="https://t.me/nullshift" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0h-.056zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+          </a>
+        </div>
+        <div class="footer-copy">&copy; 2026 NullShift Labs</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scroll to top -->
+  <button class="scroll-top" aria-label="Scroll to top">&uarr;</button>
+
+  <!-- Standard scripts -->
+  <script src="js/toast.js"></script>
+  <script src="js/search.js"></script>
+  <script src="js/cursor-trail.js"></script>
+  <script src="js/keyboard.js"></script>
+  <script src="js/command-palette.js"></script>
+  <script src="js/achievements.js"></script>
+  <script src="js/perf-monitor.js"></script>
+  <script src="js/main.js"></script>
+  <script>new CursorTrail();</script>
+
+  <!-- Easter Eggs Page Logic -->
+  <script>
+  (function() {
+    'use strict';
+
+    /* ==============================
+       EASTER EGG DEFINITIONS
+       ============================== */
+    const EGGS = [
+      {
+        id: 'snake-game',
+        name: 'Snake Game',
+        hint: 'Type the right command in the terminal...',
+        difficulty: 2,
+        check: function() {
+          try {
+            const achievements = JSON.parse(localStorage.getItem('ns_achievements') || '[]');
+            return achievements.includes('snake-charmer');
+          } catch (e) { return false; }
+        }
+      },
+      {
+        id: 'keyboard-shortcuts',
+        name: 'Keyboard Shortcuts',
+        hint: 'Press a mysterious key when nothing is focused...',
+        difficulty: 1,
+        check: function() {
+          try {
+            const achievements = JSON.parse(localStorage.getItem('ns_achievements') || '[]');
+            return achievements.includes('keyboard-ninja');
+          } catch (e) { return false; }
+        }
+      },
+      {
+        id: 'command-palette',
+        name: 'Command Palette',
+        hint: 'A familiar shortcut from your code editor...',
+        difficulty: 1,
+        check: function() {
+          try {
+            const achievements = JSON.parse(localStorage.getItem('ns_achievements') || '[]');
+            return achievements.includes('command-master');
+          } catch (e) { return false; }
+        }
+      },
+      {
+        id: 'boot-sequence',
+        name: 'Boot Sequence Replay',
+        hint: 'Clear your browser\'s memory and reload...',
+        difficulty: 3,
+        check: function() {
+          return !localStorage.getItem('ns_boot_seen');
+        }
+      },
+      {
+        id: 'matrix-rain',
+        name: 'Matrix Rain',
+        hint: 'It\'s always raining in the matrix. Visit the home page.',
+        difficulty: 1,
+        check: function() {
+          return true;
+        }
+      },
+      {
+        id: 'konami-code',
+        name: 'Konami Code',
+        hint: 'A legendary cheat code from gaming history...',
+        difficulty: 4,
+        check: function() {
+          return !!localStorage.getItem('ns_konami');
+        }
+      },
+      {
+        id: 'hidden-terminal-commands',
+        name: 'Hidden Terminal Commands',
+        hint: 'Not all commands are documented. Try the unexpected.',
+        difficulty: 3,
+        check: function() {
+          try {
+            const achievements = JSON.parse(localStorage.getItem('ns_achievements') || '[]');
+            return achievements.includes('hacker');
+          } catch (e) { return false; }
+        }
+      },
+      {
+        id: 'this-page',
+        name: 'This Page',
+        hint: 'You\'re looking at it right now.',
+        difficulty: 5,
+        check: function() {
+          return true;
+        }
+      }
+    ];
+
+    /* ==============================
+       RENDER CARDS
+       ============================== */
+    function renderSkulls(difficulty) {
+      let html = '';
+      for (let i = 1; i <= 5; i++) {
+        if (i <= difficulty) {
+          html += '<span class="ee-skull-active">&#9760;</span>';
+        } else {
+          html += '<span class="ee-skull-inactive">&#9760;</span>';
+        }
+      }
+      return html;
+    }
+
+    function renderCards() {
+      const grid = document.getElementById('ee-grid');
+      const counterEl = document.getElementById('ee-discovered-count');
+      let discoveredCount = 0;
+
+      let html = '';
+
+      for (let i = 0; i < EGGS.length; i++) {
+        const egg = EGGS[i];
+        const discovered = egg.check();
+        if (discovered) discoveredCount++;
+
+        const statusText = discovered ? '[DISCOVERED]' : '[UNDISCOVERED]';
+        const statusData = discovered ? 'discovered' : 'undiscovered';
+        const stampText = discovered ? 'UNLOCKED' : 'LOCKED';
+
+        html +=
+          '<div class="ee-card scroll-fade" data-discovered="' + discovered + '" data-egg-id="' + egg.id + '">' +
+            '<span class="ee-stamp">' + stampText + '</span>' +
+            '<div class="ee-card-header">' +
+              '<span class="ee-card-number">#' + String(i + 1).padStart(2, '0') + '</span>' +
+              '<span class="ee-card-status" data-status="' + statusData + '">' + statusText + '</span>' +
+            '</div>' +
+            '<div class="ee-card-name">' + egg.name + '</div>' +
+            '<div class="ee-card-hint">' + egg.hint + '</div>' +
+            '<div class="ee-card-difficulty">' +
+              '<span>Difficulty:</span>' +
+              '<span class="ee-skulls">' + renderSkulls(egg.difficulty) + '</span>' +
+            '</div>' +
+          '</div>';
+      }
+
+      grid.innerHTML = html;
+      counterEl.textContent = discoveredCount;
+
+      // Trigger scroll-fade observer
+      const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      const fadeEls = grid.querySelectorAll('.scroll-fade');
+      fadeEls.forEach(function(el) { observer.observe(el); });
+    }
+
+    /* ==============================
+       KONAMI CODE LISTENER
+       ============================== */
+    const KONAMI_SEQUENCE = [
+      'ArrowUp', 'ArrowUp',
+      'ArrowDown', 'ArrowDown',
+      'ArrowLeft', 'ArrowRight',
+      'ArrowLeft', 'ArrowRight',
+      'b', 'a'
+    ];
+
+    let konamiIndex = 0;
+    let konamiTimer = null;
+
+    document.addEventListener('keydown', function(e) {
+      /* Ignore if user is typing in an input */
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable) return;
+
+      /* Reset timer on each keypress */
+      if (konamiTimer) clearTimeout(konamiTimer);
+      konamiTimer = setTimeout(function() { konamiIndex = 0; }, 3000);
+
+      const expected = KONAMI_SEQUENCE[konamiIndex];
+
+      if (e.key === expected || e.key === expected.toUpperCase()) {
+        konamiIndex++;
+
+        if (konamiIndex === KONAMI_SEQUENCE.length) {
+          konamiIndex = 0;
+          if (konamiTimer) clearTimeout(konamiTimer);
+          triggerKonami();
+        }
+      } else {
+        konamiIndex = 0;
+      }
+    });
+
+    function triggerKonami() {
+      /* Save to localStorage */
+      localStorage.setItem('ns_konami', 'true');
+
+      /* Glitch the entire page briefly */
+      document.body.classList.add('konami-glitch-active');
+      setTimeout(function() {
+        document.body.classList.remove('konami-glitch-active');
+      }, 1000);
+
+      /* Show the overlay flash */
+      const overlay = document.createElement('div');
+      overlay.className = 'konami-overlay';
+      overlay.innerHTML = '<div class="konami-text">// CHEAT ACTIVATED</div>';
+      document.body.appendChild(overlay);
+
+      /* Remove after animation completes */
+      setTimeout(function() {
+        if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
+      }, 2600);
+
+      /* Toast notification */
+      if (typeof Toast !== 'undefined') {
+        Toast.success('Konami Code activated! Achievement unlocked.');
+      }
+
+      /* Unlock achievement if available */
+      if (typeof Achievements !== 'undefined' && typeof Achievements.unlock === 'function') {
+        Achievements.unlock('konami-master');
+      }
+
+      /* Re-render cards to update discovered status */
+      setTimeout(function() {
+        renderCards();
+      }, 500);
+    }
+
+    /* ==============================
+       INIT
+       ============================== */
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', renderCards);
+    } else {
+      renderCards();
+    }
+  })();
+  </script>
+
+  <script src="/js/reading-progress.js"></script>
+  <script src="/js/matrix-customizer.js"></script>
+  <script src="/js/theme-customizer.js"></script>
+  <script src="/js/notifications.js"></script>
+  <script src="/js/bookmarks.js"></script>
+  <script src="/js/agent-chat.js"></script>
+
+</body>
+</html>

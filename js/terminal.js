@@ -167,6 +167,20 @@ class InteractiveTerminal {
         'Just kidding. We build, not break.'
       ],
       matrix: () => ['Wake up, Neo... The Matrix has you.'],
+      secrets: () => {
+        setTimeout(() => { window.location.href = 'easter-eggs.html'; }, 800);
+        return [
+          '[CLASSIFIED] Access granted.',
+          'Redirecting to hidden sector...'
+        ];
+      },
+      'easter-eggs': () => {
+        setTimeout(() => { window.location.href = 'easter-eggs.html'; }, 800);
+        return [
+          '[CLASSIFIED] Access granted.',
+          'Redirecting to hidden sector...'
+        ];
+      },
       '': () => null
     };
   }
