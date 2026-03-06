@@ -1,10 +1,21 @@
 const express = require('express');
+const compression = require('compression');
 const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.disable('x-powered-by');
+
+// Gzip/Brotli compression — ~70% size reduction
+app.use(compression({
+  level: 6,
+  threshold: 1024,
+  filter: (req, res) => {
+    if (req.headers['x-no-compression']) return false;
+    return compression.filter(req, res);
+  }
+}));
 
 app.use((req, res, next) => {
   res.setHeader('X-Content-Type-Options', 'nosniff');

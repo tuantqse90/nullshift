@@ -28,9 +28,10 @@
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/animations.css">
   <link rel="stylesheet" href="css/home.css">
+  <link rel="preload" href="data/projects.json" as="fetch" crossorigin>
 </head>
 <body>
-  <script src="js/boot-sequence.js"></script>
+  <script src="js/boot-sequence.js" defer></script>
   <script>(function(){const k='ns_analytics',d=JSON.parse(localStorage.getItem(k)||'{"views":[],"sessions":0}');d.sessions++;d.views.push({page:window.location.pathname,time:Date.now(),ref:document.referrer||'direct'});if(d.views.length>500)d.views=d.views.slice(-500);localStorage.setItem(k,JSON.stringify(d))})()</script>
   <a href="#main-content" class="skip-link">Skip to content</a>
 
@@ -397,12 +398,12 @@
   <script src="js/effects.js"></script>
   <script src="js/particles.js"></script>
   <script src="js/stats-counter.js"></script>
-  <script src="js/cursor-trail.js"></script>
+  <script src="js/cursor-trail.js" defer></script>
   <script src="js/terminal.js"></script>
-  <script src="js/keyboard.js"></script>
-  <script src="js/command-palette.js"></script>
-  <script src="js/achievements.js"></script>
-  <script src="js/perf-monitor.js"></script>
+  <script src="js/keyboard.js" defer></script>
+  <script src="js/command-palette.js" defer></script>
+  <script src="js/achievements.js" defer></script>
+  <script src="js/perf-monitor.js" defer></script>
   <script src="js/main.js"></script>
   <script>
     // Matrix Rain
@@ -520,12 +521,12 @@
     }
   </script>
 
-  <script src="/js/reading-progress.js"></script>
-  <script src="/js/matrix-customizer.js"></script>
-  <script src="/js/theme-customizer.js"></script>
-  <script src="/js/notifications.js"></script>
-  <script src="/js/bookmarks.js"></script>
-  <script src="/js/agent-chat.js"></script>
+  <script src="/js/reading-progress.js" defer></script>
+  <script src="/js/matrix-customizer.js" defer></script>
+  <script src="/js/theme-customizer.js" defer></script>
+  <script src="/js/notifications.js" defer></script>
+  <script src="/js/bookmarks.js" defer></script>
+  <script src="/js/agent-chat.js" defer></script>
 
 </body>
 </html>

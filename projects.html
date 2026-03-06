@@ -25,6 +25,7 @@
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/animations.css">
   <link rel="stylesheet" href="css/projects.css">
+  <link rel="preload" href="data/projects.json" as="fetch" crossorigin>
 </head>
 <body>
   <script>(function(){const k='ns_analytics',d=JSON.parse(localStorage.getItem(k)||'{"views":[],"sessions":0}');d.sessions++;d.views.push({page:window.location.pathname,time:Date.now(),ref:document.referrer||'direct'});if(d.views.length>500)d.views=d.views.slice(-500);localStorage.setItem(k,JSON.stringify(d))})()</script>
@@ -127,18 +128,18 @@
   <!-- Scroll to top -->
   <button class="scroll-top" aria-label="Scroll to top">&uarr;</button>
 
-  <script src="js/contribution-graph.js"></script>
+  <script defer src="js/contribution-graph.js"></script>
   <script src="js/filter.js"></script>
   <script src="js/toast.js"></script>
   <script src="js/search.js"></script>
-  <script src="js/cursor-trail.js"></script>
-  <script src="js/keyboard.js"></script>
-  <script src="js/page-headers.js"></script>
-  <script src="js/command-palette.js"></script>
-  <script src="js/lightbox.js"></script>
+  <script defer src="js/cursor-trail.js"></script>
+  <script defer src="js/keyboard.js"></script>
+  <script defer src="js/page-headers.js"></script>
+  <script defer src="js/command-palette.js"></script>
+  <script defer src="js/lightbox.js"></script>
   <script>Lightbox.bindToCards();</script>
-  <script src="js/achievements.js"></script>
-  <script src="js/perf-monitor.js"></script>
+  <script defer src="js/achievements.js"></script>
+  <script defer src="js/perf-monitor.js"></script>
   <script src="js/main.js"></script>
   <script>new CursorTrail();</script>
   <script>
@@ -292,12 +293,12 @@
     });
   </script>
 
-  <script src="/js/reading-progress.js"></script>
-  <script src="/js/matrix-customizer.js"></script>
-  <script src="/js/theme-customizer.js"></script>
-  <script src="/js/notifications.js"></script>
-  <script src="/js/bookmarks.js"></script>
-  <script src="/js/agent-chat.js"></script>
+  <script defer src="/js/reading-progress.js"></script>
+  <script defer src="/js/matrix-customizer.js"></script>
+  <script defer src="/js/theme-customizer.js"></script>
+  <script defer src="/js/notifications.js"></script>
+  <script defer src="/js/bookmarks.js"></script>
+  <script defer src="/js/agent-chat.js"></script>
 
 </body>
 </html>
