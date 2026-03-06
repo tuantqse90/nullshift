@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Keyboard Shortcuts — NullShift</title>
+  <meta name="description" content="Complete keyboard shortcuts cheat sheet for NullShift. Navigate faster with keybindings.">
+  <meta property="og:title" content="Keyboard Shortcuts — NullShift">
+  <meta property="og:description" content="All keyboard shortcuts available across the NullShift site.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://nullshift.sh/assets/images/og-image.svg">
+  <meta name="twitter:card" content="summary">
+  <meta name="theme-color" content="#0a0a0a">
+  <link rel="canonical" href="https://nullshift.sh/shortcuts">
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.json">
+  <link rel="alternate" type="application/rss+xml" title="NullShift Blog" href="feed.xml">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" as="style">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+
+  <style>
+    /* ==============================
+       SHORTCUTS PAGE STYLES
+       ============================== */
+
+    .shortcuts-hero {
+      position: relative;
+      padding: calc(var(--nav-height) + var(--space-3xl)) 0 var(--space-3xl);
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .shortcuts-hero h1 {
+      font-family: var(--font-mono);
+      font-size: var(--text-4xl);
+      font-weight: 700;
+      color: var(--color-text-bright);
+      margin-bottom: var(--space-sm);
+    }
+
+    /* Live keypress monitor */
+    .keypress-monitor {
+      margin: var(--space-xl) auto 0;
+      max-width: 600px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: var(--space-md) var(--space-lg);
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+    }
+
+    .keypress-monitor-label {
+      color: var(--color-text-dim);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .keypress-monitor-output {
+      color: var(--color-primary);
+      min-height: 1.5em;
+      flex: 1;
+      text-align: left;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .keypress-monitor-output .key-flash {
+      display: inline-block;
+      background: rgba(0, 255, 65, 0.15);
+      border: 1px solid var(--color-primary);
+      border-radius: var(--radius-sm);
+      padding: 0.1em 0.5em;
+      margin-right: var(--space-xs);
+      animation: keyFlashIn 400ms ease forwards;
+    }
+
+    @keyframes keyFlashIn {
+      0% { opacity: 0; transform: scale(1.3); }
+      50% { opacity: 1; transform: scale(1); }
+      100% { opacity: 0.6; }
+    }
+
+    /* Shortcut sections */
+    .shortcuts-section {
+      padding: var(--space-3xl) 0;
+    }
+
+    .shortcuts-section:nth-child(even) {
+      background: var(--bg-secondary);
+    }
+
+    .shortcuts-section .section-header {
+      margin-bottom: var(--space-2xl);
+    }
+
+    .shortcuts-section .section-header h2 {
+      font-family: var(--font-mono);
+      font-size: var(--text-3xl);
+      font-weight: 700;
+      color: var(--color-text-bright);
+    }
+
+    .shortcuts-section .section-subtitle {
+      color: var(--color-text-dim);
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      margin-top: var(--space-xs);
+    }
+
+    /* Shortcut cards grid */
+    .shortcuts-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-md);
+    }
+
+    @media (min-width: 640px) {
+      .shortcuts-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .shortcuts-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    /* Individual shortcut card */
+    .shortcut-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+      cursor: pointer;
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .shortcut-card:hover {
+      border-color: var(--border-color-hover);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-card);
+    }
+
+    .shortcut-card.flash {
+      border-color: var(--color-primary) !important;
+      box-shadow: var(--glow-primary) !important;
+    }
+
+    .shortcut-card .card-keys {
+      display: flex;
+      align-items: center;
+      gap: var(--space-xs);
+      flex-wrap: wrap;
+    }
+
+    .shortcut-card .card-keys .key-separator {
+      color: var(--color-text-dim);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+    }
+
+    .shortcut-card .card-desc {
+      color: var(--color-text);
+      font-family: var(--font-sans);
+      font-size: var(--text-sm);
+      line-height: 1.5;
+    }
+
+    .shortcut-card .card-action {
+      margin-top: auto;
+      padding-top: var(--space-sm);
+    }
+
+    .shortcut-card .try-btn {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-primary);
+      background: transparent;
+      border: 1px solid var(--color-primary);
+      border-radius: var(--radius-sm);
+      padding: var(--space-xs) var(--space-sm);
+      cursor: pointer;
+      transition: background var(--transition-fast), color var(--transition-fast);
+    }
+
+    .shortcut-card .try-btn:hover {
+      background: var(--color-primary);
+      color: var(--bg-primary);
+    }
+
+    /* kbd tags */
+    kbd {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--color-primary);
+      background: var(--bg-primary);
+      border: 1px solid var(--color-primary);
+      border-radius: var(--radius-sm);
+      padding: 0.15em 0.55em;
+      min-width: 1.8em;
+      text-align: center;
+      box-shadow: 0 2px 0 rgba(0, 255, 65, 0.2), inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+      line-height: 1.4;
+    }
+
+    kbd.secondary {
+      color: var(--color-secondary);
+      border-color: var(--color-secondary);
+      box-shadow: 0 2px 0 rgba(0, 255, 255, 0.2), inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+    }
+
+    kbd.accent {
+      color: var(--color-accent);
+      border-color: var(--color-accent);
+      box-shadow: 0 2px 0 rgba(255, 0, 128, 0.2), inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+    }
+
+    /* Tips section */
+    .tips-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-md);
+    }
+
+    @media (min-width: 768px) {
+      .tips-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .tip-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-left: 3px solid var(--color-primary);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+    }
+
+    .tip-card h4 {
+      font-family: var(--font-mono);
+      font-size: var(--text-base);
+      color: var(--color-primary);
+      margin-bottom: var(--space-sm);
+    }
+
+    .tip-card p {
+      font-family: var(--font-sans);
+      font-size: var(--text-sm);
+      color: var(--color-text);
+      line-height: 1.6;
+    }
+
+    .tip-card code {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-secondary);
+      background: var(--bg-primary);
+      padding: 0.15em 0.4em;
+      border-radius: var(--radius-sm);
+    }
+
+    /* Status indicator dot for active key monitor */
+    .monitor-status {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--color-text-dim);
+      flex-shrink: 0;
+      transition: background var(--transition-fast);
+    }
+
+    .monitor-status.active {
+      background: var(--color-primary);
+      box-shadow: 0 0 8px var(--color-primary);
+    }
+
+    /* Section numbers */
+    .section-number {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-text-dim);
+      margin-bottom: var(--space-xs);
+    }
+  </style>
+</head>
+<body>
+  <script>(function(){const k='ns_analytics',d=JSON.parse(localStorage.getItem(k)||'{"views":[],"sessions":0}');d.sessions++;d.views.push({page:window.location.pathname,time:Date.now(),ref:document.referrer||'direct'});if(d.views.length>500)d.views=d.views.slice(-500);localStorage.setItem(k,JSON.stringify(d))})()</script>
+  <a href="#main-content" class="skip-link">Skip to content</a>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="NullShift home">null<span>shift.sh</span></a>
+      <div class="nav-links">
+        <a href="services.html">services</a>
+        <a href="products.html">products</a>
+        <a href="projects.html">projects</a>
+        <a href="agents.html">agents</a>
+        <a href="blog.html">blog</a>
+        <a href="docs.html">docs</a>
+        <a href="changelog.html">changelog</a>
+        <button class="nav-search-btn" aria-label="Search" onclick="GlobalSearch.open()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </button>
+      </div>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MOBILE NAV -->
+  <div class="mobile-nav" role="navigation" aria-label="Mobile navigation">
+    <a href="services.html">services</a>
+    <a href="products.html">products</a>
+    <a href="projects.html">projects</a>
+    <a href="agents.html">agents</a>
+    <a href="blog.html">blog</a>
+    <a href="docs.html">docs</a>
+    <a href="changelog.html">changelog</a>
+  </div>
+
+  <main id="main-content">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="index.html">home</a> <span>/</span> <span>shortcuts</span></nav>
+
+    <!-- HERO -->
+    <section class="shortcuts-hero" style="position: relative;">
+      <canvas id="page-header-canvas" class="page-header-canvas" data-animation="circuit" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;" aria-hidden="true"></canvas>
+      <div class="container">
+        <h1 class="scroll-fade">/<span class="text-primary">shortcuts</span></h1>
+        <p class="section-subtitle scroll-fade">// every keybinding across the site</p>
+
+        <!-- Live Keypress Monitor -->
+        <div class="keypress-monitor scroll-fade">
+          <div class="monitor-status" id="monitor-dot"></div>
+          <span class="keypress-monitor-label">KEYPRESS_MONITOR $</span>
+          <div class="keypress-monitor-output" id="keypress-output">Press any key...</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 1: Navigation Shortcuts -->
+    <section class="shortcuts-section">
+      <div class="container">
+        <div class="section-header scroll-fade">
+          <div class="section-number">01</div>
+          <h2>Navigation <span class="text-primary">Shortcuts</span></h2>
+          <p class="section-subtitle">// press g then a letter to jump to any page</p>
+        </div>
+        <div class="shortcuts-grid" id="nav-shortcuts">
+          <div class="shortcut-card scroll-fade" data-shortcut="g+h">
+            <div class="card-keys"><kbd>g</kbd><span class="key-separator">then</span><kbd>h</kbd></div>
+            <div class="card-desc">Go to Home. Returns to the main landing page.</div>
+            <div class="card-action"><button class="try-btn" data-navigate="index.html">> Navigate</button></div>
+          </div>
+          <div class="shortcut-card scroll-fade" data-shortcut="g+s">
+            <div class="card-keys"><kbd>g</kbd><span class="key-separator">then</span><kbd>s</kbd></div>
+            <div class="card-desc">Go to Services. View privacy, AI, blockchain, and ZK engineering services.</div>
+            <div class="card-action"><button class="try-btn" data-navigate="services.html">> Navigate</button></div>
+          </div>
+          <div class="shortcut-card scroll-fade" data-shortcut="g+p">
+            <div class="card-keys"><kbd>g</kbd><span class="key-separator">then</span><kbd>p</kbd></div>
+            <div class="card-desc">Go to Products. Browse privacy-first tools and platforms.</div>
+            <div class="card-action"><button class="try-btn" data-navigate="products.html">> Navigate</button></div>
+          </div>
+          <div class="shortcut-card scroll-fade" data-shortcut="g+r">
+            <div class="card-keys"><kbd>g</kbd><span class="key-separator">then</span><kbd>r</kbd></div>
+            <div class="card-desc">Go to Projects. Explore open source and research initiatives.</div>
+            <div class="card-action"><button class="try-btn" data-navigate="projects.html">> Navigate</button></div>
+          </div>
+          <div class="shortcut-card scroll-fade" data-shortcut="g+a">
+            <div class="card-keys"><kbd>g</kbd><span class="key-separator">then</span><kbd>a</kbd></div>
+            <div class="card-desc">Go to Agents. View autonomous agent network and statuses.</div>
+            <div class="card-action"><button class="try-btn" data-navigate="agents.html">> Navigate</button></div>
+          </div>
+          <div class="shortcut-card scroll-fade" data-shortcut="g+b">
+            <div class="card-keys"><kbd>g</kbd><span class="key-separator">then</span><kbd>b</kbd></div>
+            <div class="card-desc">Go to Blog. Read dispatches from the labs.</div>
+            <div class="card-action"><button class="try-btn" data-navigate="blog.html">> Navigate</button></div>
+          </div>
+          <div class="shortcut-card scroll-fade" data-shortcut="g+d">
+            <div class="card-keys"><kbd>g</kbd><span class="key-separator">then</span><kbd>d</kbd></div>
+            <div class="card-desc">Go to Docs. Technical documentation and API references.</div>
+            <div class="card-action"><button class="try-btn" data-navigate="docs.html">> Navigate</button></div>
+          </div>
+          <div class="shortcut-card scroll-fade" data-shortcut="g+c">
+            <div class="card-keys"><kbd>g</kbd><span class="key-separator">then</span><kbd>c</kbd></div>
+            <div class="card-desc">Go to Changelog. Track all updates and version history.</div>
+            <div class="card-action"><button class="try-btn" data-navigate="changelog.html">> Navigate</button></div>
+          </div>
+          <div class="shortcut-card scroll-fade" data-shortcut="g+e">
+            <div class="card-keys"><kbd>g</kbd><span class="key-separator">then</span><kbd>e</kbd></div>
+            <div class="card-desc">Go to Editor. Open the in-browser code editor.</div>
+            <div class="card-action"><button class="try-btn" data-navigate="editor.html">> Navigate</button></div>
+          </div>
+          <div class="shortcut-card scroll-fade" data-shortcut="g+n">
+            <div class="card-keys"><kbd>g</kbd><span class="key-separator">then</span><kbd>n</kbd></div>
+            <div class="card-desc">Go to Analytics. View local privacy-respecting analytics dashboard.</div>
+            <div class="card-action"><button class="try-btn" data-navigate="analytics.html">> Navigate</button></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: Action Shortcuts -->
+    <section class="shortcuts-section">
+      <div class="container">
+        <div class="section-header scroll-fade">
+          <div class="section-number">02</div>
+          <h2>Action <span class="text-secondary">Shortcuts</span></h2>
+          <p class="section-subtitle">// quick actions without touching the mouse</p>
+        </div>
+        <div class="shortcuts-grid" id="action-shortcuts">
+          <div class="shortcut-card scroll-fade" data-shortcut="ctrl+k">
+            <div class="card-keys"><kbd class="secondary">Ctrl</kbd><span class="key-separator">+</span><kbd class="secondary">K</kbd></div>
+            <div class="card-desc">Open the Command Palette. Search and execute any command with fuzzy matching. On Mac, use Cmd+K.</div>
+            <div class="card-action"><button class="try-btn" data-action="command-palette">> Try it</button></div>
+          </div>
+          <div class="shortcut-card scroll-fade" data-shortcut="/">
+            <div class="card-keys"><kbd class="secondary">/</kbd></div>
+            <div class="card-desc">Focus Search. Opens the global search overlay or focuses the blog search input on the blog page.</div>
+            <div class="card-action"><button class="try-btn" data-action="search">> Try it</button></div>
+          </div>
+          <div class="shortcut-card scroll-fade" data-shortcut="?">
+            <div class="card-keys"><kbd class="secondary">?</kbd></div>
+            <div class="card-desc">Show Keyboard Shortcuts help overlay. Quick reference without leaving your current page.</div>
+            <div class="card-action"><button class="try-btn" data-action="help">> Try it</button></div>
+          </div>
+          <div class="shortcut-card scroll-fade" data-shortcut="Escape">
+            <div class="card-keys"><kbd class="accent">Esc</kbd></div>
+            <div class="card-desc">Close all overlays. Dismisses modals, search, command palette, mobile nav, and agent panels.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: Terminal Shortcuts -->
+    <section class="shortcuts-section">
+      <div class="container">
+        <div class="section-header scroll-fade">
+          <div class="section-number">03</div>
+          <h2>Terminal <span class="text-accent">Shortcuts</span></h2>
+          <p class="section-subtitle">// the interactive terminal easter egg</p>
+        </div>
+        <div class="shortcuts-grid" id="terminal-shortcuts">
+          <div class="shortcut-card scroll-fade" data-shortcut="terminal-toggle">
+            <div class="card-keys"><kbd class="accent">Terminal Icon</kbd></div>
+            <div class="card-desc">Toggle the interactive terminal. Click the terminal icon (bottom-right on the home page) to open/close the embedded shell.</div>
+          </div>
+          <div class="shortcut-card scroll-fade" data-shortcut="terminal-enter">
+            <div class="card-keys"><kbd class="accent">Enter</kbd></div>
+            <div class="card-desc">Execute command. Submits the current input line in the interactive terminal.</div>
+          </div>
+          <div class="shortcut-card scroll-fade" data-shortcut="terminal-arrowup">
+            <div class="card-keys"><kbd class="accent">ArrowUp</kbd></div>
+            <div class="card-desc">Previous command. Scroll through command history in the interactive terminal.</div>
+          </div>
+          <div class="shortcut-card scroll-fade" data-shortcut="command-palette-nav">
+            <div class="card-keys"><kbd class="accent">ArrowUp</kbd><span class="key-separator">/</span><kbd class="accent">ArrowDown</kbd></div>
+            <div class="card-desc">Navigate command palette items. Use arrow keys to move selection up and down in the command list.</div>
+          </div>
+          <div class="shortcut-card scroll-fade" data-shortcut="command-palette-enter">
+            <div class="card-keys"><kbd class="accent">Enter</kbd></div>
+            <div class="card-desc">Execute selected command. Runs the currently highlighted item in the command palette.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: Tips -->
+    <section class="shortcuts-section">
+      <div class="container">
+        <div class="section-header scroll-fade">
+          <div class="section-number">04</div>
+          <h2>Usage <span class="text-warning">Tips</span></h2>
+          <p class="section-subtitle">// maximize your efficiency</p>
+        </div>
+        <div class="tips-grid">
+          <div class="tip-card scroll-fade">
+            <h4>> Sequential Keys</h4>
+            <p>Navigation shortcuts use a <code>g</code> prefix. Press <code>g</code> first, then within 800ms press the target letter. If you miss the window, just press <code>g</code> again.</p>
+          </div>
+          <div class="tip-card scroll-fade">
+            <h4>> Input Fields</h4>
+            <p>Keyboard shortcuts are automatically disabled when you are typing in input fields, textareas, or content-editable elements. No accidental navigation while composing text.</p>
+          </div>
+          <div class="tip-card scroll-fade">
+            <h4>> Command Palette Power</h4>
+            <p>The command palette (<code>Ctrl+K</code>) supports fuzzy matching. Type partial words like <code>prod</code> to quickly find "Go to Products". Use arrow keys to navigate, Enter to execute.</p>
+          </div>
+          <div class="tip-card scroll-fade">
+            <h4>> Modifier Keys</h4>
+            <p>Single-key shortcuts (<code>/</code>, <code>?</code>, <code>g</code>) only fire without modifier keys held. If <code>Ctrl</code>, <code>Alt</code>, or <code>Meta</code> is pressed, the shortcut is ignored to avoid conflicts with browser shortcuts.</p>
+          </div>
+          <div class="tip-card scroll-fade">
+            <h4>> Quick Reference</h4>
+            <p>Forgot a shortcut? Press <code>?</code> on any page to open the keyboard shortcuts help overlay. It works site-wide and closes with <code>Esc</code>.</p>
+          </div>
+          <div class="tip-card scroll-fade">
+            <h4>> Accessibility</h4>
+            <p>All shortcuts are supplementary. Every action available via keyboard is also accessible through click/tap navigation. Shortcuts enhance speed for power users but are never required.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <span class="name">nullshift.sh</span> — privacy-first builder labs
+        </div>
+        <div class="footer-links">
+          <a href="https://github.com/nullshift" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          </a>
+          <a href="https://x.com/nullshift" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a href="https://t.me/nullshift" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0h-.056zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+          </a>
+        </div>
+        <div class="footer-copy">&copy; 2026 NullShift Labs</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scroll to top -->
+  <button class="scroll-top" aria-label="Scroll to top">&uarr;</button>
+
+  <script src="js/toast.js"></script>
+  <script src="js/search.js"></script>
+  <script src="js/cursor-trail.js"></script>
+  <script src="js/keyboard.js"></script>
+  <script src="js/page-headers.js"></script>
+  <script src="js/command-palette.js"></script>
+  <script src="js/achievements.js"></script>
+  <script src="js/main.js"></script>
+
+  <script>
+    // Initialize cursor trail
+    new CursorTrail();
+
+    // ==============================
+    // SHORTCUTS PAGE INTERACTIVE JS
+    // ==============================
+    (function() {
+      const output = document.getElementById('keypress-output');
+      const dot = document.getElementById('monitor-dot');
+      let keyHistory = [];
+      const MAX_KEYS = 8;
+      let dotTimer = null;
+
+      // Build a map of data-shortcut -> card element for highlighting
+      const shortcutCards = {};
+      document.querySelectorAll('.shortcut-card[data-shortcut]').forEach(function(card) {
+        shortcutCards[card.getAttribute('data-shortcut')] = card;
+      });
+
+      // Track g-sequence state for highlighting
+      let gPending = false;
+      let gTimer = null;
+
+      // Format a key name for display
+      function formatKey(e) {
+        const parts = [];
+        if (e.ctrlKey || e.metaKey) parts.push(e.metaKey ? 'Cmd' : 'Ctrl');
+        if (e.altKey) parts.push('Alt');
+        if (e.shiftKey && e.key.length > 1) parts.push('Shift');
+
+        let keyName = e.key;
+        if (keyName === ' ') keyName = 'Space';
+        if (keyName === 'Control' || keyName === 'Meta' || keyName === 'Alt' || keyName === 'Shift') {
+          keyName = '';
+        }
+        if (keyName) parts.push(keyName);
+
+        return parts.join('+') || e.key;
+      }
+
+      // Flash a specific shortcut card
+      function flashCard(card) {
+        if (!card) return;
+        card.classList.add('flash');
+        card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        setTimeout(function() {
+          card.classList.remove('flash');
+        }, 600);
+      }
+
+      // Live keypress monitor
+      document.addEventListener('keydown', function(e) {
+        // Update monitor display
+        const keyStr = formatKey(e);
+        if (!keyStr) return;
+
+        keyHistory.push(keyStr);
+        if (keyHistory.length > MAX_KEYS) {
+          keyHistory.shift();
+        }
+
+        output.innerHTML = keyHistory.map(function(k) {
+          return '<span class="key-flash">' + k + '</span>';
+        }).join('');
+
+        // Flash the dot
+        dot.classList.add('active');
+        clearTimeout(dotTimer);
+        dotTimer = setTimeout(function() {
+          dot.classList.remove('active');
+        }, 300);
+
+        // --- Card highlighting logic ---
+
+        // Check for Ctrl+K / Cmd+K
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+          flashCard(shortcutCards['ctrl+k']);
+          gPending = false;
+          return;
+        }
+
+        // Skip if in input
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable) return;
+        if (e.ctrlKey || e.metaKey || e.altKey) return;
+
+        const key = e.key;
+
+        // g-sequence navigation
+        if (gPending) {
+          clearTimeout(gTimer);
+          gPending = false;
+          const cardKey = 'g+' + key;
+          if (shortcutCards[cardKey]) {
+            flashCard(shortcutCards[cardKey]);
+          }
+          return;
+        }
+
+        if (key === 'g') {
+          gPending = true;
+          gTimer = setTimeout(function() { gPending = false; }, 800);
+          return;
+        }
+
+        // Single-key shortcuts
+        if (key === '/') flashCard(shortcutCards['/']);
+        if (key === '?') flashCard(shortcutCards['?']);
+        if (key === 'Escape') flashCard(shortcutCards['Escape']);
+      });
+
+      // "Try it" button handlers
+      document.querySelectorAll('.try-btn[data-navigate]').forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const target = btn.getAttribute('data-navigate');
+          if (target) {
+            window.location.href = target;
+          }
+        });
+      });
+
+      document.querySelectorAll('.try-btn[data-action]').forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const action = btn.getAttribute('data-action');
+
+          if (action === 'command-palette') {
+            if (typeof CommandPalette !== 'undefined') {
+              CommandPalette.open();
+            }
+          } else if (action === 'search') {
+            if (typeof GlobalSearch !== 'undefined') {
+              GlobalSearch.open();
+            }
+          } else if (action === 'help') {
+            // Simulate pressing ?
+            document.dispatchEvent(new KeyboardEvent('keydown', { key: '?', bubbles: true }));
+          }
+        });
+      });
+
+      // Clicking a shortcut card with a navigate button triggers navigation
+      document.querySelectorAll('.shortcut-card').forEach(function(card) {
+        card.addEventListener('click', function(e) {
+          // Don't navigate if clicking a button inside
+          if (e.target.closest('.try-btn')) return;
+
+          const navigateBtn = card.querySelector('.try-btn[data-navigate]');
+          const actionBtn = card.querySelector('.try-btn[data-action]');
+
+          if (navigateBtn) {
+            const target = navigateBtn.getAttribute('data-navigate');
+            if (target) window.location.href = target;
+          } else if (actionBtn) {
+            actionBtn.click();
+          }
+        });
+      });
+    })();
+  </script>
+
+  <script src="/js/theme-customizer.js"></script>
+  <script src="/js/notifications.js"></script>
+  <script src="/js/bookmarks.js"></script>
+  <script src="/js/agent-chat.js"></script>
+
+</body>
+</html>

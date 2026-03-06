@@ -75,6 +75,19 @@
       </div>
     </section>
 
+    <!-- CONTRIBUTION GRAPH -->
+    <section class="section contribution-graph" id="contribution-graph">
+      <div class="container">
+        <h2 class="graph-heading">
+          <span class="terminal-prompt">
+            <span class="user">nullshift</span><span class="separator">@</span><span class="host">labs</span><span class="dollar">:~$</span>
+          </span>
+          <span class="graph-cmd">git log --graph</span>
+        </h2>
+        <div id="graph-container"></div>
+      </div>
+    </section>
+
     <!-- LISTING VIEW -->
     <section class="section" id="projects-listing">
       <div class="container">
@@ -118,6 +131,7 @@
   <!-- Scroll to top -->
   <button class="scroll-top" aria-label="Scroll to top">&uarr;</button>
 
+  <script src="js/contribution-graph.js"></script>
   <script src="js/filter.js"></script>
   <script src="js/toast.js"></script>
   <script src="js/search.js"></script>

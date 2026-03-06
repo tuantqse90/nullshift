@@ -1,7 +1,7 @@
 /* ==============================
    SERVICE WORKER — NULLSHIFT
    ============================== */
-const CACHE_NAME = 'nullshift-v6';
+const CACHE_NAME = 'nullshift-v7';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
@@ -18,6 +18,7 @@ const STATIC_ASSETS = [
   '/500.html',
   '/status.html',
   '/about.html',
+  '/shortcuts.html',
   '/css/reset.css',
   '/css/variables.css',
   '/css/global.css',
@@ -49,6 +50,8 @@ const STATIC_ASSETS = [
   '/js/notifications.js',
   '/js/bookmarks.js',
   '/js/agent-chat.js',
+  '/js/boot-sequence.js',
+  '/js/contribution-graph.js',
   '/sitemap-visual.html',
   '/assets/icons/favicon.svg',
   '/manifest.json'
