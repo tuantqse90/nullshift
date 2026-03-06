@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="300" viewBox="0 0 600 300">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0a0a"/>
+      <stop offset="100%" stop-color="#0a1520"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="300" fill="url(#bg)"/>
+  <!-- Central hub -->
+  <circle cx="300" cy="150" r="45" fill="#1a1a1a" stroke="#00ffff" stroke-width="2"/>
+  <text x="275" y="145" font-family="monospace" font-size="10" fill="#00ffff">NOTIFY</text>
+  <text x="285" y="160" font-family="monospace" font-size="9" fill="#888">HUB</text>
+  <!-- Source nodes -->
+  <g font-family="monospace" font-size="9">
+    <!-- GitHub -->
+    <rect x="60" y="50" width="100" height="35" rx="4" fill="#1a1a1a" stroke="#888" stroke-width="1"/>
+    <text x="80" y="72" fill="#888">GitHub</text>
+    <line x1="160" y1="67" x2="260" y2="135" stroke="#00ffff" stroke-width="1" opacity="0.3"/>
+    <!-- Server -->
+    <rect x="60" y="130" width="100" height="35" rx="4" fill="#1a1a1a" stroke="#ff6432" stroke-width="1"/>
+    <text x="75" y="152" fill="#ff6432">Server Alert</text>
+    <line x1="160" y1="147" x2="255" y2="150" stroke="#ff6432" stroke-width="1" opacity="0.3"/>
+    <!-- Market -->
+    <rect x="60" y="210" width="100" height="35" rx="4" fill="#1a1a1a" stroke="#ffaa00" stroke-width="1"/>
+    <text x="72" y="232" fill="#ffaa00">Market Data</text>
+    <line x1="160" y1="227" x2="260" y2="165" stroke="#ffaa00" stroke-width="1" opacity="0.3"/>
+    <!-- Custom -->
+    <rect x="440" y="50" width="100" height="35" rx="4" fill="#1a1a1a" stroke="#a855f7" stroke-width="1"/>
+    <text x="455" y="72" fill="#a855f7">Webhooks</text>
+    <line x1="440" y1="67" x2="340" y2="135" stroke="#a855f7" stroke-width="1" opacity="0.3"/>
+  </g>
+  <!-- Telegram output -->
+  <rect x="430" y="125" width="130" height="50" rx="8" fill="rgba(0,136,204,0.1)" stroke="#0088cc" stroke-width="1.5"/>
+  <text x="448" y="148" font-family="monospace" font-size="10" fill="#0088cc">Telegram Bot</text>
+  <text x="455" y="165" font-family="monospace" font-size="8" fill="#888">Encrypted</text>
+  <line x1="345" y1="150" x2="430" y2="150" stroke="#0088cc" stroke-width="1.5"/>
+  <polygon points="427,145 437,150 427,155" fill="#0088cc"/>
+  <!-- Priority labels -->
+  <g font-family="monospace" font-size="8" transform="translate(200, 260)">
+    <rect x="0" y="0" width="55" height="20" rx="3" fill="rgba(255,50,50,0.1)" stroke="#ff3232" stroke-width="1"/>
+    <text x="8" y="14" fill="#ff3232">P1 HIGH</text>
+    <rect x="70" y="0" width="60" height="20" rx="3" fill="rgba(255,170,0,0.1)" stroke="#ffaa00" stroke-width="1"/>
+    <text x="78" y="14" fill="#ffaa00">P2 MED</text>
+    <rect x="145" y="0" width="55" height="20" rx="3" fill="rgba(0,255,65,0.1)" stroke="#00ff41" stroke-width="1"/>
+    <text x="153" y="14" fill="#00ff41">P3 LOW</text>
+  </g>
+  <rect x="0" y="297" width="600" height="3" fill="#00ffff" opacity="0.6"/>
+</svg>

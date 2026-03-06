@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="300" viewBox="0 0 600 300">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0a0a"/>
+      <stop offset="100%" stop-color="#150a1a"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="300" fill="url(#bg)"/>
+  <!-- ZK Circuit visualization -->
+  <g stroke="#a855f7" stroke-width="1" opacity="0.2">
+    <circle cx="300" cy="150" r="120" fill="none"/><circle cx="300" cy="150" r="90" fill="none"/><circle cx="300" cy="150" r="60" fill="none"/>
+  </g>
+  <!-- Lending flow -->
+  <g font-family="monospace">
+    <!-- Borrower -->
+    <rect x="60" y="110" width="120" height="80" rx="6" fill="#1a1a1a" stroke="#a855f7" stroke-width="1.5"/>
+    <text x="80" y="140" font-size="11" fill="#a855f7">BORROWER</text>
+    <text x="80" y="160" font-size="9" fill="#888">credit: ???</text>
+    <text x="80" y="175" font-size="9" fill="#888">balance: ???</text>
+    <!-- ZK Proof -->
+    <rect x="240" y="100" width="120" height="100" rx="6" fill="rgba(168,85,247,0.1)" stroke="#a855f7" stroke-width="2"/>
+    <text x="260" y="130" font-size="11" fill="#a855f7">ZK PROOF</text>
+    <text x="258" y="150" font-size="9" fill="#888">credit > 700</text>
+    <text x="258" y="165" font-size="9" fill="#00ff41">VERIFIED</text>
+    <text x="258" y="185" font-size="8" fill="#666">no data leaked</text>
+    <!-- Lender -->
+    <rect x="420" y="110" width="120" height="80" rx="6" fill="#1a1a1a" stroke="#a855f7" stroke-width="1.5"/>
+    <text x="450" y="140" font-size="11" fill="#a855f7">LENDER</text>
+    <text x="445" y="160" font-size="9" fill="#00ff41">approved</text>
+    <text x="445" y="175" font-size="9" fill="#888">pool: DeFi</text>
+    <!-- Arrows -->
+    <line x1="180" y1="150" x2="240" y2="150" stroke="#a855f7" stroke-width="1.5"/>
+    <polygon points="237,145 247,150 237,155" fill="#a855f7"/>
+    <line x1="360" y1="150" x2="420" y2="150" stroke="#a855f7" stroke-width="1.5"/>
+    <polygon points="417,145 427,150 417,155" fill="#a855f7"/>
+  </g>
+  <!-- Bottom label -->
+  <text x="200" y="270" font-family="monospace" font-size="12" fill="#666">Privacy-Preserving DeFi Lending</text>
+  <rect x="0" y="297" width="600" height="3" fill="#a855f7" opacity="0.6"/>
+</svg>

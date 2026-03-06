@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="300" viewBox="0 0 600 300">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0a0a"/>
+      <stop offset="100%" stop-color="#0a1520"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="300" fill="url(#bg)"/>
+  <!-- Film strip -->
+  <g fill="#1a1a1a" stroke="#00ffff" stroke-width="1">
+    <rect x="60" y="60" width="130" height="90" rx="4"/>
+    <rect x="235" y="60" width="130" height="90" rx="4"/>
+    <rect x="410" y="60" width="130" height="90" rx="4"/>
+  </g>
+  <!-- Film holes -->
+  <g fill="#0a0a0a" stroke="#333" stroke-width="1">
+    <rect x="70" y="45" width="15" height="10" rx="2"/><rect x="95" y="45" width="15" height="10" rx="2"/><rect x="120" y="45" width="15" height="10" rx="2"/><rect x="145" y="45" width="15" height="10" rx="2"/><rect x="165" y="45" width="15" height="10" rx="2"/>
+    <rect x="245" y="45" width="15" height="10" rx="2"/><rect x="270" y="45" width="15" height="10" rx="2"/><rect x="295" y="45" width="15" height="10" rx="2"/><rect x="320" y="45" width="15" height="10" rx="2"/><rect x="340" y="45" width="15" height="10" rx="2"/>
+    <rect x="420" y="45" width="15" height="10" rx="2"/><rect x="445" y="45" width="15" height="10" rx="2"/><rect x="470" y="45" width="15" height="10" rx="2"/><rect x="495" y="45" width="15" height="10" rx="2"/><rect x="515" y="45" width="15" height="10" rx="2"/>
+  </g>
+  <!-- Scene content -->
+  <text x="95" y="95" font-family="monospace" font-size="10" fill="#00ffff">Scene 1</text>
+  <text x="85" y="115" font-family="monospace" font-size="8" fill="#888">Character A</text>
+  <text x="85" y="130" font-family="monospace" font-size="8" fill="#888">walking...</text>
+  <text x="270" y="95" font-family="monospace" font-size="10" fill="#00ffff">Scene 2</text>
+  <text x="260" y="115" font-family="monospace" font-size="8" fill="#888">Character A</text>
+  <text x="260" y="130" font-family="monospace" font-size="8" fill="#888">talking...</text>
+  <text x="445" y="95" font-family="monospace" font-size="10" fill="#00ffff">Scene 3</text>
+  <text x="435" y="115" font-family="monospace" font-size="8" fill="#888">Character A</text>
+  <text x="435" y="130" font-family="monospace" font-size="8" fill="#888">reacting...</text>
+  <!-- AI Pipeline -->
+  <g transform="translate(100, 180)">
+    <rect x="0" y="0" width="90" height="30" rx="4" fill="rgba(0,255,255,0.1)" stroke="#00ffff" stroke-width="1"/>
+    <text x="15" y="20" font-family="monospace" font-size="10" fill="#00ffff">Script</text>
+    <line x1="90" y1="15" x2="130" y2="15" stroke="#00ffff" stroke-width="1"/>
+    <polygon points="127,10 137,15 127,20" fill="#00ffff"/>
+    <rect x="135" y="0" width="90" height="30" rx="4" fill="rgba(0,255,255,0.1)" stroke="#00ffff" stroke-width="1"/>
+    <text x="150" y="20" font-family="monospace" font-size="10" fill="#00ffff">AI Gen</text>
+    <line x1="225" y1="15" x2="265" y2="15" stroke="#00ffff" stroke-width="1"/>
+    <polygon points="262,10 272,15 262,20" fill="#00ffff"/>
+    <rect x="270" y="0" width="90" height="30" rx="4" fill="rgba(0,255,255,0.1)" stroke="#00ffff" stroke-width="1"/>
+    <text x="285" y="20" font-family="monospace" font-size="10" fill="#00ffff">Video</text>
+  </g>
+  <!-- Consistency badge -->
+  <rect x="200" y="240" width="200" height="25" rx="4" fill="rgba(0,255,65,0.1)" stroke="#00ff41" stroke-width="1"/>
+  <text x="215" y="257" font-family="monospace" font-size="10" fill="#00ff41">Character Consistency</text>
+  <rect x="0" y="297" width="600" height="3" fill="#00ffff" opacity="0.6"/>
+</svg>

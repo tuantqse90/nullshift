@@ -5,11 +5,17 @@
     "description": "Privacy-first builder labs. Dark cyberpunk static website with terminal effects, agent graphs, and interactive dashboards.",
     "pillar": "privacy",
     "status": "live",
-    "tech_stack": ["HTML5", "CSS3", "Vanilla JS", "Express"],
+    "tech_stack": [
+      "HTML5",
+      "CSS3",
+      "Vanilla JS",
+      "Express"
+    ],
     "featured": true,
     "url": "https://nullshift.sh",
     "source_url": "https://github.com/tuantqse90/nullshift",
-    "readme": "## Overview\n\nNullShift is the central hub — a privacy-first solo builder labs static website with dark hacker/cyberpunk aesthetic. Pure HTML5 + CSS3 + Vanilla JS, zero frameworks, zero build tools.\n\n## Features\n\n- Matrix rain canvas animation\n- Interactive terminal with easter eggs (Snake game, hidden commands)\n- Agent graph visualization with force-directed layout\n- Blog with client-side markdown rendering\n- Achievement/badge system\n- Command palette, keyboard shortcuts, theme customizer\n- Service worker for offline support\n\n## Tech Stack\n\n- **Frontend**: Pure HTML5, CSS3, Vanilla JavaScript\n- **Server**: Express.js (for Railway deployment only)\n- **Hosting**: Railway\n- **Design**: Dark mode only, cyberpunk aesthetic\n\n## Pillars\n\n- [x] Privacy — zero tracking, no analytics cookies\n- [x] AI — agent dashboards and chat simulators\n- [x] Blockchain — project showcases and token tools\n- [x] ZK Proofs — code playground with proof examples"
+    "readme": "## Overview\n\nNullShift is the central hub — a privacy-first solo builder labs static website with dark hacker/cyberpunk aesthetic. Pure HTML5 + CSS3 + Vanilla JS, zero frameworks, zero build tools.\n\n## Features\n\n- Matrix rain canvas animation\n- Interactive terminal with easter eggs (Snake game, hidden commands)\n- Agent graph visualization with force-directed layout\n- Blog with client-side markdown rendering\n- Achievement/badge system\n- Command palette, keyboard shortcuts, theme customizer\n- Service worker for offline support\n\n## Tech Stack\n\n- **Frontend**: Pure HTML5, CSS3, Vanilla JavaScript\n- **Server**: Express.js (for Railway deployment only)\n- **Hosting**: Railway\n- **Design**: Dark mode only, cyberpunk aesthetic\n\n## Pillars\n\n- [x] Privacy — zero tracking, no analytics cookies\n- [x] AI — agent dashboards and chat simulators\n- [x] Blockchain — project showcases and token tools\n- [x] ZK Proofs — code playground with proof examples",
+    "image": "/assets/images/projects/nullshift.svg"
   },
   {
     "id": "seo-keyword-agents",
@@ -17,11 +23,17 @@
     "description": "SEO Dashboard with Next.js + FastAPI + PostgreSQL. Vietnamese UI, LLM streaming, and 4 SEO analysis modules powered by AI agents.",
     "pillar": "ai",
     "status": "live",
-    "tech_stack": ["Python", "FastAPI", "Next.js", "PostgreSQL"],
+    "tech_stack": [
+      "Python",
+      "FastAPI",
+      "Next.js",
+      "PostgreSQL"
+    ],
     "featured": true,
     "url": "https://github.com/tuantqse90/seo-keyword-agents",
     "source_url": "https://github.com/tuantqse90/seo-keyword-agents",
-    "readme": "## Overview\n\nSEO Keyword Agents is a full-stack SEO dashboard combining Next.js frontend with FastAPI backend and PostgreSQL. Features Vietnamese UI, real-time LLM streaming, and 4 specialized SEO analysis modules.\n\n## Architecture\n\n- **Frontend**: Next.js with Vietnamese UI\n- **Backend**: FastAPI with async endpoints\n- **Database**: PostgreSQL for keyword data storage\n- **AI**: LLM streaming for real-time SEO analysis\n\n## Modules\n\n- Keyword Research Agent\n- Content Optimization Agent\n- Competitor Analysis Agent\n- SERP Tracking Agent\n\n## Key Features\n\n- [x] Real-time LLM streaming responses\n- [x] Vietnamese language UI\n- [x] 4 SEO analysis modules\n- [x] PostgreSQL data persistence\n- [x] FastAPI async backend"
+    "readme": "## Overview\n\nSEO Keyword Agents is a full-stack SEO dashboard combining Next.js frontend with FastAPI backend and PostgreSQL. Features Vietnamese UI, real-time LLM streaming, and 4 specialized SEO analysis modules.\n\n## Architecture\n\n- **Frontend**: Next.js with Vietnamese UI\n- **Backend**: FastAPI with async endpoints\n- **Database**: PostgreSQL for keyword data storage\n- **AI**: LLM streaming for real-time SEO analysis\n\n## Modules\n\n- Keyword Research Agent\n- Content Optimization Agent\n- Competitor Analysis Agent\n- SERP Tracking Agent\n\n## Key Features\n\n- [x] Real-time LLM streaming responses\n- [x] Vietnamese language UI\n- [x] 4 SEO analysis modules\n- [x] PostgreSQL data persistence\n- [x] FastAPI async backend",
+    "image": "/assets/images/projects/seo-keyword-agents.svg"
   },
   {
     "id": "p2p-mmo",
@@ -29,11 +41,17 @@
     "description": "Decentralized P2P marketplace on BNB Smart Chain with smart contract escrow, E2E encryption, and on-chain dispute resolution.",
     "pillar": "blockchain",
     "status": "live",
-    "tech_stack": ["TypeScript", "Solidity", "BNB Chain", "E2E Encryption"],
+    "tech_stack": [
+      "TypeScript",
+      "Solidity",
+      "BNB Chain",
+      "E2E Encryption"
+    ],
     "featured": true,
     "url": "https://github.com/tuantqse90/p2p-mmo",
     "source_url": "https://github.com/tuantqse90/p2p-mmo",
-    "readme": "## Overview\n\nP2P Escrow Privacy Marketplace — a decentralized marketplace built on BNB Smart Chain with smart contract escrow, end-to-end encryption, and on-chain dispute resolution.\n\n## Architecture\n\n- **Smart Contracts**: Solidity escrow contracts on BNB Chain\n- **Frontend**: TypeScript with Web3 integration\n- **Privacy**: End-to-end encrypted messaging between buyer/seller\n- **Disputes**: On-chain dispute resolution with arbitrator voting\n\n## Key Features\n\n- [x] Smart contract escrow system\n- [x] E2E encrypted communication\n- [x] On-chain dispute resolution\n- [x] BNB Smart Chain deployment\n- [ ] Multi-chain support"
+    "readme": "## Overview\n\nP2P Escrow Privacy Marketplace — a decentralized marketplace built on BNB Smart Chain with smart contract escrow, end-to-end encryption, and on-chain dispute resolution.\n\n## Architecture\n\n- **Smart Contracts**: Solidity escrow contracts on BNB Chain\n- **Frontend**: TypeScript with Web3 integration\n- **Privacy**: End-to-end encrypted messaging between buyer/seller\n- **Disputes**: On-chain dispute resolution with arbitrator voting\n\n## Key Features\n\n- [x] Smart contract escrow system\n- [x] E2E encrypted communication\n- [x] On-chain dispute resolution\n- [x] BNB Smart Chain deployment\n- [ ] Multi-chain support",
+    "image": "/assets/images/projects/p2p-mmo.svg"
   },
   {
     "id": "nullshift-guardian",
@@ -41,11 +59,17 @@
     "description": "AI-powered home safety & automation for Raspberry Pi. Fire/smoke detection, fall detection, seizure detection, and smart AC control.",
     "pillar": "ai",
     "status": "building",
-    "tech_stack": ["Python", "Raspberry Pi", "Computer Vision", "IoT"],
+    "tech_stack": [
+      "Python",
+      "Raspberry Pi",
+      "Computer Vision",
+      "IoT"
+    ],
     "featured": true,
     "url": "#",
     "source_url": "https://github.com/tuantqse90/nullshift-guardian",
-    "readme": "## Overview\n\nNullShift Guardian is an AI-powered home safety and automation system designed for Raspberry Pi. Uses computer vision for real-time threat detection and IoT integration for smart home control.\n\n## Detection Modules\n\n- **Fire/Smoke Detection**: Real-time video analysis for early fire warning\n- **Fall Detection**: Pose estimation to detect falls, especially for elderly\n- **Seizure Detection**: Motion pattern analysis for medical emergency alerts\n- **Smart AC Control**: Temperature-based automation with learning\n\n## Architecture\n\n- **Hardware**: Raspberry Pi with camera module\n- **Vision**: OpenCV + custom trained models\n- **Alerts**: Push notifications, SMS, Telegram integration\n- **Control**: GPIO for smart home device control\n\n## Roadmap\n\n- [x] Fire/smoke detection model\n- [x] Fall detection pipeline\n- [ ] Seizure detection refinement\n- [ ] Smart AC learning algorithm\n- [ ] Mobile app dashboard"
+    "readme": "## Overview\n\nNullShift Guardian is an AI-powered home safety and automation system designed for Raspberry Pi. Uses computer vision for real-time threat detection and IoT integration for smart home control.\n\n## Detection Modules\n\n- **Fire/Smoke Detection**: Real-time video analysis for early fire warning\n- **Fall Detection**: Pose estimation to detect falls, especially for elderly\n- **Seizure Detection**: Motion pattern analysis for medical emergency alerts\n- **Smart AC Control**: Temperature-based automation with learning\n\n## Architecture\n\n- **Hardware**: Raspberry Pi with camera module\n- **Vision**: OpenCV + custom trained models\n- **Alerts**: Push notifications, SMS, Telegram integration\n- **Control**: GPIO for smart home device control\n\n## Roadmap\n\n- [x] Fire/smoke detection model\n- [x] Fall detection pipeline\n- [ ] Seizure detection refinement\n- [ ] Smart AC learning algorithm\n- [ ] Mobile app dashboard",
+    "image": "/assets/images/projects/nullshift-guardian.svg"
   },
   {
     "id": "nullshift-perf-agent",
@@ -53,11 +77,16 @@
     "description": "Automated cross-platform performance marketing intelligence agent. AI-driven campaign optimization and analytics.",
     "pillar": "ai",
     "status": "building",
-    "tech_stack": ["Python", "AI Agents", "Marketing APIs"],
+    "tech_stack": [
+      "Python",
+      "AI Agents",
+      "Marketing APIs"
+    ],
     "featured": false,
     "url": "#",
     "source_url": "https://github.com/tuantqse90/nullshift-perf-agent",
-    "readme": "## Overview\n\nAutomated cross-platform performance marketing intelligence agent. Uses AI to analyze, optimize, and report on marketing campaigns across multiple platforms.\n\n## Features\n\n- Cross-platform campaign tracking\n- AI-driven budget optimization\n- Automated reporting and insights\n- Performance anomaly detection\n\n## Architecture\n\n- **Core**: Python agent framework\n- **Integrations**: Google Ads, Meta Ads, TikTok Ads APIs\n- **Intelligence**: LLM-powered analysis and recommendations\n\n## Status\n\n- [x] Core agent framework\n- [x] Multi-platform data ingestion\n- [ ] LLM analysis pipeline\n- [ ] Automated optimization actions"
+    "readme": "## Overview\n\nAutomated cross-platform performance marketing intelligence agent. Uses AI to analyze, optimize, and report on marketing campaigns across multiple platforms.\n\n## Features\n\n- Cross-platform campaign tracking\n- AI-driven budget optimization\n- Automated reporting and insights\n- Performance anomaly detection\n\n## Architecture\n\n- **Core**: Python agent framework\n- **Integrations**: Google Ads, Meta Ads, TikTok Ads APIs\n- **Intelligence**: LLM-powered analysis and recommendations\n\n## Status\n\n- [x] Core agent framework\n- [x] Multi-platform data ingestion\n- [ ] LLM analysis pipeline\n- [ ] Automated optimization actions",
+    "image": "/assets/images/projects/nullshift-perf-agent.svg"
   },
   {
     "id": "privacy-focused-defi-lending",
@@ -65,11 +94,16 @@
     "description": "Privacy-focused DeFi lending protocol with zero-knowledge proof verification for creditworthiness without revealing financial data.",
     "pillar": "zk",
     "status": "building",
-    "tech_stack": ["Solidity", "ZK Proofs", "DeFi"],
+    "tech_stack": [
+      "Solidity",
+      "ZK Proofs",
+      "DeFi"
+    ],
     "featured": false,
     "url": "#",
     "source_url": "https://github.com/tuantqse90/privacy-focused-defi-lending",
-    "readme": "## Overview\n\nA privacy-focused DeFi lending protocol that uses zero-knowledge proofs to verify borrower creditworthiness without revealing their financial data on-chain.\n\n## Architecture\n\n- **Smart Contracts**: Solidity lending pools with ZK verifiers\n- **Privacy**: ZK proofs for credit score verification\n- **Collateral**: Privacy-preserving collateral management\n\n## Key Features\n\n- [x] Core lending smart contracts\n- [ ] ZK credit verification circuits\n- [ ] Privacy-preserving collateral\n- [ ] Liquidation engine"
+    "readme": "## Overview\n\nA privacy-focused DeFi lending protocol that uses zero-knowledge proofs to verify borrower creditworthiness without revealing their financial data on-chain.\n\n## Architecture\n\n- **Smart Contracts**: Solidity lending pools with ZK verifiers\n- **Privacy**: ZK proofs for credit score verification\n- **Collateral**: Privacy-preserving collateral management\n\n## Key Features\n\n- [x] Core lending smart contracts\n- [ ] ZK credit verification circuits\n- [ ] Privacy-preserving collateral\n- [ ] Liquidation engine",
+    "image": "/assets/images/projects/privacy-focused-defi-lending.svg"
   },
   {
     "id": "clawxfilm",
@@ -77,11 +111,16 @@
     "description": "AI-powered IP character video pipeline. Generate consistent character videos from scripts using AI models.",
     "pillar": "ai",
     "status": "building",
-    "tech_stack": ["Python", "AI Video", "Character Animation"],
+    "tech_stack": [
+      "Python",
+      "AI Video",
+      "Character Animation"
+    ],
     "featured": false,
     "url": "#",
     "source_url": "https://github.com/tuantqse90/clawxfilm",
-    "readme": "## Overview\n\nClawxFilm is an AI-powered IP character video pipeline. Takes scripts as input and generates consistent character videos using AI models for animation and voice synthesis.\n\n## Pipeline\n\n- **Script Parser**: Break down scripts into scenes and actions\n- **Character Engine**: Maintain character consistency across frames\n- **Video Generation**: AI-driven video synthesis\n- **Voice Synthesis**: Text-to-speech with character-specific voices\n\n## Status\n\n- [x] Script parsing engine\n- [x] Character consistency model\n- [ ] Full pipeline integration\n- [ ] Multi-character scenes"
+    "readme": "## Overview\n\nClawxFilm is an AI-powered IP character video pipeline. Takes scripts as input and generates consistent character videos using AI models for animation and voice synthesis.\n\n## Pipeline\n\n- **Script Parser**: Break down scripts into scenes and actions\n- **Character Engine**: Maintain character consistency across frames\n- **Video Generation**: AI-driven video synthesis\n- **Voice Synthesis**: Text-to-speech with character-specific voices\n\n## Status\n\n- [x] Script parsing engine\n- [x] Character consistency model\n- [ ] Full pipeline integration\n- [ ] Multi-character scenes",
+    "image": "/assets/images/projects/clawxfilm.svg"
   },
   {
     "id": "moltiverse",
@@ -89,11 +128,17 @@
     "description": "A fun lottery game on Monad blockchain with NFT minting. Gamified blockchain experience with provably fair mechanics.",
     "pillar": "blockchain",
     "status": "live",
-    "tech_stack": ["TypeScript", "Monad", "NFT", "Smart Contracts"],
+    "tech_stack": [
+      "TypeScript",
+      "Monad",
+      "NFT",
+      "Smart Contracts"
+    ],
     "featured": false,
     "url": "https://github.com/tuantqse90/Moltiverse",
     "source_url": "https://github.com/tuantqse90/Moltiverse",
-    "readme": "## Overview\n\nLobsterPot is a fun lottery game built on Monad blockchain with NFT minting. Features provably fair lottery mechanics and collectible NFTs.\n\n## Features\n\n- On-chain lottery with verifiable randomness\n- NFT minting for winners\n- Monad blockchain for fast, cheap transactions\n- Gamified UI with animations\n\n## Tech Stack\n\n- **Blockchain**: Monad\n- **Frontend**: TypeScript\n- **NFTs**: ERC-721 compatible\n\n## Status\n\n- [x] Smart contract deployment\n- [x] NFT minting system\n- [x] Lottery mechanics\n- [x] Frontend integration"
+    "readme": "## Overview\n\nLobsterPot is a fun lottery game built on Monad blockchain with NFT minting. Features provably fair lottery mechanics and collectible NFTs.\n\n## Features\n\n- On-chain lottery with verifiable randomness\n- NFT minting for winners\n- Monad blockchain for fast, cheap transactions\n- Gamified UI with animations\n\n## Tech Stack\n\n- **Blockchain**: Monad\n- **Frontend**: TypeScript\n- **NFTs**: ERC-721 compatible\n\n## Status\n\n- [x] Smart contract deployment\n- [x] NFT minting system\n- [x] Lottery mechanics\n- [x] Frontend integration",
+    "image": "/assets/images/projects/moltiverse.svg"
   },
   {
     "id": "telegram-notify-hub",
@@ -101,11 +146,16 @@
     "description": "Centralized notification hub for Telegram. Aggregate alerts from multiple services and deliver via Telegram bot.",
     "pillar": "ai",
     "status": "building",
-    "tech_stack": ["Python", "Telegram Bot API", "Webhooks"],
+    "tech_stack": [
+      "Python",
+      "Telegram Bot API",
+      "Webhooks"
+    ],
     "featured": false,
     "url": "#",
     "source_url": "https://github.com/tuantqse90/telegram-notify-hub",
-    "readme": "## Overview\n\nTelegram Notify Hub is a centralized notification system that aggregates alerts from multiple services and delivers them via Telegram bot. Single point of control for all notifications.\n\n## Features\n\n- Multi-source alert aggregation\n- Customizable notification templates\n- Priority-based routing\n- Rate limiting and deduplication\n\n## Architecture\n\n- **Bot**: Python Telegram Bot\n- **Webhooks**: Receive events from external services\n- **Queue**: Priority-based message queue\n\n## Status\n\n- [x] Core bot framework\n- [x] Webhook receiver\n- [ ] Template engine\n- [ ] Priority routing"
+    "readme": "## Overview\n\nTelegram Notify Hub is a centralized notification system that aggregates alerts from multiple services and delivers them via Telegram bot. Single point of control for all notifications.\n\n## Features\n\n- Multi-source alert aggregation\n- Customizable notification templates\n- Priority-based routing\n- Rate limiting and deduplication\n\n## Architecture\n\n- **Bot**: Python Telegram Bot\n- **Webhooks**: Receive events from external services\n- **Queue**: Priority-based message queue\n\n## Status\n\n- [x] Core bot framework\n- [x] Webhook receiver\n- [ ] Template engine\n- [ ] Priority routing",
+    "image": "/assets/images/projects/telegram-notify-hub.svg"
   },
   {
     "id": "game-pikanad",
@@ -113,11 +163,16 @@
     "description": "Blockchain-powered game built with Godot Engine. Gamified experience with on-chain rewards and collectibles.",
     "pillar": "blockchain",
     "status": "building",
-    "tech_stack": ["GDScript", "Godot Engine", "Blockchain"],
+    "tech_stack": [
+      "GDScript",
+      "Godot Engine",
+      "Blockchain"
+    ],
     "featured": false,
     "url": "https://github.com/tuantqse90/game-pikanad",
     "source_url": "https://github.com/tuantqse90/game-pikanad",
-    "readme": "## Overview\n\nPikaNad is a blockchain-powered game built with Godot Engine. Features gamified experience with on-chain rewards and collectible items.\n\n## Tech Stack\n\n- **Engine**: Godot with GDScript\n- **Blockchain**: On-chain reward system\n- **Assets**: Custom pixel art and animations\n\n## Status\n\n- [x] Core game mechanics\n- [x] Character system\n- [ ] Blockchain integration\n- [ ] Marketplace for collectibles"
+    "readme": "## Overview\n\nPikaNad is a blockchain-powered game built with Godot Engine. Features gamified experience with on-chain rewards and collectible items.\n\n## Tech Stack\n\n- **Engine**: Godot with GDScript\n- **Blockchain**: On-chain reward system\n- **Assets**: Custom pixel art and animations\n\n## Status\n\n- [x] Core game mechanics\n- [x] Character system\n- [ ] Blockchain integration\n- [ ] Marketplace for collectibles",
+    "image": "/assets/images/projects/game-pikanad.svg"
   },
   {
     "id": "whampay",
@@ -125,10 +180,16 @@
     "description": "Payment platform with iOS Swift app, TypeScript backend, and frontend. Built during hackathon for seamless mobile payments.",
     "pillar": "blockchain",
     "status": "live",
-    "tech_stack": ["Swift", "TypeScript", "iOS", "Payments"],
+    "tech_stack": [
+      "Swift",
+      "TypeScript",
+      "iOS",
+      "Payments"
+    ],
     "featured": false,
     "url": "https://github.com/tuantqse90/WhamPay",
     "source_url": "https://github.com/tuantqse90/WhamPay",
-    "readme": "## Overview\n\nWhamPay is a payment platform with native iOS app and TypeScript backend. Originally built during a hackathon for seamless mobile payment experiences.\n\n## Architecture\n\n- **iOS App**: Swift native app\n- **Backend**: TypeScript API (WhamPayHackathonBe)\n- **Frontend**: TypeScript web app (WhamPayHackathonFe)\n\n## Repos\n\n- WhamPay — iOS Swift app\n- WhamPayHackathonFe — Web frontend\n- WhamPayHackathonBe — Backend API\n\n## Status\n\n- [x] iOS app\n- [x] Backend API\n- [x] Web frontend\n- [x] Hackathon submission"
+    "readme": "## Overview\n\nWhamPay is a payment platform with native iOS app and TypeScript backend. Originally built during a hackathon for seamless mobile payment experiences.\n\n## Architecture\n\n- **iOS App**: Swift native app\n- **Backend**: TypeScript API (WhamPayHackathonBe)\n- **Frontend**: TypeScript web app (WhamPayHackathonFe)\n\n## Repos\n\n- WhamPay — iOS Swift app\n- WhamPayHackathonFe — Web frontend\n- WhamPayHackathonBe — Backend API\n\n## Status\n\n- [x] iOS app\n- [x] Backend API\n- [x] Web frontend\n- [x] Hackathon submission",
+    "image": "/assets/images/projects/whampay.svg"
   }
 ]

@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="300" viewBox="0 0 600 300">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0a0a"/>
+      <stop offset="100%" stop-color="#1a0a15"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="300" fill="url(#bg)"/>
+  <!-- Phone mockup -->
+  <rect x="230" y="25" width="140" height="250" rx="16" fill="#111" stroke="#ff0080" stroke-width="2"/>
+  <rect x="270" y="32" width="60" height="8" rx="4" fill="#1a1a1a"/>
+  <!-- App screen -->
+  <rect x="240" y="50" width="120" height="200" fill="#0a0a0a"/>
+  <!-- App header -->
+  <rect x="240" y="50" width="120" height="30" fill="#1a1a1a"/>
+  <text x="265" y="70" font-family="monospace" font-size="10" fill="#ff0080">WhamPay</text>
+  <!-- Balance -->
+  <text x="260" y="105" font-family="monospace" font-size="9" fill="#888">Balance</text>
+  <text x="255" y="125" font-family="monospace" font-size="16" fill="#00ff41">$2,847</text>
+  <!-- Action buttons -->
+  <g font-family="monospace" font-size="7">
+    <rect x="250" y="140" width="45" height="24" rx="4" fill="rgba(0,255,65,0.1)" stroke="#00ff41" stroke-width="1"/>
+    <text x="260" y="155" fill="#00ff41">Send</text>
+    <rect x="305" y="140" width="45" height="24" rx="4" fill="rgba(0,255,255,0.1)" stroke="#00ffff" stroke-width="1"/>
+    <text x="310" y="155" fill="#00ffff">Receive</text>
+  </g>
+  <!-- Transactions -->
+  <g font-family="monospace" font-size="7" fill="#888">
+    <line x1="250" y1="180" x2="350" y2="180" stroke="#333" stroke-width="1"/>
+    <text x="250" y="195">Coffee Shop</text><text x="325" y="195" fill="#ff0080">-$4.50</text>
+    <text x="250" y="212">Received</text><text x="320" y="212" fill="#00ff41">+$120</text>
+    <text x="250" y="229">Grocery</text><text x="320" y="229" fill="#ff0080">-$32.10</text>
+  </g>
+  <!-- Platform badges -->
+  <g font-family="monospace" font-size="9">
+    <rect x="50" y="100" width="100" height="28" rx="4" fill="#1a1a1a" stroke="#888" stroke-width="1"/>
+    <text x="70" y="118" fill="#888">iOS Swift</text>
+    <rect x="50" y="145" width="100" height="28" rx="4" fill="#1a1a1a" stroke="#00ffff" stroke-width="1"/>
+    <text x="62" y="163" fill="#00ffff">TypeScript</text>
+    <rect x="50" y="190" width="100" height="28" rx="4" fill="#1a1a1a" stroke="#ff0080" stroke-width="1"/>
+    <text x="65" y="208" fill="#ff0080">Hackathon</text>
+    <rect x="450" y="130" width="100" height="28" rx="4" fill="rgba(0,255,65,0.1)" stroke="#00ff41" stroke-width="1"/>
+    <text x="460" y="148" fill="#00ff41">Frontend</text>
+    <rect x="450" y="175" width="100" height="28" rx="4" fill="rgba(0,255,255,0.1)" stroke="#00ffff" stroke-width="1"/>
+    <text x="462" y="193" fill="#00ffff">Backend</text>
+  </g>
+  <rect x="0" y="297" width="600" height="3" fill="#ff0080" opacity="0.6"/>
+</svg>

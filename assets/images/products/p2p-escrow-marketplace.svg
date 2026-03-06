@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="300" viewBox="0 0 600 300">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0a0a"/>
+      <stop offset="100%" stop-color="#1a0a15"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="300" fill="url(#bg)"/>
+  <!-- P2P Network nodes -->
+  <g stroke="#ff0080" stroke-width="1" opacity="0.3">
+    <line x1="150" y1="80" x2="300" y2="150"/>
+    <line x1="300" y1="150" x2="450" y2="80"/>
+    <line x1="150" y1="80" x2="450" y2="80"/>
+    <line x1="300" y1="150" x2="150" y2="220"/>
+    <line x1="300" y1="150" x2="450" y2="220"/>
+    <line x1="150" y1="220" x2="450" y2="220"/>
+  </g>
+  <!-- Nodes -->
+  <circle cx="150" cy="80" r="20" fill="#1a1a1a" stroke="#ff0080" stroke-width="2"/>
+  <text x="141" y="85" font-family="monospace" font-size="10" fill="#ff0080">B1</text>
+  <circle cx="450" cy="80" r="20" fill="#1a1a1a" stroke="#ff0080" stroke-width="2"/>
+  <text x="441" y="85" font-family="monospace" font-size="10" fill="#ff0080">S1</text>
+  <circle cx="300" cy="150" r="28" fill="#1a1a1a" stroke="#ff0080" stroke-width="2"/>
+  <text x="280" y="145" font-family="monospace" font-size="9" fill="#ff0080">ESCROW</text>
+  <text x="285" y="160" font-family="monospace" font-size="8" fill="#888">locked</text>
+  <circle cx="150" cy="220" r="20" fill="#1a1a1a" stroke="#ff0080" stroke-width="2"/>
+  <text x="141" y="225" font-family="monospace" font-size="10" fill="#ff0080">B2</text>
+  <circle cx="450" cy="220" r="20" fill="#1a1a1a" stroke="#ff0080" stroke-width="2"/>
+  <text x="441" y="225" font-family="monospace" font-size="10" fill="#ff0080">S2</text>
+  <!-- Lock icon -->
+  <rect x="262" y="185" width="76" height="30" rx="4" fill="rgba(255,0,128,0.1)" stroke="#ff0080" stroke-width="1"/>
+  <text x="270" y="205" font-family="monospace" font-size="10" fill="#ff0080">E2E + ZK</text>
+  <!-- Chain label -->
+  <text x="220" y="270" font-family="monospace" font-size="12" fill="#666">BNB Smart Chain</text>
+  <rect x="0" y="297" width="600" height="3" fill="#ff0080" opacity="0.6"/>
+</svg>

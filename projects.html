@@ -268,7 +268,9 @@
         return `
           <div class="hacker-card" data-pillar="${project.pillar}" data-project-id="${project.id}" style="position:relative;cursor:pointer" onclick="window.location.hash='${project.id}'">
             ${featuredHtml}
-            <div class="gradient-placeholder" data-pillar="${project.pillar}"></div>
+            <div class="project-thumbnail" data-pillar="${project.pillar}">
+              ${project.image ? '<img src="' + project.image + '" alt="' + project.name + '" loading="lazy" width="600" height="300">' : ''}
+            </div>
             <div class="card-header">
               <span class="card-title">${project.name}</span>
               <span class="status-tag" data-status="${project.status}">[${project.status.toUpperCase()}]</span>

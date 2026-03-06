@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="300" viewBox="0 0 600 300">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0a0a"/>
+      <stop offset="100%" stop-color="#1a0a15"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="300" fill="url(#bg)"/>
+  <!-- Lottery wheel -->
+  <circle cx="300" cy="140" r="100" fill="none" stroke="#ff0080" stroke-width="2" opacity="0.3"/>
+  <circle cx="300" cy="140" r="80" fill="none" stroke="#ff0080" stroke-width="1" opacity="0.2"/>
+  <!-- Wheel segments -->
+  <g stroke="#ff0080" stroke-width="1" opacity="0.4">
+    <line x1="300" y1="40" x2="300" y2="240"/>
+    <line x1="200" y1="140" x2="400" y2="140"/>
+    <line x1="229" y1="69" x2="371" y2="211"/>
+    <line x1="371" y1="69" x2="229" y2="211"/>
+  </g>
+  <!-- Center -->
+  <circle cx="300" cy="140" r="30" fill="#1a1a1a" stroke="#ff0080" stroke-width="2"/>
+  <text x="280" y="137" font-family="monospace" font-size="10" fill="#ff0080">LOBSTER</text>
+  <text x="288" y="150" font-family="monospace" font-size="9" fill="#888">POT</text>
+  <!-- NFT cards -->
+  <g transform="translate(50, 60)">
+    <rect x="0" y="0" width="60" height="75" rx="4" fill="#1a1a1a" stroke="#ffaa00" stroke-width="1"/>
+    <text x="10" y="20" font-family="monospace" font-size="8" fill="#ffaa00">NFT</text>
+    <text x="10" y="35" font-family="monospace" font-size="7" fill="#888">#0421</text>
+    <rect x="8" y="42" width="44" height="25" rx="2" fill="rgba(255,170,0,0.1)"/>
+    <text x="15" y="58" font-family="monospace" font-size="7" fill="#ffaa00">RARE</text>
+  </g>
+  <g transform="translate(490, 60)">
+    <rect x="0" y="0" width="60" height="75" rx="4" fill="#1a1a1a" stroke="#a855f7" stroke-width="1"/>
+    <text x="10" y="20" font-family="monospace" font-size="8" fill="#a855f7">NFT</text>
+    <text x="10" y="35" font-family="monospace" font-size="7" fill="#888">#1337</text>
+    <rect x="8" y="42" width="44" height="25" rx="2" fill="rgba(168,85,247,0.1)"/>
+    <text x="10" y="58" font-family="monospace" font-size="7" fill="#a855f7">LEGEND</text>
+  </g>
+  <!-- Monad chain badge -->
+  <rect x="210" y="260" width="180" height="25" rx="12" fill="rgba(255,0,128,0.1)" stroke="#ff0080" stroke-width="1"/>
+  <text x="240" y="278" font-family="monospace" font-size="11" fill="#ff0080">Monad Blockchain</text>
+  <rect x="0" y="297" width="600" height="3" fill="#ff0080" opacity="0.6"/>
+</svg>

@@ -469,6 +469,7 @@
         if (grid) {
           grid.innerHTML = featured.map(p => `
             <div class="hacker-card scroll-fade" data-pillar="${p.pillar}">
+              ${p.image ? '<div class="project-thumbnail" data-pillar="' + p.pillar + '"><img src="' + p.image + '" alt="' + p.name + '" loading="lazy" width="600" height="300"></div>' : ''}
               <div class="card-header">
                 <span class="card-title">${p.name}</span>
                 <span class="status-tag" data-status="${p.status}">[${p.status.toUpperCase()}]</span>

@@ -18,6 +18,35 @@
   font-weight: 600;
 }
 
+/* ==============================
+   PRODUCT THUMBNAIL
+   ============================== */
+.product-thumbnail {
+  width: calc(100% + var(--space-xl) * 2);
+  margin: calc(var(--space-xl) * -1);
+  margin-bottom: var(--space-lg);
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  overflow: hidden;
+  height: 140px;
+}
+
+.product-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform var(--transition-normal);
+}
+
+.hacker-card:hover .product-thumbnail img {
+  transform: scale(1.05);
+}
+
+.product-thumbnail[data-pillar="privacy"] { background: linear-gradient(135deg, rgba(0,255,65,0.15), rgba(0,255,65,0.02)); }
+.product-thumbnail[data-pillar="ai"] { background: linear-gradient(135deg, rgba(0,255,255,0.15), rgba(0,255,255,0.02)); }
+.product-thumbnail[data-pillar="blockchain"] { background: linear-gradient(135deg, rgba(255,0,128,0.15), rgba(255,0,128,0.02)); }
+.product-thumbnail[data-pillar="zk"] { background: linear-gradient(135deg, rgba(168,85,247,0.15), rgba(168,85,247,0.02)); }
+
 /* View Toggle */
 .view-toggle {
   display: flex;

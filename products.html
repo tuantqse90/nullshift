@@ -185,6 +185,9 @@
       renderCard: function(product) {
         return `
           <div class="hacker-card" data-pillar="${product.pillar}">
+            <div class="product-thumbnail" data-pillar="${product.pillar}">
+              ${product.image ? '<img src="' + product.image + '" alt="' + product.name + '" loading="lazy" width="600" height="300">' : ''}
+            </div>
             <div class="card-header">
               <span class="card-title">${product.name}</span>
               <span class="status-tag" data-status="${product.status}">[${product.status.toUpperCase()}]</span>

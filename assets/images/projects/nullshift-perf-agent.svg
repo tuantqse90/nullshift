@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="300" viewBox="0 0 600 300">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0a0a"/>
+      <stop offset="100%" stop-color="#0a1520"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="300" fill="url(#bg)"/>
+  <!-- Performance graph -->
+  <g transform="translate(50, 30)">
+    <!-- Grid -->
+    <g stroke="#1a1a1a" stroke-width="1">
+      <line x1="0" y1="0" x2="0" y2="200"/><line x1="0" y1="200" x2="500" y2="200"/>
+      <line x1="0" y1="50" x2="500" y2="50" stroke-dasharray="3"/><line x1="0" y1="100" x2="500" y2="100" stroke-dasharray="3"/><line x1="0" y1="150" x2="500" y2="150" stroke-dasharray="3"/>
+    </g>
+    <!-- Line chart - ROAS -->
+    <polyline points="0,180 50,160 100,140 150,120 200,90 250,85 300,60 350,70 400,45 450,30 500,20" fill="none" stroke="#00ffff" stroke-width="2" opacity="0.8"/>
+    <!-- Line chart - CPA -->
+    <polyline points="0,40 50,60 100,80 150,100 200,110 250,130 300,125 350,140 400,150 450,160 500,170" fill="none" stroke="#ff0080" stroke-width="2" opacity="0.6" stroke-dasharray="5"/>
+    <!-- Dots -->
+    <circle cx="300" cy="60" r="4" fill="#00ffff"/>
+    <circle cx="500" cy="20" r="4" fill="#00ffff"/>
+    <circle cx="500" cy="170" r="4" fill="#ff0080"/>
+  </g>
+  <!-- Labels -->
+  <text x="520" y="55" font-family="monospace" font-size="10" fill="#00ffff">ROAS +</text>
+  <text x="520" y="200" font-family="monospace" font-size="10" fill="#ff0080">CPA -</text>
+  <!-- Platform badges -->
+  <g font-family="monospace" font-size="9" transform="translate(100, 260)">
+    <rect x="0" y="0" width="80" height="22" rx="4" fill="rgba(0,255,255,0.1)" stroke="#00ffff" stroke-width="1"/>
+    <text x="10" y="15" fill="#00ffff">Google Ads</text>
+    <rect x="100" y="0" width="70" height="22" rx="4" fill="rgba(0,100,255,0.1)" stroke="#4488ff" stroke-width="1"/>
+    <text x="110" y="15" fill="#4488ff">Meta Ads</text>
+    <rect x="190" y="0" width="80" height="22" rx="4" fill="rgba(255,0,128,0.1)" stroke="#ff0080" stroke-width="1"/>
+    <text x="200" y="15" fill="#ff0080">TikTok Ads</text>
+    <rect x="290" y="0" width="100" height="22" rx="4" fill="rgba(0,255,65,0.1)" stroke="#00ff41" stroke-width="1"/>
+    <text x="300" y="15" fill="#00ff41">AI Optimized</text>
+  </g>
+  <rect x="0" y="297" width="600" height="3" fill="#00ffff" opacity="0.6"/>
+</svg>

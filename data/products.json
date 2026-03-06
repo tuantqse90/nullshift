@@ -5,9 +5,15 @@
     "description": "Full-stack SEO dashboard with AI-powered keyword research, content optimization, competitor analysis, and SERP tracking. Vietnamese UI with LLM streaming.",
     "pillar": "ai",
     "status": "live",
-    "tech_stack": ["Python", "FastAPI", "Next.js", "PostgreSQL"],
+    "tech_stack": [
+      "Python",
+      "FastAPI",
+      "Next.js",
+      "PostgreSQL"
+    ],
     "url": "https://github.com/tuantqse90/seo-keyword-agents",
-    "source_url": "https://github.com/tuantqse90/seo-keyword-agents"
+    "source_url": "https://github.com/tuantqse90/seo-keyword-agents",
+    "image": "/assets/images/products/seo-keyword-agents.svg"
   },
   {
     "id": "p2p-escrow-marketplace",
@@ -15,9 +21,14 @@
     "description": "Decentralized P2P marketplace on BNB Smart Chain. Smart contract escrow, E2E encrypted messaging, and on-chain dispute resolution.",
     "pillar": "blockchain",
     "status": "live",
-    "tech_stack": ["TypeScript", "Solidity", "BNB Chain"],
+    "tech_stack": [
+      "TypeScript",
+      "Solidity",
+      "BNB Chain"
+    ],
     "url": "https://github.com/tuantqse90/p2p-mmo",
-    "source_url": "https://github.com/tuantqse90/p2p-mmo"
+    "source_url": "https://github.com/tuantqse90/p2p-mmo",
+    "image": "/assets/images/products/p2p-escrow-marketplace.svg"
   },
   {
     "id": "nullshift-guardian",
@@ -25,9 +36,15 @@
     "description": "AI-powered home safety system for Raspberry Pi. Real-time fire/smoke detection, fall detection, seizure detection, and smart AC control via computer vision.",
     "pillar": "ai",
     "status": "building",
-    "tech_stack": ["Python", "Raspberry Pi", "OpenCV", "IoT"],
+    "tech_stack": [
+      "Python",
+      "Raspberry Pi",
+      "OpenCV",
+      "IoT"
+    ],
     "url": "#",
-    "source_url": "https://github.com/tuantqse90/nullshift-guardian"
+    "source_url": "https://github.com/tuantqse90/nullshift-guardian",
+    "image": "/assets/images/products/nullshift-guardian.svg"
   },
   {
     "id": "nullshift-perf-agent",
@@ -35,9 +52,14 @@
     "description": "Automated cross-platform performance marketing intelligence agent. AI-driven campaign analysis, budget optimization, and reporting.",
     "pillar": "ai",
     "status": "building",
-    "tech_stack": ["Python", "AI Agents", "Marketing APIs"],
+    "tech_stack": [
+      "Python",
+      "AI Agents",
+      "Marketing APIs"
+    ],
     "url": "#",
-    "source_url": "https://github.com/tuantqse90/nullshift-perf-agent"
+    "source_url": "https://github.com/tuantqse90/nullshift-perf-agent",
+    "image": "/assets/images/products/nullshift-perf-agent.svg"
   },
   {
     "id": "privacy-defi-lending",
@@ -45,9 +67,14 @@
     "description": "Privacy-focused DeFi lending protocol. Zero-knowledge proof verification for creditworthiness without exposing financial data on-chain.",
     "pillar": "zk",
     "status": "building",
-    "tech_stack": ["Solidity", "ZK Proofs", "DeFi"],
+    "tech_stack": [
+      "Solidity",
+      "ZK Proofs",
+      "DeFi"
+    ],
     "url": "#",
-    "source_url": "https://github.com/tuantqse90/privacy-focused-defi-lending"
+    "source_url": "https://github.com/tuantqse90/privacy-focused-defi-lending",
+    "image": "/assets/images/products/privacy-defi-lending.svg"
   },
   {
     "id": "clawxfilm",
@@ -55,9 +82,14 @@
     "description": "AI-powered IP character video pipeline. Script-to-video generation with consistent character rendering and voice synthesis.",
     "pillar": "ai",
     "status": "building",
-    "tech_stack": ["Python", "AI Video", "Character Engine"],
+    "tech_stack": [
+      "Python",
+      "AI Video",
+      "Character Engine"
+    ],
     "url": "#",
-    "source_url": "https://github.com/tuantqse90/clawxfilm"
+    "source_url": "https://github.com/tuantqse90/clawxfilm",
+    "image": "/assets/images/products/clawxfilm.svg"
   },
   {
     "id": "telegram-notify-hub",
@@ -65,9 +97,14 @@
     "description": "Centralized notification hub aggregating alerts from multiple services. Priority routing, templates, and deduplication via Telegram bot.",
     "pillar": "ai",
     "status": "building",
-    "tech_stack": ["Python", "Telegram Bot API", "Webhooks"],
+    "tech_stack": [
+      "Python",
+      "Telegram Bot API",
+      "Webhooks"
+    ],
     "url": "#",
-    "source_url": "https://github.com/tuantqse90/telegram-notify-hub"
+    "source_url": "https://github.com/tuantqse90/telegram-notify-hub",
+    "image": "/assets/images/products/telegram-notify-hub.svg"
   },
   {
     "id": "lobsterpot",
@@ -75,9 +112,15 @@
     "description": "Fun lottery game on Monad blockchain with NFT minting. Provably fair mechanics and collectible rewards.",
     "pillar": "blockchain",
     "status": "live",
-    "tech_stack": ["TypeScript", "Monad", "NFT", "Solidity"],
+    "tech_stack": [
+      "TypeScript",
+      "Monad",
+      "NFT",
+      "Solidity"
+    ],
     "url": "https://github.com/tuantqse90/Moltiverse",
-    "source_url": "https://github.com/tuantqse90/Moltiverse"
+    "source_url": "https://github.com/tuantqse90/Moltiverse",
+    "image": "/assets/images/products/lobsterpot.svg"
   },
   {
     "id": "whampay",
@@ -85,8 +128,14 @@
     "description": "Mobile payment platform with native iOS Swift app and TypeScript backend. Built during hackathon for seamless payment UX.",
     "pillar": "blockchain",
     "status": "live",
-    "tech_stack": ["Swift", "TypeScript", "iOS", "Payments"],
+    "tech_stack": [
+      "Swift",
+      "TypeScript",
+      "iOS",
+      "Payments"
+    ],
     "url": "https://github.com/tuantqse90/WhamPay",
-    "source_url": "https://github.com/tuantqse90/WhamPay"
+    "source_url": "https://github.com/tuantqse90/WhamPay",
+    "image": "/assets/images/products/whampay.svg"
   }
 ]

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="300" viewBox="0 0 600 300">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0a0a"/>
+      <stop offset="100%" stop-color="#1a0a15"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="300" fill="url(#bg)"/>
+  <!-- Game screen border -->
+  <rect x="150" y="30" width="300" height="220" rx="8" fill="#111" stroke="#ff0080" stroke-width="2"/>
+  <!-- Pixel grid -->
+  <g fill="#1a1a1a" opacity="0.5">
+    <rect x="160" y="40" width="14" height="14"/><rect x="178" y="40" width="14" height="14"/><rect x="196" y="40" width="14" height="14"/><rect x="214" y="40" width="14" height="14"/><rect x="232" y="40" width="14" height="14"/>
+    <rect x="160" y="58" width="14" height="14"/><rect x="178" y="58" width="14" height="14"/><rect x="196" y="58" width="14" height="14"/><rect x="214" y="58" width="14" height="14"/><rect x="232" y="58" width="14" height="14"/>
+  </g>
+  <!-- Character (pixel art style) -->
+  <g fill="#ffaa00">
+    <rect x="280" y="100" width="12" height="12"/><rect x="292" y="100" width="12" height="12"/><rect x="304" y="100" width="12" height="12"/>
+    <rect x="268" y="112" width="12" height="12"/><rect x="280" y="112" width="12" height="12"/><rect x="292" y="112" width="12" height="12"/><rect x="304" y="112" width="12" height="12"/><rect x="316" y="112" width="12" height="12"/>
+    <rect x="268" y="124" width="12" height="12"/><rect x="280" y="124" width="12" height="12" fill="#0a0a0a"/><rect x="292" y="124" width="12" height="12"/><rect x="304" y="124" width="12" height="12" fill="#0a0a0a"/><rect x="316" y="124" width="12" height="12"/>
+    <rect x="268" y="136" width="12" height="12"/><rect x="280" y="136" width="12" height="12"/><rect x="292" y="136" width="12" height="12"/><rect x="304" y="136" width="12" height="12"/><rect x="316" y="136" width="12" height="12"/>
+    <rect x="280" y="148" width="12" height="12"/><rect x="292" y="148" width="12" height="12"/><rect x="304" y="148" width="12" height="12"/>
+  </g>
+  <!-- Collectibles -->
+  <circle cx="200" cy="130" r="8" fill="none" stroke="#00ff41" stroke-width="2"/>
+  <text x="196" y="134" font-family="monospace" font-size="10" fill="#00ff41">$</text>
+  <circle cx="380" cy="100" r="8" fill="none" stroke="#a855f7" stroke-width="2"/>
+  <text x="376" y="104" font-family="monospace" font-size="10" fill="#a855f7">*</text>
+  <!-- HUD -->
+  <text x="170" y="235" font-family="monospace" font-size="10" fill="#ff0080">SCORE: 1337</text>
+  <text x="350" y="235" font-family="monospace" font-size="10" fill="#00ff41">HP: |||</text>
+  <!-- Godot + Blockchain badges -->
+  <g font-family="monospace" font-size="9" transform="translate(180, 265)">
+    <rect x="0" y="0" width="100" height="22" rx="4" fill="rgba(255,0,128,0.1)" stroke="#ff0080" stroke-width="1"/>
+    <text x="12" y="15" fill="#ff0080">Godot Engine</text>
+    <rect x="120" y="0" width="100" height="22" rx="4" fill="rgba(255,170,0,0.1)" stroke="#ffaa00" stroke-width="1"/>
+    <text x="130" y="15" fill="#ffaa00">On-Chain NFT</text>
+  </g>
+  <rect x="0" y="297" width="600" height="3" fill="#ff0080" opacity="0.6"/>
+</svg>
