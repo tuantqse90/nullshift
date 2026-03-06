@@ -11,167 +11,165 @@ const AgentChat = (function () {
 
   /* ---------- Agent Data ---------- */
   const agents = {
-    'market-scanner': {
-      name: 'Market Scanner',
+    'seo-research-agent': {
+      name: 'SEO Research Agent',
       pillar: 'ai',
-      color: 'var(--pillar-ai)',
-      welcome: 'Market Scanner online. Monitoring 50+ data sources. What do you need?',
+      color: 'var(--color-secondary)',
+      welcome: 'SEO Research Agent online. LLM streaming active. What keyword do you want to analyze?',
       responses: {
         market: [
-          'Current market sentiment: cautiously bullish. ETH showing strength above 200MA.',
-          'Detected whale accumulation pattern on 3 tokens in the last hour.',
-          'Volatility index at 42.3 -- moderate. Stay alert.',
-          'BTC dominance trending down. Alt rotation likely incoming.',
-          'Cross-chain volume spike detected on L2s. Watching closely.'
+          'Search volume trending up for "privacy tools" — 45% increase this quarter.',
+          'Competitor analysis: top 3 domains averaging DA 62. Gap identified in long-tail keywords.',
+          'SERP features detected: 4 featured snippets, 2 knowledge panels in your niche.'
         ],
         trade: [
-          'Forwarding trade query to Trading Agent... Recommend checking momentum signals first.',
-          'Market conditions favorable for entries. Low slippage detected on major pairs.',
-          'Current spread analysis complete. Best execution on DEX aggregator routes.'
+          'Keyword difficulty for "DeFi lending" is moderate (KD 38). Good opportunity.',
+          'Content gap analysis complete. 12 untapped keyword clusters identified.',
+          'Recommended bid range: $2.40-$3.80 CPC for target keywords.'
         ],
         alert: [
-          'No anomalies in monitored feeds. All data pipelines nominal.',
-          'Last anomaly flagged 4h ago -- resolved. False positive on volume spike.',
-          'Scanning threat feeds... all clear. No suspicious on-chain activity.'
+          'Ranking alert: "zero knowledge proofs" moved from position 18 to 11.',
+          'New competitor detected in SERP for 3 tracked keywords.',
+          'Search trend spike: "AI agents" volume up 200% in last 7 days.'
         ],
         privacy: [
-          'All market data feeds encrypted in transit. No metadata exposure.',
-          'Data retention policy: 72h rolling window. Older data purged automatically.',
-          'Feed sources anonymized through 3 proxy layers.'
+          'All keyword research data processed locally. No third-party API tracking.',
+          'Search queries anonymized. No user fingerprinting in analysis pipeline.',
+          'Data retention: keyword data auto-purged after 90 days.'
         ],
         help: [
-          'Available queries: price, market, trend, volume, whale, sentiment. Try: "What is the current market trend?"'
+          'Available queries: keyword, search, SEO, rank, competition, content. Try: "Analyze keyword: privacy tools"'
         ],
         status: [
-          'Market Scanner: ACTIVE | Uptime: 99.7% | Signals (24h): 1,247 | Accuracy: 94.2% | Latency: < 200ms'
+          'SEO Research Agent: ACTIVE | Uptime: 99.7% | Queries (24h): 2,847 | Accuracy: 94.2% | Latency: < 300ms'
         ],
         default: [
-          'Processing query... I\'m analyzing the data. Ask about prices, trades, alerts, or privacy.',
-          'Scanning data feeds for relevant information. Try asking about market trends or prices.',
-          'Query received. Specify: price, market, whale, trend, or volume for targeted analysis.'
+          'Processing query... Ask about keywords, search trends, competition, or content optimization.',
+          'LLM analysis ready. Provide a keyword or topic for deep research.',
+          'Query received. Specify: keyword, niche, competitor URL, or content topic.'
         ]
       }
     },
-    'trading-agent': {
-      name: 'Trading Agent',
-      pillar: 'blockchain',
-      color: 'var(--pillar-blockchain)',
-      welcome: 'Trading Agent initialized. Strategies loaded. Ready for directives.',
+    'guardian-vision': {
+      name: 'Guardian Vision',
+      pillar: 'ai',
+      color: 'var(--color-secondary)',
+      welcome: 'Guardian Vision active. Camera feeds monitored. All detection modules operational.',
       responses: {
         market: [
-          'Market analysis received from Scanner. Conditions look favorable for momentum plays.',
-          'Correlating market data with open positions... no immediate action required.',
-          'Market regime: trending. Adjusting strategy weights accordingly.'
+          'Environmental sensor data: Temperature 23°C, Humidity 45%. All within safe range.',
+          'Activity pattern analysis: normal household activity detected. No anomalies.',
+          'Smart AC adjusted to 24°C based on occupancy prediction model.'
         ],
         trade: [
-          'Last trade: Sold 2.5 ETH at $3,847. PnL: +1.8%.',
-          'Current strategy: momentum-following with 15min timeframe.',
-          'Risk allocation: 60% conservative, 30% moderate, 10% aggressive.',
-          'Open positions: 4 active, 2 pending limit orders. Total exposure within bounds.',
-          'Slippage tolerance set to 0.3%. Execution routing through 5 DEX aggregators.'
+          'Hardware status: Raspberry Pi 4B running at 52°C. CPU load 34%.',
+          'Camera feed FPS: 30fps. Processing pipeline latency: 87ms.',
+          'Model inference: MobileNetV2 running at 12fps on edge device.'
         ],
         alert: [
-          'Trade execution alerts: 3 filled in last hour. All within expected slippage.',
-          'Stop-loss triggered on 1 position. Loss contained at -0.4%.',
-          'No margin warnings. Collateral ratio healthy at 312%.'
+          'No fire/smoke detected in last 24 hours. All zones clear.',
+          'Fall detection: 0 incidents today. Monitoring 3 active zones.',
+          'Last alert was a false positive 6h ago — shadow movement. Model updated.',
+          'Seizure detection module: calibrated and monitoring. No events.',
+          'Smart AC alert: filter maintenance due in 14 days.'
         ],
         privacy: [
-          'All trade execution routed through private mempools. No front-running risk.',
-          'Transaction signing happens locally. Keys never leave the enclave.',
-          'Trade history encrypted at rest. Access requires multi-sig auth.'
+          'All camera feeds processed locally on Raspberry Pi. No cloud uploads.',
+          'Video frames discarded after inference. No recording stored.',
+          'Alert notifications sent via encrypted Telegram channel only.'
         ],
         help: [
-          'Available queries: trade, buy, sell, strategy, risk, position, pnl. Try: "What is the current strategy?"'
+          'Available queries: fire, fall, seizure, temperature, camera, AC. Try: "Is there any fire detected?"'
         ],
         status: [
-          'Trading Agent: ACTIVE | Uptime: 99.9% | Trades (24h): 342 | Win Rate: 67.8% | PnL (30d): +12.4%'
+          'Guardian Vision: ACTIVE | Uptime: 99.99% | Frames: 1.2M | False Positive: 0.3% | Response: < 100ms'
         ],
         default: [
-          'Processing query... I\'m analyzing the data. Ask about prices, trades, alerts, or privacy.',
-          'Standing by for trade directives. Specify: buy, sell, strategy, or risk parameters.',
-          'Query acknowledged. For trade actions, provide asset, direction, and size.'
+          'All detection modules running. Ask about fire, fall, seizure detection, or smart AC status.',
+          'Monitoring active. Specify zone, sensor type, or detection module for details.',
+          'Query received. I can report on safety events, sensor data, or device health.'
         ]
       }
     },
     'alert-bot': {
       name: 'Alert Bot',
       pillar: 'privacy',
-      color: 'var(--pillar-privacy)',
-      welcome: 'Alert Bot active. All notification channels encrypted and operational.',
+      color: 'var(--color-primary)',
+      welcome: 'Alert Bot active. Telegram channels encrypted. 6 notification channels operational.',
       responses: {
         market: [
-          'Market alert triggers: 23 active price alerts, 8 volume alerts, 5 whale alerts.',
-          'Last market alert fired 12min ago: ETH crossed $3,800 threshold.',
-          'Alert queue clear. No pending market notifications.'
+          'SEO alert: 3 keyword ranking changes detected in last 6 hours.',
+          'Marketing alert: Campaign #12 ROAS exceeded target. Budget reallocation recommended.',
+          'Content alert: New competitor blog post detected in target keyword cluster.'
         ],
         trade: [
-          'Trade alerts: 3 execution confirmations delivered in last hour.',
-          'Pending trade triggers: 7 limit order alerts, 2 stop-loss warnings queued.',
-          'All trade notifications delivered via encrypted channel. Latency: < 50ms.'
+          'Escrow alert: 2 new trades opened on P2P marketplace. Funds locked.',
+          'Smart contract event: dispute resolution triggered on trade #3,401.',
+          'BNB Chain gas: 3 gwei. Optimal for contract interactions.'
         ],
         alert: [
           'No critical alerts in the last 24 hours. All channels secure.',
-          'Last security scan: 0 vulnerabilities detected. Encryption status: active.',
-          'Monitoring 47 active price triggers and 12 security rules.',
+          'Active triggers: 47 SEO alerts, 12 safety alerts, 8 contract alerts.',
           'Alert delivery success rate: 99.99%. Zero missed critical alerts.',
-          'Channel status: Telegram (encrypted), Discord (private), Webhook (signed).'
+          'Channel status: Telegram (encrypted) x4, Webhook (signed) x2.',
+          'Priority routing active: P1 instant, P2 < 5min, P3 hourly digest.'
         ],
         privacy: [
-          'All alert payloads encrypted end-to-end. No plaintext transmission.',
+          'All alert payloads encrypted end-to-end via Telegram Bot API.',
           'Alert metadata scrubbed before delivery. Source IP anonymized.',
           'Notification channels rotate encryption keys every 24h automatically.'
         ],
         help: [
-          'Available queries: alert, security, threat, notification, channel. Try: "Are there any active alerts?"'
+          'Available queries: alert, notification, channel, trigger, priority. Try: "Are there any active alerts?"'
         ],
         status: [
-          'Alert Bot: ACTIVE | Uptime: 99.99% | Alerts (24h): 89 | Avg Latency: < 50ms | Channels: 4'
+          'Alert Bot: ACTIVE | Uptime: 99.99% | Alerts (24h): 189 | Avg Latency: < 50ms | Channels: 6'
         ],
         default: [
-          'Processing query... I\'m analyzing the data. Ask about prices, trades, alerts, or privacy.',
-          'Awaiting alert configuration. Ask about active alerts, security rules, or channel status.',
-          'No matching alert rule found. Specify: alert type, threshold, or security scan.'
+          'Awaiting alert configuration. Ask about active alerts, triggers, or channel status.',
+          'No matching alert rule found. Specify: alert type, priority, or channel.',
+          'Processing... I aggregate alerts from all agents. Ask about any notification topic.'
         ]
       }
     },
     'privacy-guard': {
       name: 'Privacy Guard',
       pillar: 'privacy',
-      color: 'var(--pillar-privacy)',
-      welcome: 'Privacy Guard deployed. All communications monitored for leaks. Speak freely.',
+      color: 'var(--color-primary)',
+      welcome: 'Privacy Guard deployed. All agent communications encrypted. Audit score: A+.',
       responses: {
         market: [
-          'Market data feeds pass through privacy filter. No PII detected in data streams.',
-          'Data source anonymization active. 3 proxy layers between feeds and agents.',
-          'Market data retention: 72h rolling window. Older records securely wiped.'
+          'SEO data feeds pass through privacy filter. No PII detected in keyword data.',
+          'Marketing campaign data anonymized. No user-level tracking enabled.',
+          'Data source anonymization active. All external API calls proxied.'
         ],
         trade: [
-          'Trade execution privacy: all transactions routed through private mempools.',
-          'Transaction fingerprinting countermeasures active. Pattern obfuscation enabled.',
+          'Escrow contract interactions: all signed locally. Private keys never exposed.',
+          'P2P marketplace: E2E encryption active between buyer and seller.',
           'Trade history access audit: 0 unauthorized queries in last 30 days.'
         ],
         alert: [
-          'Privacy audit of alert channels: PASSED. All encrypted, no leaks.',
+          'Privacy audit of all notification channels: PASSED. All encrypted.',
           'Alert metadata analysis: clean. No correlatable patterns detected.',
-          'Security perimeter intact. Last probe attempt blocked 6h ago.'
+          'Security perimeter intact. Last unauthorized access attempt blocked 6h ago.'
         ],
         privacy: [
           'All inter-agent communications encrypted with AES-256-GCM.',
           'Metadata scrubbing active. Zero leaks detected since deployment.',
-          'Current privacy score: A+. No exposed endpoints.',
+          'Current privacy score: A+. No exposed endpoints or data leaks.',
           'Encryption key rotation: every 6 hours. Last rotation: 2h ago.',
-          'Tor routing active for external queries. 3-hop circuit established.'
+          'Guardian Vision feeds: processed locally, never uploaded. Verified.'
         ],
         help: [
-          'Available queries: privacy, encrypt, leak, metadata, audit, security. Try: "What is the current privacy score?"'
+          'Available queries: privacy, encrypt, leak, metadata, audit, security. Try: "What is the privacy score?"'
         ],
         status: [
-          'Privacy Guard: ACTIVE | Uptime: 99.99% | Leaks Blocked: 0 | Encrypted Msgs: 1.4M | Audit Score: A+'
+          'Privacy Guard: ACTIVE | Uptime: 99.99% | Leaks Blocked: 0 | Encrypted Msgs: 2.8M | Audit: A+'
         ],
         default: [
-          'Processing query... I\'m analyzing the data. Ask about prices, trades, alerts, or privacy.',
-          'Query logged and encrypted. Ask about privacy score, encryption status, or audit reports.',
-          'Insufficient context for privacy assessment. Specify: encryption, metadata, leak, or audit.'
+          'Query logged and encrypted. Ask about privacy score, encryption, or audit reports.',
+          'Insufficient context for assessment. Specify: encryption, metadata, leak, or audit.',
+          'All systems secure. What privacy aspect do you want me to check?'
         ]
       }
     }
@@ -179,10 +177,10 @@ const AgentChat = (function () {
 
   /* ---------- Pattern Matching ---------- */
   const patterns = [
-    { keys: ['price', 'market', 'trend', 'volume', 'whale', 'sentiment', 'bull', 'bear'], category: 'market' },
-    { keys: ['trade', 'buy', 'sell', 'strategy', 'position', 'pnl', 'profit', 'loss'], category: 'trade' },
-    { keys: ['alert', 'security', 'threat', 'warning', 'scan', 'monitor', 'notification'], category: 'alert' },
-    { keys: ['privacy', 'encrypt', 'leak', 'metadata', 'anonymous', 'tor', 'vpn', 'audit'], category: 'privacy' },
+    { keys: ['keyword', 'seo', 'search', 'rank', 'serp', 'content', 'market', 'trend', 'competition', 'temperature', 'sensor', 'camera', 'ac'], category: 'market' },
+    { keys: ['trade', 'escrow', 'contract', 'hardware', 'device', 'raspberry', 'model', 'inference', 'gas', 'campaign', 'budget'], category: 'trade' },
+    { keys: ['alert', 'fire', 'smoke', 'fall', 'seizure', 'warning', 'notification', 'trigger', 'priority'], category: 'alert' },
+    { keys: ['privacy', 'encrypt', 'leak', 'metadata', 'anonymous', 'audit', 'security', 'pii', 'gdpr'], category: 'privacy' },
     { keys: ['help', 'command', 'how', 'what can'], category: 'help' },
     { keys: ['status', 'uptime', 'health', 'stats'], category: 'status' }
   ];
