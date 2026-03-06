@@ -14,11 +14,9 @@
   const gotoShortcuts = {
     'h': 'index.html',
     's': 'services.html',
-    'p': 'products.html',
-    'r': 'projects.html',
+    'p': 'projects.html',
     'a': 'agents.html',
     'b': 'blog.html',
-    'd': 'docs.html',
     'c': 'changelog.html',
     'e': 'editor.html',
     'n': 'analytics.html'

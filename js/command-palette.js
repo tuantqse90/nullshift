@@ -13,11 +13,9 @@ const CommandPalette = (function() {
     // Navigation
     { icon: '~', label: 'Go to Home', shortcut: 'g h', action: () => { window.location.href = 'index.html'; } },
     { icon: '>', label: 'Go to Services', shortcut: 'g s', action: () => { window.location.href = 'services.html'; } },
-    { icon: '#', label: 'Go to Products', shortcut: 'g p', action: () => { window.location.href = 'products.html'; } },
-    { icon: '%', label: 'Go to Projects', shortcut: 'g r', action: () => { window.location.href = 'projects.html'; } },
+    { icon: '%', label: 'Go to Projects', shortcut: 'g p', action: () => { window.location.href = 'projects.html'; } },
     { icon: '@', label: 'Go to Agents', shortcut: 'g a', action: () => { window.location.href = 'agents.html'; } },
     { icon: '*', label: 'Go to Blog', shortcut: 'g b', action: () => { window.location.href = 'blog.html'; } },
-    { icon: '?', label: 'Go to Docs', shortcut: '', action: () => { window.location.href = 'docs.html'; } },
     { icon: '+', label: 'Go to Changelog', shortcut: '', action: () => { window.location.href = 'changelog.html'; } },
     { icon: '/', label: 'Go to Editor', shortcut: '', action: () => { window.location.href = 'editor.html'; } },
     { icon: '^', label: 'Go to Analytics', shortcut: '', action: () => { window.location.href = 'analytics.html'; } },
