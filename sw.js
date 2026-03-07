@@ -1,7 +1,7 @@
 /* ==============================
    SERVICE WORKER — NULLSHIFT
    ============================== */
-const CACHE_NAME = 'nullshift-v8';
+const CACHE_NAME = 'nullshift-v9';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
@@ -54,6 +54,8 @@ const STATIC_ASSETS = [
   '/js/matrix-customizer.js',
   '/js/perf-monitor.js',
   '/easter-eggs.html',
+  '/brand-guidelines.html',
+  '/css/brand-guidelines.css',
   '/sitemap-visual.html',
   '/assets/icons/favicon.svg',
   '/manifest.json'

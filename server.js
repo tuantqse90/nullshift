@@ -31,7 +31,7 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-const pages = ['services', 'products', 'agents', 'blog', 'projects', 'changelog', 'docs', 'editor', 'analytics', 'status', 'about', 'sitemap-visual', 'shortcuts', 'easter-eggs'];
+const pages = ['services', 'products', 'agents', 'blog', 'projects', 'changelog', 'docs', 'editor', 'analytics', 'status', 'about', 'sitemap-visual', 'shortcuts', 'easter-eggs', 'brand-guidelines'];
 pages.forEach(page => {
   app.get(`/${page}`, (req, res) => {
     res.sendFile(path.join(__dirname, `${page}.html`));
@@ -114,7 +114,8 @@ app.get('/sitemap.xml', (req, res) => {
     { loc: '/analytics', priority: '0.3' },
     { loc: '/status', priority: '0.6' },
     { loc: '/about', priority: '0.7' },
-    { loc: '/shortcuts', priority: '0.3' }
+    { loc: '/shortcuts', priority: '0.3' },
+    { loc: '/brand-guidelines', priority: '0.4' }
   ];
 
   let urls = staticPages.map(p =>
