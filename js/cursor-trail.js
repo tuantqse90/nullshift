@@ -92,3 +92,6 @@ class CursorTrail {
     this.frameId = requestAnimationFrame(() => this.draw());
   }
 }
+
+// Auto-instantiate (this file is loaded with defer)
+new CursorTrail();
